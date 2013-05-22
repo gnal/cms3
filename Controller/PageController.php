@@ -14,10 +14,9 @@ class PageController extends ContainerAware
             'a.published' => true,
             'a.site' => $this->container->get('msi_cmf.provider')->getSite(),
         ];
+
         if ($request->attributes->get('slug')) {
             $criteria['t.slug'] = $request->attributes->get('slug');
-        } else {
-            $criteria['a.home'] = true;
         }
 
         $qb = $this->container->get('msi_cmf.page_manager')->getFindByQueryBuilder(
