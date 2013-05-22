@@ -63,15 +63,15 @@ $('.datepicker').datepicker({
     </div>
 </div>
 <div class="container-fluid" style="padding: 0 20px;">
-                {% if admin is defined %}
-            <div class="row-fluid">
-                <div class="span12">
-                    {% block breadcrumb %}
-                        {% include 'MsiCmfBundle:Default:breadcrumb.html.twig' with {'crumbs': admin.buildBreadcrumb } %}
-                    {% endblock breadcrumb %}
-                </div>
-            </div>
-            {% endif %}
+{% if admin is defined %}
+<div class="row-fluid">
+    <div class="span12">
+        {% block breadcrumb %}
+            {% include 'MsiCmfBundle:Default:breadcrumb.html.twig' with {'crumbs': admin.buildBreadcrumb } %}
+        {% endblock breadcrumb %}
+    </div>
+</div>
+{% endif %}
 </div>
 <div class="container-fluid" style="padding: 0 20px 4px;">
     {% set sidebar = block('sidebar') %}
