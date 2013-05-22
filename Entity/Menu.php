@@ -107,12 +107,8 @@ abstract class Menu implements NodeInterface, TranslatableInterface, Timestampab
 
         if ($this->page) {
             if (!$this->page->getRoute()) {
-                if (!$this->page->getHome()) {
-                    $this->options['route'] = 'msi_page_show';
-                    $this->options['routeParameters'] = array('slug' => $this->page->getTranslation()->getSlug());
-                } else {
-                    $this->options['route'] = 'msi_page_home';
-                }
+                $this->options['route'] = 'msi_page_show';
+                $this->options['routeParameters'] = array('slug' => $this->page->getTranslation()->getSlug());
             } else {
                 $this->options['route'] = $this->page->getRoute();
             }
