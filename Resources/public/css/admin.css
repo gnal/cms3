@@ -1,0 +1,281 @@
+html {
+    overflow-y: scroll;
+}
+
+body {
+    background: #f1f1f1;
+}
+
+.header {
+    padding: 10px 20px;
+    background: #fff;
+}
+
+h1 {
+    margin: 0;
+    font-size: 31.5px;
+}
+
+h1 a {
+    color: #333;
+    /*font-size: 20px;*/
+}
+
+#main {
+    position: relative;
+    background: #fff;
+    border: 1px solid #ddd;
+    /*border-radius: 4px;*/
+}
+
+#sidebar {
+    position: absolute;
+    width: 180px;
+    padding: 20px 20px 0;
+}
+
+#content {
+    padding: 0 20px 0;
+}
+
+.container-fluid {
+    min-width: 960px;
+    padding: 0;
+}
+
+.navbar .container-fluid {
+    padding: 0 20px;
+}
+
+.navbar-fixed-top, .navbar-fixed-bottom {
+    position: relative;
+}
+
+/*.navbar-inverse .navbar-inner {
+    background: #fff;
+    box-shadow: none;
+    border-color: #ddd;
+}
+
+.navbar-inverse .brand, .navbar-inverse .nav>li>a {
+    color: #333;
+    text-shadow: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.navbar .brand {
+    color: #333;
+    text-shadow: none;
+}*/
+
+.navbar-inverse .navbar-inner {
+    background: #262626;
+    border: 0;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.navbar .brand {
+    color: #fff;
+}
+
+h1, h2, h3, h4, h5, h6, .navbar .brand {
+    font-family: 'Trebuchet MS';
+    font-weight: normal;
+}
+
+h2 {
+    margin: 0 0 0;
+    font-size: 20px;
+}
+
+table + div.pagination {
+    margin-top: 0;
+}
+
+.table.sortable td {
+    cursor: move;
+}
+
+.table th,
+.table td {
+    vertical-align: middle;
+}
+
+.table, .table th, .table td, .table tr {
+    border-radius: 0 !important;
+}
+
+#sidebar select {
+    width: 100%;
+}
+
+.form-horizontal .control-label {
+    text-align: left;
+}
+
+.ui-state-highlight {
+    height: 47px;
+    line-height: 47px;
+}
+
+.ui-state-highlight td {
+    background-color: #d9edf7 !important;
+}
+
+.td-sort {
+    cursor: move;
+}
+
+input[readonly] {
+    cursor: pointer;
+    background-color: #eeeeee;
+}
+
+.navbar .nav > li > a {
+    /*padding: 11px 15px 9px;*/
+}
+
+.navbar .nav > .current_ancestor > a,
+.navbar .nav > .current_ancestor > a:hover,
+.navbar .nav > .current_ancestor > a:focus {
+    color: #ffffff;
+    background-color: #111111;
+}
+
+.dropdown-menu .active > a,
+.dropdown-menu .active > a:hover {
+    color: #ffffff;
+}
+
+.dropdown-menu li.current_ancestor > a {
+    color: #ffffff;
+    text-decoration: none;
+    background-color: #0081c2;
+    background-image: -moz-linear-gradient(top, #0088cc, #0077b3);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0077b3));
+    background-image: -webkit-linear-gradient(top, #0088cc, #0077b3);
+    background-image: -o-linear-gradient(top, #0088cc, #0077b3);
+    background-image: linear-gradient(to bottom, #0088cc, #0077b3);
+    background-repeat: repeat-x;
+    outline: 0;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0088cc', endColorstr='#ff0077b3', GradientType=0);
+}
+
+.msi_cmf_admin_change img {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    line-height: 14px;
+    vertical-align: text-top;
+}
+
+.form-horizontal .controls {
+    margin-left: 0;
+}
+
+.form-horizontal label + .controls {
+    margin-left: 180px;
+}
+
+input, .uneditable-input {
+    width: 286px;
+}
+
+textarea {
+    width: 95%;
+    height: 100px;
+}
+
+select {
+    min-width: 90px;
+    width: auto;
+}
+
+.breadcrumb {
+    margin: 0;
+    padding: 0;
+    background: none;
+    font-size: 85%;
+}
+
+.btn-toolbar {
+    margin: 5px 0;
+}
+
+.page-header {
+    margin: 0 0 20px;
+    padding: 10px 0;
+}
+
+.pagination {
+    margin: 0 20px 0 0;
+}
+
+fieldset.well {
+    border: 1px solid #e5e5e5;
+    box-shadow: none;
+    border-radius: 0;
+    padding-bottom: 0;
+}
+
+fieldset.well h4 {
+    padding: 9px 19px;
+    margin: -19px -19px 20px;
+    border-bottom: 1px solid #e5e5e5;
+    background: #fff;
+}
+
+.form-actions {
+    margin-top: 0;
+}
+
+.form-horizontal .form-actions {
+    padding-left: 200px;
+}
+
+.nav-tabs.nav-stacked>li>a>i {
+    margin-top: 3px;
+}
+
+.nav-tabs>li:last-child>a, .nav-pills>li:last-child>a {
+    margin-right: 0;
+}
+
+.tabs-left>.nav-tabs>li:last-child>a, .tabs-right>.nav-tabs>li:last-child>a {
+    margin-bottom: 0;
+}
+
+/* uploadify */
+
+.uploadify {
+    float: left;
+    width: auto !important;
+    height: auto !important;
+    margin: 0 10px 0 0;
+}
+
+.uploadify-queue {
+    margin: 20px 0;
+}
+
+.uploadify-button {
+    width: auto !important;
+    height: auto !important;
+    line-height: 20px !important;
+}
+
+.uploadify-queue-item .cancel a {
+    background-image: url(/bundles/msicmf/vendor/bootstrap/img/glyphicons-halflings.png);
+    background-position: -312px 0;
+    float: right;
+    height: 14px;
+    text-indent: -9999px;
+    width: 14px;
+    line-height: 14px;
+}
