@@ -83,7 +83,7 @@ class CoreController extends Controller
             if (!$request->query->has('alt')) {
                 return $this->getResponse();
             } else {
-                $this->get('session')->getFlashBag()->add('success', $this->get('translator')->trans('success!'));
+                $this->get('session')->getFlashBag()->add('success', $this->get('translator')->trans('success!', ['%label%' => strtolower($this->admin->getLabel(1))]));
                 return new RedirectResponse($this->admin->genUrl('new'));
             }
         } else {
@@ -109,7 +109,7 @@ class CoreController extends Controller
             if (!$request->query->has('alt')) {
                 $response = $this->getResponse();
             } else {
-                $this->get('session')->getFlashBag()->add('success', $this->get('translator')->trans('success!'));
+                $this->get('session')->getFlashBag()->add('success', $this->get('translator')->trans('success!', ['%label%' => strtolower($this->admin->getLabel(1))]));
                 $response = $this->render($this->admin->getOption('edit_template'), ['form' => $this->admin->getForm()->createView()]);
             }
 
@@ -267,7 +267,7 @@ class CoreController extends Controller
 
             return new JsonResponse($data);
         } else {
-            $this->get('session')->getFlashBag()->add('success', $this->get('translator')->trans('success'));
+            $this->get('session')->getFlashBag()->add('success', $this->get('translator')->trans('success!', ['%label%' => strtolower($this->admin->getLabel(1))]));
 
             return $this->redirect($this->admin->genUrl('list'));
         }

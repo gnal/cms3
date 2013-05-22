@@ -101,6 +101,13 @@ $('.datepicker').datepicker({
 
             <div class="row-fluid">
                 <div class="span12">
+                    {% if app.session.started %}
+                        {% for flashMessage in app.session.flashbag.get('success') %}
+                            <div class="alert alert-success fade in">
+                                <i class="icon-ok-sign"></i> {{ flashMessage }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
                     {{ msi_block_render('admin_content_top', page) }}
                     {{ block('page_content') }}
                     {{ msi_block_render('admin_content_bottom', page) }}

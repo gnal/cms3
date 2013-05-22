@@ -22,18 +22,18 @@
 
 {% block actions %}
 {% if admin.isGranted('create') %}
-    <a href="{{ admin.genUrl('new') }}" class="btn">{{ 'Add'|trans }} {{ admin.getLabel(1) }}</a>
+    <a href="{{ admin.genUrl('new') }}" class="btn btn-success"><i class="icon-white icon-plus"></i> {{ 'Add'|trans }} {{ admin.getLabel(1) }}</a>
 {% endif %}
 {% endblock %}
 
 {% block content %}
 {# Search #}
-<form novalidate class="form-inline pull-right" method="GET" action="{{ admin.genUrl('list') }}">
+{#<form novalidate class="form-inline pull-right" method="GET" action="{{ admin.genUrl('list') }}">
     {% if admin.hasParent() %}<input type="hidden" value="{{ app.request.query.get('parentId') }}" name="parentId">{% endif %}
     <input class="input-xlarge" value="{{ app.request.query.get('q') }}" name="q" type="text">
     <button type="submit" class="btn btn-primary"><i class="icon-white icon-search"></i> {{ 'Search'|trans }}</button>
     <a class="btn btn-link" href="{{ admin.genUrl('list', {'parentId': app.request.query.get('parentId')}, false) }}">{{ 'Cancel'|trans }}</a>
-</form>
+</form>#}
 {# Limit #}
 {{ msi_pager_render(pager) }}
 <form id="limitForm" novalidate class="pull-left form-search" method="POST" action="{{ path('msi_cmf_limit') }}">

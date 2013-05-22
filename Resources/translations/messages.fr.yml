@@ -29,7 +29,6 @@ Profile: Profil
 Log out: Fermer la session
 Français: English
 Filter: Filtre
-success!: Succès!
 error!: Erreur!
 Updatedat: Dernière mise à jour
 Createdat: Créé
@@ -84,3 +83,5 @@ Whitelist: Liste blanche
 
 fr: Français
 en: Anglais
+
+success!: The %label% has been saved.
