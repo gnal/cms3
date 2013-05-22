@@ -62,7 +62,18 @@ $('.datepicker').datepicker({
         </div>
     </div>
 </div>
-<div class="container-fluid" style="padding: 20px 20px;">
+<div class="container-fluid" style="padding: 0 20px;">
+                {% if admin is defined %}
+            <div class="row-fluid">
+                <div class="span12">
+                    {% block breadcrumb %}
+                        {% include 'MsiCmfBundle:Default:breadcrumb.html.twig' with {'crumbs': admin.buildBreadcrumb } %}
+                    {% endblock breadcrumb %}
+                </div>
+            </div>
+            {% endif %}
+</div>
+<div class="container-fluid" style="padding: 0 20px 4px;">
     {% set sidebar = block('sidebar') %}
     <div id="main"{% if sidebar %}style="background: url(/bundles/msicmf/img/sidebar.png) repeat-y #fff;"{% endif %}>
         {% if sidebar %}
@@ -74,16 +85,14 @@ $('.datepicker').datepicker({
         {% endif %}
 
         <div id="content"{% if sidebar %}style="margin-left: 220px;"{% endif %}>
-            {#{% if admin is defined %}
-            <div class="row-fluid">
-                <div class="span12">
-                    {% block breadcrumb %}
-                        {% include 'MsiCmfBundle:Default:breadcrumb.html.twig' with {'crumbs': admin.buildBreadcrumb } %}
-                    {% endblock breadcrumb %}
-                </div>
-            </div>
-            {% endif %}#}
             <div class="page-header">
+                {% if app.session.started %}
+                    {% for flashMessage in app.session.flashbag.get('success') %}
+                        <div class="alert alert-success fade in">
+                            <i class="icon-ok-sign"></i> {{ flashMessage }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
                 {% set title = block('title') %}
                 {% if title %}
                 <div class="row-fluid">
@@ -101,13 +110,6 @@ $('.datepicker').datepicker({
 
             <div class="row-fluid">
                 <div class="span12">
-                    {% if app.session.started %}
-                        {% for flashMessage in app.session.flashbag.get('success') %}
-                            <div class="alert alert-success fade in">
-                                <i class="icon-ok-sign"></i> {{ flashMessage }}
-                            </div>
-                        {% endfor %}
-                    {% endif %}
                     {{ msi_block_render('admin_content_top', page) }}
                     {{ block('page_content') }}
                     {{ msi_block_render('admin_content_bottom', page) }}

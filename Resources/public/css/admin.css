@@ -198,10 +198,12 @@ select {
 }
 
 .breadcrumb {
-    margin: 0;
-    padding: 0;
-    background: none;
+    margin: 4px 0 0;
+    padding: 0 5px;
+    background: #fff;
+    border: 1px solid #ddd;
     font-size: 85%;
+    border-radius: 0;
 }
 
 .btn-toolbar {
@@ -249,6 +251,23 @@ fieldset.well h4 {
 
 .tabs-left>.nav-tabs>li:last-child>a, .tabs-right>.nav-tabs>li:last-child>a {
     margin-bottom: 0;
+}
+
+.nav-stacked {
+    margin: -20px;
+}
+
+.nav-tabs.nav-stacked>li>a {
+    border-width: 1px 0;
+    border-radius: 0 !important;
+}
+
+.nav-tabs>.active>a, .nav-tabs>.active>a:hover, .nav-tabs>.active>a:focus {
+    border-width: 1px 0;
+}
+
+.nav-tabs.nav-stacked>li:first-child>a {
+    border-top: 0;
 }
 
 /* uploadify */

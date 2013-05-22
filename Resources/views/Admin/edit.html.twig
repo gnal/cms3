@@ -23,5 +23,19 @@
 {% endblock js %}
 
 {% block actions %}
-<a onclick="return confirm('Are you sure you want to delete this entry?');" class="btn" href="{{ admin.genUrl('delete', {'id': admin.object.id}) }}"><i class="icon-trash"></i> {{ 'Delete'|trans }}</a>
+<a onclick="return confirm('Are you sure you want to delete this entry?');" class="btn btn-danger" href="{{ admin.genUrl('delete', {'id': admin.object.id}) }}"><i class="icon-remove icon-white"></i> {{ 'Delete'|trans }}</a>
 {% endblock actions %}
+
+{% block sidebar %}
+<ul class="nav nav-tabs nav-stacked">
+    <li class="active"><a href="#main1" data-toggle="tab">{{ 'Main'|trans }}</a></li>
+    <li><a href="#content2" data-toggle="tab">{{ 'Content'|trans }}</a></li>
+    <li><a href="#seo" data-toggle="tab">{{ 'SEO'|trans }}</a></li>
+    <li><a href="#admin" data-toggle="tab">{{ 'Admin'|trans }}</a></li>
+    {% for child in admin.children %}
+    {% if child.options.icon is defined%}
+        <li><a href="{{ child.genUrl('list', {'parentId': admin.object.id}, false) }}">{{ child.label(2) }}</a></li>
+    {% endif %}
+    {% endfor %}
+</ul>
+{% endblock sidebar %}
