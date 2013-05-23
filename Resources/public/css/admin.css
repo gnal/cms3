@@ -158,7 +158,7 @@ table + div.pagination {
 /* form */
 
 .mceLayout {
-    margin-bottom: 20px;
+    margin-bottom: 20px !important;
 }
 
 .form-horizontal .control-label {
