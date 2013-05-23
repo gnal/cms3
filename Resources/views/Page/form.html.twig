@@ -34,7 +34,7 @@
             <div class="tab-content">
                 {% for translation in form.translations %}
                     <div class="tab-pane fade{% if loop.index == 1 %} active in{% endif %}" id="translation2{{ translation.get('value').locale }}">
-                        {{ form_row(translation.body) }}
+                        {{ form_widget(translation.body) }}
                     </div>
                 {% endfor %}
             </div>
