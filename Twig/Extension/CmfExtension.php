@@ -95,7 +95,7 @@ class CmfExtension extends \Twig_Extension
             if ($block->getRendered() === true) {
                 continue;
             }
-            if (!$block->getTranslation()->getPublished()) {
+            if (!$block->getPublished()) {
                 continue;
             }
             if ($block->getSlot() !== $slot) {
