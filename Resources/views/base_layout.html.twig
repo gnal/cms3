@@ -34,7 +34,7 @@ $('.datepicker').datepicker({
                 <h1><a href="{{ path('msi_cmf_dashboard') }}">{{ block('brand') }}</a></h1>
             </div>
             <div class="span6">
-                <p class="text-right" style="margin: 0;line-height: 40px;font-size: 85%;">Logged in as <a href="{{ path('fos_user_profile_show') }}">{{ app.user.username }}</a> | <a target="_blank" href="{{ path('msi_page_home') }}">{{ 'View site'|trans }}</a> | <a href="{{ path('fos_user_security_logout') }}">{{ 'Logout'|trans }}</a></p>
+                <p class="text-right" style="margin: 0;line-height: 40px;font-size: 85%;">Logged in as <a href="{{ path('fos_user_profile_show') }}">{{ app.user.username }}</a> {#| <a target="_blank" href="{{ path('msi_page_home') }}">{{ 'View site'|trans }}</a> #}| <a href="{{ path('fos_user_security_logout') }}">{{ 'Logout'|trans }}</a></p>
             </div>
         </div>
     </div>
