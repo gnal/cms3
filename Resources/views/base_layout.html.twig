@@ -2,7 +2,7 @@
 
 {% block css %}
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap.min.css">
-<link rel="stylesheet" href="{{ asset('bundles/msicmf/vendor/chosen/chosen.css') }}">
+{#<link rel="stylesheet" href="{{ asset('bundles/msicmf/vendor/chosen/chosen.css') }}">#}
 <link rel="stylesheet" href="{{ asset('bundles/msicmf/vendor/eternicode-bootstrap-datepicker/css/datepicker.css') }}">
 <link rel="stylesheet" href="{{ asset('bundles/msicmf/css/admin.css') }}">
 {{ parent() }}
@@ -12,7 +12,7 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/jquery-ui.min.js"></script>
 <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
-<script src="{{ asset('bundles/msicmf/vendor/chosen/chosen.jquery.min.js') }}"></script>
+{#<script src="{{ asset('bundles/msicmf/vendor/chosen/chosen.jquery.min.js') }}"></script>#}
 <script src="{{ asset('bundles/msicmf/vendor/eternicode-bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
 <script src="{{ asset('bundles/msicmf/vendor/eternicode-bootstrap-datepicker/js/locales/bootstrap-datepicker.fr.js') }}"></script>
 <script src="{{ asset('bundles/msicmf/js/admin.js') }}"></script>
@@ -25,75 +25,64 @@ $('.datepicker').datepicker({
 });
 </script>
 <script>
-(function($) {
-    "use strict";
-    var $form = $('form');
-    $form.on('submit', function(e) {
-        $('#loader').removeClass('hide');
-    });
-})(jQuery);
+// (function($) {
+//     "use strict";
+//     var $form = $('form');
+//     $form.on('submit', function(e) {
+//         $('#loader').removeClass('hide');
+//     });
+// })(jQuery);
 </script>
 {{ parent() }}
 {% endblock %}
 
 {% block body %}
-<div class="header">
-    <div class="container-fluid">
+{#<div class="header">
+    <div class="container-fluid" style="padding: 0 16px;">
         <div class="row-fluid">
             <div class="span6">
                 <h1><a href="{{ path('msi_cmf_dashboard') }}">{{ block('brand') }}</a></h1>
             </div>
             <div class="span6">
-                <p class="text-right" style="margin: 0;line-height: 40px;font-size: 85%;">Logged in as <a href="{{ path('fos_user_profile_show') }}">{{ app.user.username }}</a> {#| <a target="_blank" href="{{ path('msi_page_home') }}">{{ 'View site'|trans }}</a> #}| <a href="{{ path('fos_user_security_logout') }}">{{ 'Logout'|trans }}</a></p>
+                <p class="text-right" style="margin: 0;line-height: 40px;font-size: 85%;">Logged in as <a href="{{ path('fos_user_profile_show') }}">{{ app.user.username }}</a> | <a target="_blank" href="{{ path('homepage') }}">{{ 'View site'|trans }}</a> | <a href="{{ path('fos_user_security_logout') }}">{{ 'Logout'|trans }}</a></p>
             </div>
         </div>
     </div>
 </div>
+#}
 <div class="navbar navbar-fixed-top navbar-inverse">
     <div class="navbar-inner">
-        <div class="container-fluid">
+        <div class="container-fluid" style="padding: 0 17px;">
+            <a class="brand" href="{{ path('msi_cmf_dashboard') }}">{{ block('brand') }}</a>
             {% if is_granted("ROLE_ADMIN") %}
                 {{ knp_menu_render('MsiCmfBundle:MenuBuilder:adminMenu', {'allow_safe_labels': true, 'depth': 3, 'currentClass': 'active'}) }}
-                <ul id="loader" class="hide">
-                    <li class="li1"></li>
-                    <li class="li2"></li>
-                    <li class="li3"></li>
-                    <li class="li4"></li>
-                    <li class="li5"></li>
-                    <li class="li6"></li>
-                </ul>
-                {#<ul class="nav pull-right">
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">{{ app.user.username }} <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li><a target="_blank" href="{{ path('msi_page_home') }}"><i class="icon-share-alt"></i> {{ 'View site'|trans }}</a></li>
-                            <li><a href="{{ path('fos_user_profile_show') }}"><i class="icon-user"></i> {{ 'Profil'|trans }}</a></li>
-                            <li><a href="{{ path('fos_user_security_logout') }}"><i class="icon-off"></i> {{ 'Logout'|trans }}</a></li>
-                        </ul>
-                    </li>
-                    <li><a title="{{ 'View site'|trans }}" target="_blank" href="{{ path('msi_page_home') }}"><i class="icon-white icon-share-alt"></i></a></li>
-                    <li><a title="{{ 'Profil'|trans }}" href="{{ path('fos_user_profile_show') }}"><i class="icon-white icon-user"></i></a></li>
-                    <li><a title="{{ 'Logout'|trans }}" href="{{ path('fos_user_security_logout') }}"><i class="icon-white icon-off"></i></a></li>
-                </ul>#}
-                {#<p class="pull-right navbar-text">{{ app.user.username }}</p>#}
             {% endif %}
+            <p class="navbar-text pull-right">Logged in as <a href="{{ path('fos_user_profile_show') }}">{{ app.user.username }}</a> | <a href="{{ path('fos_user_security_logout') }}">{{ 'Logout'|trans }}</a></p>
         </div>
     </div>
 </div>
-<div class="container-fluid" style="padding: 0 20px;">
 
-<div class="row-fluid">
-    <div class="span12">
-        {% block breadcrumb %}
-            {% include 'MsiCmfBundle:Default:breadcrumb.html.twig' with {'crumbs': admin is defined ? admin.buildBreadcrumb : [] } %}
-        {% endblock breadcrumb %}
+<div class="container-fluid" style="padding: 0 10px;">
+    <div class="row-fluid">
+        <div class="span12">
+            {% block breadcrumb %}
+                {% include 'MsiCmfBundle:Default:breadcrumb.html.twig' with {'crumbs': admin is defined ? admin.buildBreadcrumb : [] } %}
+            {% endblock breadcrumb %}
+        </div>
     </div>
 </div>
 
-</div>
-<div class="container-fluid" style="padding: 0 20px 5px;">
+<div class="container-fluid" style="padding: 0 10px 10px;">
     {% set sidebar = block('sidebar') %}
     <div id="main"{% if sidebar %}style="background: url(/bundles/msicmf/img/sidebar.png) repeat-y #fff;"{% endif %}>
+
+        {#<div id="loader" style="position: absolute;left: 50%;top: 17px;margin-top: -36px;" class="text-center hide">
+            <div style="border-radius: 0px;color: #333;border: 1px solid #ddd;padding: 10px 50px;position: relative; left: -50%;background: #fff;">
+                <p><img src="/bundles/msicmf/img/ajax-loader.gif" alt="0"></p>
+                loading...
+            </div>
+        </div>#}
+
         {% if sidebar %}
         <div id="sidebar">
             {{ msi_block_render('admin_sidebar_top', page) }}

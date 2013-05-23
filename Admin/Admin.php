@@ -339,7 +339,7 @@ abstract class Admin
         if ($action === 'list' && $this->hasParent()) {
             $crumbs[] = [
                 'label' => $this->container->get('translator')->trans('Back'),
-                'path' => $this->getParent()->genUrl('list'),
+                'path' => $this->getParent()->genUrl('edit', ['id' => $this->getParentObject()->getId()]),
                 'class' => 'pull-right',
             ];
         } elseif ($action === 'list' && !$this->hasParent()) {

@@ -1,6 +1,6 @@
 {% extends 'MsiCmfBundle::layout.html.twig' %}
 
-{% block title %}{{ 'Edit'|trans }} {{ admin.label }}{% endblock title %}
+{% block title %}{{ 'Edit'|trans }} {{ admin.label }} "{{ admin.object }}"{% endblock title %}
 
 {% block actions %}
 <button class="btn btn-primary msi_cmf_save"><i class="icon-white icon-ok"></i> Save</button>

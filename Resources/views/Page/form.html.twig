@@ -1,12 +1,5 @@
 {% form_theme form 'MsiCmfBundle:Form:form.html.twig' %}
 
-{#<ul class="nav nav-tabs">
-    <li class="active"><a href="#main1" data-toggle="tab">{{ 'Main'|trans }}</a></li>
-    <li><a href="#content2" data-toggle="tab">{{ 'Content'|trans }}</a></li>
-    <li><a href="#seo" data-toggle="tab">{{ 'SEO'|trans }}</a></li>
-    <li><a href="#admin" data-toggle="tab">{{ 'Admin'|trans }}</a></li>
-</ul>#}
-
 <div class="tab-content">
     <div class="tab-pane fade active in" id="main1">
         <fieldset class="well">
@@ -15,36 +8,61 @@
             {{ form_row(form.template) }}
             {{ form_row(form.published) }}
             {{ form_row(form.showTitle) }}
+            <ul class="nav nav-tabs">
+                {% for translation in form.translations %}
+                <li{% if loop.index == 1 %} class="active"{% endif %}><a href="#translation1{{ translation.get('value').locale }}" data-toggle="tab">{{ translation.get('value').locale|trans|capitalize }}</a></li>
+                {% endfor %}
+            </ul>
+            <div class="tab-content">
+                {% for translation in form.translations %}
+                    <div class="tab-pane fade{% if loop.index == 1 %} active in{% endif %}" id="translation1{{ translation.get('value').locale }}">
+                        {{ form_row(translation.title) }}
+                    </div>
+                {% endfor %}
+            </div>
         </fieldset>
-        {% for translation in form.translations %}
-        <fieldset class="well">
-            <h4>{{ translation.get('value').locale|trans|capitalize }}</h4>
-            {{ form_row(translation.title) }}
-        </fieldset>
-        {% endfor %}
     </div>
 
     <div class="tab-pane fade" id="content2">
-        {% for translation in form.translations %}
         <fieldset class="well">
-            <h4>{{ translation.get('value').locale|trans|capitalize }}</h4>
-            {{ form_row(translation.body) }}
+            <h4>Content</h4>
+            <ul class="nav nav-tabs">
+                {% for translation in form.translations %}
+                <li{% if loop.index == 1 %} class="active"{% endif %}><a href="#translation2{{ translation.get('value').locale }}" data-toggle="tab">{{ translation.get('value').locale|trans|capitalize }}</a></li>
+                {% endfor %}
+            </ul>
+            <div class="tab-content">
+                {% for translation in form.translations %}
+                    <div class="tab-pane fade{% if loop.index == 1 %} active in{% endif %}" id="translation2{{ translation.get('value').locale }}">
+                        {{ form_row(translation.body) }}
+                    </div>
+                {% endfor %}
+            </div>
         </fieldset>
-        {% endfor %}
     </div>
 
     <div class="tab-pane fade" id="seo">
-        {% for translation in form.translations %}
         <fieldset class="well">
-            <h4>{{ translation.get('value').locale|trans|capitalize }}</h4>
-            {{ form_row(translation.metaKeywords) }}
-            {{ form_row(translation.metaDescription) }}
+            <h4>SEO</h4>
+            <ul class="nav nav-tabs">
+                {% for translation in form.translations %}
+                <li{% if loop.index == 1 %} class="active"{% endif %}><a href="#translation3{{ translation.get('value').locale }}" data-toggle="tab">{{ translation.get('value').locale|trans|capitalize }}</a></li>
+                {% endfor %}
+            </ul>
+            <div class="tab-content">
+                {% for translation in form.translations %}
+                    <div class="tab-pane fade{% if loop.index == 1 %} active in{% endif %}" id="translation3{{ translation.get('value').locale }}">
+                        {{ form_row(translation.metaKeywords) }}
+                        {{ form_row(translation.metaDescription) }}
+                    </div>
+                {% endfor %}
+            </div>
         </fieldset>
-        {% endfor %}
     </div>
 
     <div class="tab-pane fade" id="admin">
         <fieldset class="well">
+            <h4>Admin</h4>
             {{ form_row(form.route) }}
             {{ form_row(form.css) }}
             {{ form_row(form.js) }}

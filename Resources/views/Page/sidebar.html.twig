@@ -3,7 +3,12 @@
     <li><a href="#content2" data-toggle="tab">{{ 'Content'|trans }}</a></li>
     <li><a href="#seo" data-toggle="tab">{{ 'SEO'|trans }}</a></li>
     <li><a href="#admin" data-toggle="tab">{{ 'Admin'|trans }}</a></li>
-{% for child in admin.children if admin.object.id %}
+</ul>
+
+{% if admin.object.id %}
+<ul class="nav nav-tabs nav-stacked" style="margin-top: 20px;">
+{% for child in admin.children %}
     <li><a href="{{ child.genUrl('list', {'parentId': admin.object.id}, false) }}">{{ child.label(2) }}</a></li>
 {% endfor %}
 </ul>
+{% endif %}

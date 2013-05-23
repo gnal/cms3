@@ -20,7 +20,7 @@ abstract class MenuTranslation
     protected $id;
 
     /**
-     * @ORM\Column()
+     * @ORM\Column(type="string")
      */
     protected $name;
 
@@ -29,27 +29,9 @@ abstract class MenuTranslation
      */
     protected $route;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    protected $published;
-
     public function __construct()
     {
-        $this->published = false;
         $this->route = '#';
-    }
-
-    public function getPublished()
-    {
-        return $this->published;
-    }
-
-    public function setPublished($published)
-    {
-        $this->published = $published;
-
-        return $this;
     }
 
     public function getId()

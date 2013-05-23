@@ -56,12 +56,30 @@ abstract class Menu implements NodeInterface, TranslatableInterface, Timestampab
      */
     protected $targetBlank;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    protected $published;
+
     public function __construct()
     {
         $this->translations = new ArrayCollection();
         $this->children = new ArrayCollection();
         $this->targetBlank = false;
+        $this->published = false;
         $this->operators = new ArrayCollection();
+    }
+
+    public function getPublished()
+    {
+        return $this->published;
+    }
+
+    public function setPublished($published)
+    {
+        $this->published = $published;
+
+        return $this;
     }
 
     public function getOperators()
@@ -103,7 +121,7 @@ abstract class Menu implements NodeInterface, TranslatableInterface, Timestampab
     public function getOptions()
     {
         $this->options['extras']['groups'] = $this->operators;
-        $this->options['extras']['published'] = $this->getTranslation()->getPublished();
+        $this->options['extras']['published'] = $this->getPublished();
 
         if ($this->page) {
             if (!$this->page->getRoute()) {
