@@ -76,6 +76,10 @@ class BaseMenuBuilder extends ContainerAware
 
     protected function checkRole($node)
     {
+        if (!$node->getParent()) {
+            return;
+        }
+
         if (!$node->getExtra('groups')->count()) {
             return;
         }
