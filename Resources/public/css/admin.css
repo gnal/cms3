@@ -262,7 +262,7 @@ fieldset.well h4 {
 }
 
 .nav-stacked {
-    margin: -20px;
+    /*margin: -20px;*/
 }
 
 .nav-tabs.nav-stacked>li>a {
@@ -272,16 +272,16 @@ fieldset.well h4 {
 
 .nav-tabs>.active>a, .nav-tabs>.active>a:hover, .nav-tabs>.active>a:focus {
     border-width: 1px 0;
-    background: none;
-    border-right: 1px solid #fff !important;
+    background: #eee;
+    /*border-right: 1px solid #fff !important;*/
 }
 
 .nav-tabs.nav-stacked>li:first-child>a {
-    border-top: 0;
+    /*border-top: 0;*/
 }
 
 .nav-tabs.nav-stacked>li>a:hover {
-    background: none;
+    /*background: none;*/
 }
 
 .alert {
