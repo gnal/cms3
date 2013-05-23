@@ -24,9 +24,6 @@ class MenuNodeAdmin extends Admin
     {
         $builder
             ->add('name', 'tree')
-            ->add('', 'menuPath', [
-                'label' => 'Link',
-            ])
             ->add('', 'action', ['tree' => true])
         ;
     }

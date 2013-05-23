@@ -13,3 +13,7 @@ msi_cmf_menu_node_admin_promote:
 msi_cmf_menu_node_admin_demote:
     pattern: /admin/menu_node/{id}/demote
     defaults: { _controller: MsiCmfBundle:Admin/MenuNode:demote, _admin: msi_cmf_menu_node_admin }
+
+msi_page_show:
+    pattern: /{_locale}/{slug}
+    defaults: { _controller: MsiCmfBundle:Page:show, slug: ~ }
