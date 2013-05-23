@@ -16,7 +16,6 @@ class BlockAdmin extends Admin
             'search_fields' => ['a.id', 'a.type', 'a.name'],
             'controller' => 'MsiCmfBundle:Admin/Block:',
             'form_template' => 'MsiCmfBundle:Block:form.html.twig',
-            'icon' => 'list',
         ];
     }
 

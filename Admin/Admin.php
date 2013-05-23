@@ -371,6 +371,7 @@ abstract class Admin
         $resolver->setDefaults([
             'controller'        => 'MsiCmfBundle:Core:',
             'form_template'     => 'MsiCmfBundle:Admin:form.html.twig',
+            'sidebar_template'     => 'MsiCmfBundle:Admin:sidebar.html.twig',
             'index_template'    => 'MsiCmfBundle:Admin:index.html.twig',
             'new_template'      => 'MsiCmfBundle:Admin:new.html.twig',
             'edit_template'     => 'MsiCmfBundle:Admin:edit.html.twig',
@@ -379,11 +380,9 @@ abstract class Admin
             'uploadify'         => false,
         ]);
 
-        $optional = $this->hasParent() ? ['icon'] : [];
-
-        $resolver->setOptional(array_merge($optional, [
+        $resolver->setOptional([
             'form_css_template',
             'form_js_template',
-        ]));
+        ]);
     }
 }

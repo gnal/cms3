@@ -4,12 +4,6 @@
     <a class="btn" href="{{ admin.genUrl('promote', {'id': row.id}) }}"><i class="icon-arrow-up"></i></a>
 {% endif %}
 
-{#{% for child in admin.children %}
-    {% if child.options.icon is defined%}
-        <a title="{{ child.label(2) }}" class="btn" href="{{ child.genUrl('list', {'parentId': row.id}, false) }}"><i class="icon-{{ child.options.icon }}"></i> {{ child.label(2) }}</a>
-    {% endif %}
-{% endfor %}#}
-
 {% for key, val in column.options.actions %}
     <a class="btn" href="{% if val != '#' %}{{ path(val, {'id': row.id}) }}{% else %}{{ val }}{% endif %}">{{ key|raw }}</a>
 {% endfor %}

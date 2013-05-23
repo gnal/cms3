@@ -79,7 +79,7 @@ a:hover {
 }
 
 a:hover {
-    text-decoration: none;
+    /*text-decoration: none;*/
 }
 
 .navbar .brand {
@@ -93,7 +93,7 @@ h1, h2, h3, h4, h5, h6, .navbar .brand {
 
 h2 {
     margin: 0 0 0;
-    font-size: 20px;
+    font-size: 24.5px;
 }
 
 table + div.pagination {
@@ -139,9 +139,9 @@ input[readonly] {
     background-color: #eeeeee;
 }
 
-.navbar .nav > li > a {
-    /*padding: 11px 15px 9px;*/
-}
+/*.navbar .nav > li:first-child > a {
+    padding-left: 6px;
+}*/
 
 .navbar .nav > .current_ancestor > a,
 .navbar .nav > .current_ancestor > a:hover,
@@ -200,8 +200,8 @@ select {
 }
 
 .breadcrumb {
-    margin: 4px 0 0;
-    padding: 0 5px;
+    margin: 5px 0;
+    padding: 2px 6px;
     background: #fff;
     border: 1px solid #ddd;
     font-size: 85%;
@@ -245,6 +245,10 @@ fieldset.well h4 {
     padding-left: 200px;
 }
 
+.form-crud {
+    margin-bottom: 0;
+}
+
 .nav-tabs.nav-stacked>li>a>i {
     margin-top: 3px;
 }
@@ -269,10 +273,19 @@ fieldset.well h4 {
 .nav-tabs>.active>a, .nav-tabs>.active>a:hover, .nav-tabs>.active>a:focus {
     border-width: 1px 0;
     background: none;
+    border-right: 1px solid #fff !important;
 }
 
 .nav-tabs.nav-stacked>li:first-child>a {
     border-top: 0;
+}
+
+.nav-tabs.nav-stacked>li>a:hover {
+    background: none;
+}
+
+.alert {
+    margin-top: 10px;
 }
 
 /* uploadify */

@@ -16,7 +16,6 @@ class MenuNodeAdmin extends Admin
             'controller' => 'MsiCmfBundle:Admin/MenuNode:',
             'search_fields' => ['a.id', 't.name'],
             'form_template' => 'MsiCmfBundle:MenuNode:form.html.twig',
-            'icon' => 'list',
             'order_by' => [],
         ];
     }

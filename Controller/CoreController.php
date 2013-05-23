@@ -77,16 +77,19 @@ class CoreController extends Controller
         $this->isGranted('ACL_CREATE', $this->admin->getObject());
 
         if ($this->processForm()) {
+            $this->addSuccessFlash();
 
             // if sortable set position to 1 + last
 
-            if (!$request->query->has('alt')) {
+            if ($request->query->get('alt') === 'quit') {
                 return $this->getResponse();
-            } else {
-                $this->get('session')->getFlashBag()->add('success', $this->get('translator')->trans('success!', ['%label%' => strtolower($this->admin->getLabel(1))]));
+            } elseif ($request->query->get('alt') === 'add') {
                 return new RedirectResponse($this->admin->genUrl('new'));
+            } else {
+                return new RedirectResponse($this->admin->genUrl('edit', ['id' => $this->admin->getObject()->getId()]));
             }
         } else {
+            // huh
             if (in_array($request->getMethod(), array('POST', 'PUT'))) {
                 $this->get('session')->getFlashBag()->add('error', $this->get('translator')->trans('error!'));
             }
@@ -106,10 +109,11 @@ class CoreController extends Controller
         }
 
         if ($this->processForm()) {
-            if (!$request->query->has('alt')) {
+            $this->addSuccessFlash();
+
+            if ($request->query->get('alt') === 'quit') {
                 $response = $this->getResponse();
             } else {
-                $this->get('session')->getFlashBag()->add('success', $this->get('translator')->trans('success!', ['%label%' => strtolower($this->admin->getLabel(1))]));
                 $response = $this->render($this->admin->getOption('edit_template'), ['form' => $this->admin->getForm()->createView()]);
             }
 
@@ -117,7 +121,8 @@ class CoreController extends Controller
 
             return $response;
         } else {
-            if (in_array($request->getMethod(), array('POST', 'PUT'))) {
+            // huh
+            if (in_array($request->getMethod(), ['POST', 'PUT'])) {
                 $this->get('session')->getFlashBag()->add('error', $this->get('translator')->trans('error!'));
             }
         }
@@ -267,8 +272,6 @@ class CoreController extends Controller
 
             return new JsonResponse($data);
         } else {
-            $this->get('session')->getFlashBag()->add('success', $this->get('translator')->trans('success!', ['%label%' => strtolower($this->admin->getLabel(1))]));
-
             return $this->redirect($this->admin->genUrl('list'));
         }
     }
@@ -284,5 +287,10 @@ class CoreController extends Controller
                 throw new AccessDeniedException();
             }
         }
+    }
+
+    protected function addSuccessFlash()
+    {
+        $this->get('session')->getFlashBag()->add('success', $this->get('translator')->trans('success!', ['%label%' => strtolower($this->admin->getLabel(1))]));
     }
 }
