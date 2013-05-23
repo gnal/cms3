@@ -14,8 +14,8 @@ class BlockAdmin extends Admin
     {
         $this->options = [
             'search_fields' => ['a.id', 'a.type', 'a.name'],
-            'controller' => 'MsiCmfBundle:Admin/Block:',
             'form_template' => 'MsiCmfBundle:Block:form.html.twig',
+            'sidebar_template' => 'MsiCmfBundle:Block:sidebar.html.twig',
         ];
     }
 
@@ -40,27 +40,19 @@ class BlockAdmin extends Admin
                 $builder->add('settings', $settingsType);
             }
 
-            if ($this->container->get('security.context')->getToken()->getUser()->isSuperAdmin()) {
-                $builder->add('operators', 'entity', [
-                    'class' => 'MsiUserBundle:Group',
-                    'multiple' => true,
-                    'expanded' => true,
-                ]);
-            }
+            $builder->add('pages', 'entity', [
+                'multiple' => true,
+                'expanded' => true,
+                'class' => $this->container->getParameter('msi_cmf.page.class'),
+                'query_builder' => function(EntityRepository $er) {
+                    return $er->createQueryBuilder('a')
+                        ->leftJoin('a.translations', 't')
+                        ->addSelect('t')
+                        ->addOrderBy('t.title', 'ASC')
+                    ;
+                },
+            ]);
         }
-
-        $builder->add('pages', 'entity', [
-            'multiple' => true,
-            'expanded' => true,
-            'class' => $this->container->getParameter('msi_cmf.page.class'),
-            'query_builder' => function(EntityRepository $er) {
-                return $er->createQueryBuilder('a')
-                    ->leftJoin('a.translations', 't')
-                    ->addSelect('t')
-                    ->addOrderBy('t.title', 'ASC')
-                ;
-            },
-        ]);
 
         $builder->add('type', 'choice', [
             'choices' => [
@@ -71,13 +63,19 @@ class BlockAdmin extends Admin
             ],
         ]);
 
+        if ($this->container->get('security.context')->getToken()->getUser()->isSuperAdmin()) {
+            $builder->add('operators', 'entity', [
+                'class' => 'MsiUserBundle:Group',
+                'multiple' => true,
+                'expanded' => true,
+            ]);
+        }
+
         $builder->add('slot', 'choice', ['choices' => $this->container->getParameter('msi_cmf.block.slots')]);
     }
 
     public function buildTranslationForm(FormBuilder $builder)
     {
-        $builder->add('published', 'checkbox');
-
         if ($typeId = $this->getObject()->getType()) {
             $blockHandler = $this->container->get($typeId);
             $settingsBuilder = $this->container->get('form.factory')->createBuilder();

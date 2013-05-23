@@ -1,30 +1,56 @@
 {% form_theme form 'MsiCmfBundle:Form:form.html.twig' %}
 
-{% if admin.object.id %}
-    <ul id="myTab" class="nav nav-tabs">
-        <li class="active"><a href="#advanced" data-toggle="tab">{{ admin.container.get(admin.object.type).name|trans }}</a></li>
-        <li><a href="#general" data-toggle="tab">{{ 'Settings'|trans }}</a></li>
-        {% if app.user.isSuperAdmin %}<li><a href="#acl" data-toggle="tab">{{ 'ACL'|trans }}</a></li>{% endif %}
-    </ul>
+<div class="tab-content">
+    {% if admin.object.id %}
+    <div class="tab-pane fade active in" id="tab1">
+        <fieldset class="well">
+            <h4>{{ 'Content'|trans }}</h4>
+            {% if admin.container.get(admin.object.type).name == 'text' %}
+            <ul class="nav nav-tabs">
+                {% for translation in form.translations %}
+                <li{% if loop.index == 1 %} class="active"{% endif %}><a href="#translation1{{ translation.get('value').locale }}" data-toggle="tab">{{ translation.get('value').locale|trans|capitalize }}</a></li>
+                {% endfor %}
+            </ul>
+            <div class="tab-content">
+                {% for translation in form.translations %}
+                    <div class="tab-pane fade{% if loop.index == 1 %} active in{% endif %}" id="translation1{{ translation.get('value').locale }}">
+                        {{ form_widget(translation.settings.body) }}
+                    </div>
+                {% endfor %}
+            </div>
+            {% elseif admin.container.get(admin.object.type).name == 'action' %}
+                {{ form_row(form.settings.action) }}
+                {{ form_row(form.settings.query) }}
+            {% elseif admin.container.get(admin.object.type).name == 'template' %}
+                {{ form_row(form.settings.template) }}
+            {% elseif admin.container.get(admin.object.type).name == 'menu' %}
+                {{ form_row(form.settings.menu) }}
+                {{ form_row(form.settings.class) }}
+            {% endif %}
+        </fieldset>
+    </div>
+    {% endif %}
 
-    <div id="myTabContent" class="tab-content">
-        <div class="tab-pane fade" id="general">
+    <div class="tab-pane fade{% if admin.object.id == null %} active in{% endif %}" id="tab2">
+        <fieldset class="well">
+            <h4>{{ 'Settings'|trans }}</h4>
             {{ form_row(form.name) }}
             {{ form_row(form.type) }}
             {{ form_row(form.slot) }}
+            {% if admin.object.id %}
             {{ form_row(form.pages) }}
-        </div>
-        {% if app.user.isSuperAdmin %}
-        <div class="tab-pane fade" id="acl">
-            {{ form_row(form.operators) }}
-        </div>
-        {% endif %}
-        <div class="tab-pane fade active in" id="advanced">
-            {{ form_rest(form) }}
-        </div>
+            {% endif %}
+        </fieldset>
     </div>
-{% else %}
-    {{ form_row(form.name) }}
-    {{ form_row(form.type) }}
-    {{ form_row(form.slot) }}
-{% endif %}
+
+    {% if app.user.isSuperAdmin %}
+    <div class="tab-pane fade" id="tab3">
+        <fieldset class="well">
+            <h4>ACL</h4>
+            {{ form_row(form.operators) }}
+        </fieldset>
+    </div>
+    {% endif %}
+</div>
+
+{{ form_rest(form) }}

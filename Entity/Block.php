@@ -42,11 +42,17 @@ abstract class Block implements TranslatableInterface
      */
     protected $settings;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    protected $published;
+
     protected $rendered;
 
     public function __construct()
     {
         $this->rendered = false;
+        $this->published = false;
         $this->settings = array();
         $this->position = 1;
         $this->pages = new ArrayCollection();
@@ -62,6 +68,18 @@ abstract class Block implements TranslatableInterface
     public function setRendered($rendered)
     {
         $this->rendered = $rendered;
+
+        return $this;
+    }
+
+    public function getPublished()
+    {
+        return $this->published;
+    }
+
+    public function setPublished($published)
+    {
+        $this->published = $published;
 
         return $this;
     }

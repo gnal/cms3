@@ -13,31 +13,13 @@ abstract class BlockTranslation
     use \Msi\CmfBundle\Doctrine\Extension\Translatable\Traits\TranslationEntity;
 
     /**
-     * @ORM\Column(type="boolean")
-     */
-    protected $published;
-
-    /**
      * @ORM\Column(type="array")
      */
     protected $settings;
 
     public function __construct()
     {
-        $this->settings = array();
-        $this->published = false;
-    }
-
-    public function getPublished()
-    {
-        return $this->published;
-    }
-
-    public function setPublished($published)
-    {
-        $this->published = $published;
-
-        return $this;
+        $this->settings = [];
     }
 
     public function getSettings()
