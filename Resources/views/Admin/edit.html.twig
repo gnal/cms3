@@ -10,6 +10,11 @@
 
 {% block sidebar %}
 {% include admin.getOption('sidebar_template') %}
+<ul class="nav nav-tabs nav-stacked" style="margin-top: 20px;">
+{% for child in admin.children %}
+    <li><a href="{{ child.genUrl('list', {'parentId': admin.object.id}, false) }}">{{ child.label(2) }}</a></li>
+{% endfor %}
+</ul>
 {% endblock sidebar %}
 
 {% block content %}

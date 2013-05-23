@@ -11,8 +11,6 @@ class PageAdmin extends Admin
     public function configure()
     {
         $this->options = [
-            // 'edit_template' => 'MsiCmfBundle:Page:edit.html.twig',
-            // 'new_template'  => 'MsiCmfBundle:Page:new.html.twig',
             'form_template' => 'MsiCmfBundle:Page:form.html.twig',
             'sidebar_template' => 'MsiCmfBundle:Page:sidebar.html.twig',
             'search_fields' => ['a.id', 't.title'],

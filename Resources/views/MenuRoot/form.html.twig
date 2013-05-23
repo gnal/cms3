@@ -1,17 +1,30 @@
 {% form_theme form 'MsiCmfBundle:Form:form.html.twig' %}
 
-<ul id="myTab" class="nav nav-tabs">
-    <li class="active"><a href="#general" data-toggle="tab">{{ 'Main'|trans }}</a></li>
-    {% if app.user.isSuperAdmin %}<li><a href="#acl" data-toggle="tab">{{ 'ACL'|trans }}</a></li>{% endif %}
-</ul>
-
-<div id="myTabContent" class="tab-content">
-    <div class="tab-pane fade active in" id="general">
-        {{ form_row(form.translations) }}
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="tab1">
+        <fieldset class="well">
+            <h4>Main</h4>
+            <ul class="nav nav-tabs">
+                {% for translation in form.translations %}
+                <li{% if loop.index == 1 %} class="active"{% endif %}><a href="#translation1{{ translation.get('value').locale }}" data-toggle="tab">{{ translation.get('value').locale|trans|capitalize }}</a></li>
+                {% endfor %}
+            </ul>
+            <div class="tab-content">
+                {% for translation in form.translations %}
+                    <div class="tab-pane fade{% if loop.index == 1 %} active in{% endif %}" id="translation1{{ translation.get('value').locale }}">
+                        {{ form_row(translation.name) }}
+                    </div>
+                {% endfor %}
+            </div>
+        </fieldset>
     </div>
+
     {% if app.user.isSuperAdmin %}
-    <div class="tab-pane fade" id="acl">
-        {{ form_row(form.operators) }}
+    <div class="tab-pane fade" id="tab3">
+        <fieldset class="well">
+            <h4>ACL</h4>
+            {{ form_row(form.operators) }}
+        </fieldset>
     </div>
     {% endif %}
 </div>
