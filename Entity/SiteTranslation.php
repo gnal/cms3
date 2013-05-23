@@ -28,6 +28,23 @@ abstract class SiteTranslation
      */
     protected $brand;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    protected $offlineMessage;
+
+    public function getOfflineMessage()
+    {
+        return $this->offlineMessage;
+    }
+
+    public function setOfflineMessage($offlineMessage)
+    {
+        $this->offlineMessage = $offlineMessage;
+
+        return $this;
+    }
+
     public function getBrand()
     {
         return $this->brand;

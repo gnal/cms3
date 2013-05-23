@@ -38,11 +38,6 @@ abstract class Site implements TranslatableInterface
      */
     protected $locales;
 
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    protected $offlineMessage;
-
     public function __construct()
     {
         $this->translations = new ArrayCollection();
@@ -57,18 +52,6 @@ abstract class Site implements TranslatableInterface
     public function setIsDefault($isDefault)
     {
         $this->isDefault = $isDefault;
-
-        return $this;
-    }
-
-    public function getOfflineMessage()
-    {
-        return $this->offlineMessage;
-    }
-
-    public function setOfflineMessage($offlineMessage)
-    {
-        $this->offlineMessage = $offlineMessage;
 
         return $this;
     }

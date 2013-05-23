@@ -10,6 +10,8 @@ class SiteAdmin extends Admin
     public function configure()
     {
         $this->options = [
+            'form_template' => 'MsiCmfBundle:Site:form.html.twig',
+            'sidebar_template' => 'MsiCmfBundle:Site:sidebar.html.twig',
             'search_fields' => ['a.id', 'a.host', 't.brand'],
         ];
     }
@@ -18,8 +20,8 @@ class SiteAdmin extends Admin
     {
         $builder
             ->add('enabled', 'boolean')
-            ->add('host')
             ->add('brand')
+            ->add('host')
             ->add('', 'action')
         ;
     }
@@ -32,14 +34,12 @@ class SiteAdmin extends Admin
         }
 
         $builder
-            ->add('enabled')
             ->add('host', 'text', [
                 'attr' => [
                     'data-help' => 'Pro tip: Enter the correct host name instead of relying of the "isDefault" field to reduce number of database queries.',
                 ],
             ])
             ->add('isDefault')
-            ->add('offlineMessage', 'textarea')
             ->add('locale', 'choice', [
                 'choices' => $choices,
                 'label' => 'Default language',
@@ -59,6 +59,7 @@ class SiteAdmin extends Admin
     {
         $builder
             ->add('brand')
+            ->add('offlineMessage', 'textarea')
             ->add('metaKeywords', 'textarea')
             ->add('metaDescription', 'textarea')
         ;
