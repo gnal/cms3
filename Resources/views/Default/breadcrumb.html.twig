@@ -1,7 +1,7 @@
 <ul class="breadcrumb">
 <li>
     <a href="{{ path('msi_cmf_dashboard') }}">{{ 'Dashboard'|trans }}</a>
-    <span class="divider">></span>
+    {% if crumbs|length %}<span class="divider">></span>{% endif %}
 </li>
 {% for crumb in crumbs %}
     <li{% if crumb.class is defined %} class="{{ crumb.class }}"{% endif %}>
