@@ -1,11 +1,9 @@
 <ul class="nav nav-tabs nav-stacked">
-{% for child in admin.children %}
     <li class="active"><a href="#main1" data-toggle="tab">{{ 'Main'|trans }}</a></li>
     <li><a href="#content2" data-toggle="tab">{{ 'Content'|trans }}</a></li>
     <li><a href="#seo" data-toggle="tab">{{ 'SEO'|trans }}</a></li>
     <li><a href="#admin" data-toggle="tab">{{ 'Admin'|trans }}</a></li>
-    {% if admin.object.id %}
-        <li><a href="{{ child.genUrl('list', {'parentId': admin.object.id}, false) }}">{{ child.label(2) }}</a></li>
-    {% endif %}
+{% for child in admin.children if admin.object.id %}
+    <li><a href="{{ child.genUrl('list', {'parentId': admin.object.id}, false) }}">{{ child.label(2) }}</a></li>
 {% endfor %}
 </ul>

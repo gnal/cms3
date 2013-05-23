@@ -15,9 +15,9 @@ class PageController extends ContainerAware
             'a.site' => $this->container->get('msi_cmf.provider')->getSite(),
         ];
 
-        if ($request->attributes->get('slug')) {
+        // if ($request->attributes->get('slug')) {
             $criteria['t.slug'] = $request->attributes->get('slug');
-        }
+        // }
 
         $qb = $this->container->get('msi_cmf.page_manager')->getFindByQueryBuilder(
             $criteria,
@@ -25,7 +25,7 @@ class PageController extends ContainerAware
             ['b.position' => 'ASC']
         );
         $qb->andWhere($qb->expr()->isNull('a.route'));
-        $pages = $qb->getQuery()->execute();
+        $pages = $qb->getQuery()->getOneOrNullResult();
 
         if (!isset($pages[0])) {
             throw new NotFoundHttpException();
