@@ -17,12 +17,21 @@
 <script src="{{ asset('bundles/msicmf/vendor/eternicode-bootstrap-datepicker/js/locales/bootstrap-datepicker.fr.js') }}"></script>
 <script src="{{ asset('bundles/msicmf/js/admin.js') }}"></script>
 <script>
-$("select.chosenify").chosen({placeholder_text_single: ' ', placeholder_text_multiple: ''});
+// $("select.chosenify").chosen({placeholder_text_single: ' ', placeholder_text_multiple: ''});
 $('.datepicker').datepicker({
     format: 'dd-mm-yyyy',
     autoclose: true,
     language: '{{ app.request.locale }}'
 });
+</script>
+<script>
+(function($) {
+    "use strict";
+    var $form = $('form');
+    $form.on('submit', function(e) {
+        $('#loader').removeClass('hide');
+    });
+})(jQuery);
 </script>
 {{ parent() }}
 {% endblock %}
@@ -45,6 +54,14 @@ $('.datepicker').datepicker({
         <div class="container-fluid">
             {% if is_granted("ROLE_ADMIN") %}
                 {{ knp_menu_render('MsiCmfBundle:MenuBuilder:adminMenu', {'allow_safe_labels': true, 'depth': 3, 'currentClass': 'active'}) }}
+                <ul id="loader" class="hide">
+                    <li class="li1"></li>
+                    <li class="li2"></li>
+                    <li class="li3"></li>
+                    <li class="li4"></li>
+                    <li class="li5"></li>
+                    <li class="li6"></li>
+                </ul>
                 {#<ul class="nav pull-right">
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">{{ app.user.username }} <b class="caret"></b></a>
