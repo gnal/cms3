@@ -44,7 +44,6 @@ class PageAdmin extends Admin
         $builder
             ->add('template', 'choice', ['choices' => $this->container->getParameter('msi_cmf.page.layouts')])
             ->add('showTitle')
-            ->add('published', 'checkbox')
             ->add('route', 'choice', [
                 'empty_value' => '',
                 'choices' => $choices,
