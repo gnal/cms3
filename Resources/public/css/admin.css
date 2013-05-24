@@ -94,6 +94,7 @@ h1 a {
 
 .navbar-fixed-top, .navbar-fixed-bottom {
     position: relative;
+    margin-bottom: 10px;
 }
 
 .navbar-inverse .navbar-inner {
@@ -212,7 +213,7 @@ select {
 /* boostrap */
 
 .breadcrumb {
-    margin: 10px 0;
+    margin: 0 0 10px;
     padding: 2px 6px;
     background: #fff;
     border: 1px solid #ddd;
