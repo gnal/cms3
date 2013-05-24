@@ -148,7 +148,7 @@ table + div.pagination {
 }
 
 .table, .table th, .table td, .table tr {
-    border-radius: 0 !important;
+    /*border-radius: 0 !important;*/
 }
 
 .td-sort {
@@ -236,8 +236,6 @@ select {
 
 fieldset.well {
     border: 1px solid #ddd;
-    box-shadow: none;
-    border-radius: 0;
     padding-bottom: 0;
     background: #fff;
 }
