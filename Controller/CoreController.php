@@ -109,12 +109,19 @@ class CoreController extends Controller
         }
 
         if ($this->processForm()) {
-            $this->addSuccessFlash();
-
             if ($request->query->get('alt') === 'quit') {
+                $this->addSuccessFlash();
                 $response = $this->getResponse();
             } else {
-                $response = $this->render($this->admin->getOption('edit_template'), ['form' => $this->admin->getForm()->createView()]);
+                if ($this->getRequest()->isXmlHttpRequest()) {
+                    $response = new JsonResponse([
+                        'status' => 'ok',
+                        'flash' => $this->get('translator')->trans('success!', ['%label%' => strtolower($this->admin->getLabel(1))]),
+                    ]);
+                } else {
+                    $this->addSuccessFlash();
+                    $response = $this->render($this->admin->getOption('edit_template'), ['form' => $this->admin->getForm()->createView()]);
+                }
             }
 
             $this->get('event_dispatcher')->dispatch('msi_cmf.entity.update.completed', new FilterEntityResponseEvent($this->admin->getObject(), $request, $response));

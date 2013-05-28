@@ -27,8 +27,7 @@ abstract class Block implements TranslatableInterface
     protected $slot;
 
     /**
-     * @ORM\Column()
-     * @Assert\NotBlank()
+     * @ORM\Column(type="string", nullable=true)
      */
     protected $name;
 

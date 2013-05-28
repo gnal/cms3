@@ -24,15 +24,6 @@ $('.datepicker').datepicker({
     language: '{{ app.request.locale }}'
 });
 </script>
-<script>
-// (function($) {
-//     "use strict";
-//     var $form = $('form');
-//     $form.on('submit', function(e) {
-//         $('#loader').removeClass('hide');
-//     });
-// })(jQuery);
-</script>
 {{ parent() }}
 {% endblock %}
 
@@ -67,12 +58,12 @@ $('.datepicker').datepicker({
     {% set sidebar = block('sidebar') %}
     <div id="main"{% if sidebar %}style="background: url(/bundles/msicmf/img/sidebar.png) repeat-y #fff;"{% endif %}>
 
-        {#<div id="loader" style="position: absolute;left: 50%;top: 17px;margin-top: -36px;" class="text-center hide">
+        <div id="loader" style="position: absolute;left: 50%;top: 17px;margin-top: -36px;" class="text-center hide">
             <div style="border-radius: 0px;color: #333;border: 1px solid #ddd;padding: 10px 50px;position: relative; left: -50%;background: #fff;">
                 <p><img src="/bundles/msicmf/img/ajax-loader.gif" alt="0"></p>
-                loading...
+                saving...
             </div>
-        </div>#}
+        </div>
 
         {% if sidebar %}
         <div id="sidebar">
@@ -84,11 +75,18 @@ $('.datepicker').datepicker({
 
         <div id="content"{% if sidebar %}style="margin-left: 220px;"{% endif %}>
             <div class="page-header">
+                <div class="alert-wrap">
+                    <div class="alert alert-success hide">
+                        <i class="icon-ok-sign"></i> <span></span>
+                    </div>
+                </div>
                 {% if app.session.started %}
                     {% for flashMessage in app.session.flashbag.get('success') %}
+                    <div class="alert-wrap">
                         <div class="alert alert-success fade in">
-                            <i class="icon-ok-sign"></i> {{ flashMessage }}
+                            <i class="icon-ok-sign"></i> <span>{{ flashMessage }}</span>
                         </div>
+                    </div>
                     {% endfor %}
                 {% endif %}
                 {% set title = block('title') %}

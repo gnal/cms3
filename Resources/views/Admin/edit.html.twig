@@ -27,9 +27,23 @@
 {{ parent() }}
 {% include admin.container.getParameter('msi_cmf.tiny_mce') %}
 <script>
-    $('button.msi_cmf_save').on('click', function() {
+    $('button.msi_cmf_save').on('click', function(e) {
         var $form = $('form.form-crud');
-        $form.submit();
+        var $loader = $('div#loader');
+        var $alert = $('div.alert-success > span');
+        // $form.submit();
+        $alert.parent().hide();
+        $loader.show();
+
+        $.ajax($form.attr('action'), {
+            type: 'POST',
+            data: $form.serialize(),
+            success: function(data) {
+                $loader.hide();
+                $alert.text(data.flash);
+                $alert.parent().fadeIn('fast');
+            }
+        });
     });
     $('button.msi_cmf_save_quit').on('click', function() {
         var $form = $('form.form-crud');
