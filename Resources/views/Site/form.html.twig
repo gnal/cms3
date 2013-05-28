@@ -2,7 +2,7 @@
 
 <div class="tab-content">
     <div class="tab-pane fade active in" id="tab1">
-        <fieldset class="well">
+        <fieldset>
             <h4>Main</h4>
             {{ form_row(form.host) }}
             {{ form_row(form.isDefault) }}
@@ -23,7 +23,7 @@
     </div>
 
     <div class="tab-pane fade" id="tab2">
-        <fieldset class="well">
+        <fieldset>
             <h4>Language</h4>
             {{ form_row(form.locale) }}
             {{ form_row(form.locales) }}
@@ -31,7 +31,7 @@
     </div>
 
     <div class="tab-pane fade" id="tab3">
-        <fieldset class="well">
+        <fieldset>
             <h4>SEO</h4>
             <ul class="nav nav-tabs">
                 {% for translation in form.translations %}

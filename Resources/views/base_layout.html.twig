@@ -4,6 +4,7 @@
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap.min.css">
 {#<link rel="stylesheet" href="{{ asset('bundles/msicmf/vendor/chosen/chosen.css') }}">#}
 <link rel="stylesheet" href="{{ asset('bundles/msicmf/vendor/eternicode-bootstrap-datepicker/css/datepicker.css') }}">
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="{{ asset('bundles/msicmf/css/admin.css') }}">
 {{ parent() }}
 {% endblock %}
@@ -24,13 +25,23 @@ $('.datepicker').datepicker({
     language: '{{ app.request.locale }}'
 });
 </script>
+
+<script>
+(function($) {
+    "use strict";
+    var height = $('div#sidebar').height();
+    if (height) {
+        $('#content').css('min-height', height+20);
+    }
+})(jQuery);
+</script>
 {{ parent() }}
 {% endblock %}
 
 {% block body %}
 <div class="navbar navbar-fixed-top navbar-inverse">
     <div class="navbar-inner">
-        <div class="container-fluid" style="padding: 0 17px;">
+        <div class="container-fluid" style="padding: 0 23px;">
             <a class="brand" href="{{ path('msi_cmf_dashboard') }}">{{ block('brand') }}</a>
             {% if is_granted('ROLE_ADMIN') %}
                 {{ knp_menu_render('MsiCmfBundle:MenuBuilder:adminMenu', {'allow_safe_labels': true, 'depth': 3, 'currentClass': 'active'}) }}

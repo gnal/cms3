@@ -2,8 +2,7 @@
 
 <div class="tab-content">
     <div class="tab-pane fade" id="main1">
-        <fieldset class="well">
-            <h4>{{ 'Settings'|trans }}</h4>
+        <fieldset>
             {% if admin.container.parameter('msi_cmf.multisite') %}{{ form_row(form.site) }}{% endif %}
             {{ form_row(form.template) }}
             {{ form_row(form.showTitle) }}
@@ -11,8 +10,7 @@
     </div>
 
     <div class="tab-pane fade active in" id="content2">
-        <fieldset class="well">
-            <h4>Content</h4>
+        <fieldset>
             <ul class="nav nav-tabs">
                 {% for translation in form.translations %}
                 <li{% if loop.index == 1 %} class="active"{% endif %}><a href="#translation2{{ translation.get('value').locale }}" data-toggle="tab">{{ translation.get('value').locale|trans|capitalize }}</a></li>
@@ -30,8 +28,7 @@
     </div>
 
     <div class="tab-pane fade" id="seo">
-        <fieldset class="well">
-            <h4>SEO</h4>
+        <fieldset>
             <ul class="nav nav-tabs">
                 {% for translation in form.translations %}
                 <li{% if loop.index == 1 %} class="active"{% endif %}><a href="#translation3{{ translation.get('value').locale }}" data-toggle="tab">{{ translation.get('value').locale|trans|capitalize }}</a></li>
@@ -49,8 +46,7 @@
     </div>
 
     <div class="tab-pane fade" id="admin">
-        <fieldset class="well">
-            <h4>Admin</h4>
+        <fieldset>
             {{ form_row(form.route) }}
             {{ form_row(form.css) }}
             {{ form_row(form.js) }}
