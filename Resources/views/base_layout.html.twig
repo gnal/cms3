@@ -39,6 +39,13 @@ $('.datepicker').datepicker({
 {% endblock %}
 
 {% block body %}
+<div id="loader" class="hide">
+    <div id="loader-inner">
+        <p><img src="/bundles/msicmf/img/ajax-loader.gif" alt="0"></p>
+        please wait&hellip;
+    </div>
+</div>
+
 <div class="navbar navbar-fixed-top navbar-inverse">
     <div class="navbar-inner">
         <div class="container-fluid" style="padding: 0 23px;">
@@ -68,14 +75,6 @@ $('.datepicker').datepicker({
 <div class="container-fluid" style="padding: 0 10px 10px;">
     {% set sidebar = block('sidebar') %}
     <div id="main"{% if sidebar %}style="background: url(/bundles/msicmf/img/sidebar.png) repeat-y #fff;"{% endif %}>
-
-        <div id="loader" style="position: absolute;left: 50%;top: 17px;margin-top: -36px;" class="text-center hide">
-            <div style="border-radius: 0px;color: #333;border: 1px solid #ddd;padding: 10px 50px;position: relative; left: -50%;background: #fff;">
-                <p><img src="/bundles/msicmf/img/ajax-loader.gif" alt="0"></p>
-                saving...
-            </div>
-        </div>
-
         {% if sidebar %}
         <div id="sidebar">
             {{ msi_block_render('admin_sidebar_top', page) }}
