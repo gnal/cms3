@@ -15,58 +15,72 @@ class Uploader
     {
         $this->kernel = $kernel;
     }
-    public function getUploadDir(UploadableInterface $entity)
+    public function getUploadDir($dirname)
     {
-        return $this->kernel->getRootDir().'/../web/uploads/'.$entity->getUploadDir();
+        return $this->kernel->getRootDir().'/../web/uploads/'.$dirname;
     }
 
-    public function removeUpload(UploadableInterface $entity)
+    public function removeUpload($fieldName, UploadableInterface $entity)
     {
         $finder = new Finder();
+        $dirname = $entity->getUploadDir($fieldName);
 
         // avoir error if dir doesnt exist
-        if (!is_dir($this->getUploadDir($entity))) {
+        if (!is_dir($this->getUploadDir($dirname))) {
             return;
         }
 
-        $finder->files()->in($this->getUploadDir($entity));
+        $getter = 'get'.ucfirst($fieldName);
+
+        $finder->files()->name('/'.$entity->$getter().'$/')->in($this->getUploadDir($dirname));
 
         foreach ($finder as $file) {
-            if (is_file($file) && $file->getFilename() === $entity->getFilename()) {
-                unlink($file);
-            }
+            unlink($file);
         }
 
         // if we upload in sub directories like with parent ID name, we delete these directories when they re empty
-        if (preg_match('@/@', $entity->getUploadDir())) {
-            @rmdir($this->getUploadDir($entity));
+        if (preg_match('@/@', $dirname)) {
+            @rmdir($this->getUploadDir($dirname));
         }
     }
 
+    // remove old upload and create database entry
     public function preUpload(UploadableInterface $entity)
     {
-        $file = $entity->getFile();
+        foreach ($entity->getUploadFieldNames() as $fieldName) {
+            $getter = 'get'.ucfirst($fieldName).'File';
+            $file = $entity->$getter();
 
-        if ($file === null) return;
+            if ($file === null) return;
 
-        // if files isnt null it means we are uploading a new file therefore we have to remove old upload
-        if ($entity->getId()) {
-            $this->removeUpload($entity);
+            // if entity isnt new then it means we are uploading a new file therefore we have to remove old upload
+            if ($entity->getId()) {
+                $this->removeUpload($fieldName, $entity);
+            }
+
+            $setter = 'set'.ucfirst($fieldName);
+            $entity->$setter(uniqid(time()).'.'.$file->guessExtension());
         }
-
-        $entity->setFilename(uniqid(time()).'.'.$file->guessExtension());
     }
 
+    // move file to upload folder and process it (resize, etc)
     public function postUpload(UploadableInterface $entity)
     {
-        $file = $entity->getFile();
+        foreach ($entity->getUploadFieldNames() as $fieldName) {
+            $getter = 'get'.ucfirst($fieldName).'File';
+            $file = $entity->$getter();
 
-        if ($file === null) return;
+            if ($file === null) return;
 
-        $file = $file->move($this->getUploadDir($entity), $entity->getFilename());
+            $getter = 'get'.ucfirst($fieldName);
+            $file = $file->move($this->getUploadDir($entity->getUploadDir($fieldName)), $entity->$getter());
 
-        $entity->processFile($file);
+            $method = 'process'.ucfirst($fieldName);
+            if (method_exists($entity, $method)) {
+                $entity->$method($file);
+            }
 
-        unset($file);
+            unset($file);
+        }
     }
 }

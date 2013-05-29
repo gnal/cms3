@@ -9,7 +9,6 @@ class ImageColumn extends BaseColumn
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'label' => 'image',
             'collection' => false,
         ));
     }

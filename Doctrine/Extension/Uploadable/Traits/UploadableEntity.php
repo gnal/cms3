@@ -4,48 +4,26 @@ namespace Msi\CmfBundle\Doctrine\Extension\Uploadable\Traits;
 
 trait UploadableEntity
 {
-    /**
-     * @ORM\Column(type="string", nullable=true)
-     */
-    protected $filename;
-
-    protected $file;
-
-    public function getPathname($prefix = '')
+    public function getUploadDir($fieldName)
     {
-        return '/uploads/'.$this->getUploadDir().'/'.$prefix.$this->filename;
+        if (!in_array($fieldName, $this->getUploadFieldNames())) {
+            throw new \InvalidArgumentException('upload field name "'.$fieldName.'" doesn\'t exist for entity '.get_class($this));
+        }
+
+        $class = get_class($this);
+        $class = substr($class, strrpos($class, '\\') + 1);
+
+        return strtolower($class.'-'.$fieldName);
     }
 
-    public function processFile(\SplFileInfo $file)
+    public function getPathname($fieldName, $prefix = '')
     {
+        if (!in_array($fieldName, $this->getUploadFieldNames())) {
+            throw new \InvalidArgumentException('upload field name "'.$fieldName.'" doesn\'t exist for entity '.get_class($this));
+        }
+
+        $getter = 'get'.ucfirst($fieldName);
+
+        return '/uploads/'.$this->getUploadDir($fieldName).'/'.$prefix.$this->$getter();
     }
-
-    public function getFile()
-    {
-        return $this->file;
-    }
-
-    public function setFile($file)
-    {
-        $this->file = $file;
-        $this->updatedAt = new \DateTime();
-
-        return $this;
-    }
-
-    public function getFilename()
-    {
-        return $this->filename;
-    }
-
-    public function setFilename($filename)
-    {
-        $this->filename = $filename;
-
-        return $this;
-    }
-
-    abstract function getCreatedAt();
-
-    abstract function getUpdatedAt();
 }

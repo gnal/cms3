@@ -4,17 +4,9 @@ namespace Msi\CmfBundle\Doctrine\Extension\Uploadable;
 
 interface UploadableInterface
 {
-    function getUploadDir();
+    function getUploadFieldNames();
 
-    function getPathname($prefix);
+    function getCreatedAt();
 
-    function processFile(\SplFileInfo $file);
-
-    function getFile();
-
-    function setFile($file);
-
-    function getFilename();
-
-    function setFilename($filename);
+    function getUpdatedAt();
 }

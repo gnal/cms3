@@ -68,7 +68,9 @@ class UploadableListener implements EventSubscriber
     {
         $entity = $e->getEntity();
         if ($entity instanceof UploadableInterface) {
-            $this->uploader->removeUpload($entity);
+            foreach ($entity->getUploadFieldNames() as $fieldName) {
+                $this->uploader->removeUpload($fieldName, $entity);
+            }
         }
     }
 }
