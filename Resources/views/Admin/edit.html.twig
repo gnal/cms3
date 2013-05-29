@@ -3,18 +3,20 @@
 {% block title %}{{ 'Edit'|trans }} {{ admin.label }} "{{ admin.object }}"{% endblock title %}
 
 {% block actions %}
-<button class="btn btn-primary msi_cmf_save"><i class="icon-white icon-ok"></i> Save</button>
-<button class="btn btn-primary msi_cmf_save_quit"><i class="icon-white icon-ok"></i> Save & Quit</button>
+<button class="btn btn-primary msi_cmf_save"><i class="icon-white icon-ok"></i> {{ 'save'|trans }}</button>
+<button class="btn btn-primary msi_cmf_save_quit"><i class="icon-white icon-ok"></i> {{ 'save_quit'|trans }}</button>
 <a onclick="return confirm('Are you sure you want to delete this entry?');" class="btn btn-danger" href="{{ admin.genUrl('delete', {'id': admin.object.id}) }}"><i class="icon-remove icon-white"></i> {{ 'Delete'|trans }}</a>
 {% endblock actions %}
 
 {% block sidebar %}
 {% include admin.getOption('sidebar_template') %}
+{% if admin.children|length %}
 <ul class="nav nav-tabs nav-stacked" style="margin-top: 20px;">
 {% for child in admin.children %}
     <li><a href="{{ child.genUrl('list', {'parentId': admin.object.id}, false) }}">{{ child.label(2) }}</a></li>
 {% endfor %}
 </ul>
+{% endif %}
 {% endblock sidebar %}
 
 {% block content %}

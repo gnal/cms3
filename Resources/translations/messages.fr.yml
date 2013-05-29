@@ -9,13 +9,14 @@ locale:
     fr: Français
     en: English
 
+save: Enregistrer
+save_quit: Enregistrer & Quitter
+save_add: Enregistrer & Ajouter
+
 Dashboard: Tableau de bord
 Language:: Langage :
 Add: Ajouter
 Edit: Modifier
-Save: Enregistrer
-Save and close: Enregistrer et Fermer
-Save and add: Enregistrer et Ajouter
 Delete: Supprimer
 Show: Afficher
 Cancel: Annuler
@@ -26,7 +27,7 @@ index_title: Liste des %label%
 Reset: Réinitialiser
 Search: Rechercher
 Profile: Profil
-Log out: Fermer la session
+Logout: Déconnexion
 Français: English
 Filter: Filtre
 error!: Erreur!
@@ -36,9 +37,6 @@ Download: Télécharger
 Enabled: Activé
 View file: Voir le fichier
 Update: Mettre à jour
-Update and close: Mettre à jour et fermer
-Create and close: Créer et fermer
-Create and add: Créer et ajouter
 Main: Principal
 Advanced: Avancé
 All: Tout

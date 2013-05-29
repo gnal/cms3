@@ -39,12 +39,12 @@ $('.datepicker').datepicker({
 {% endblock %}
 
 {% block body %}
-<div id="loader" class="hide">
+{#<div id="loader" class="hide">
     <div id="loader-inner">
         <p><img src="/bundles/msicmf/img/ajax-loader.gif" alt="0"></p>
-        please wait&hellip;
+        Please wait&hellip;
     </div>
-</div>
+</div>#}
 
 <div class="navbar navbar-fixed-top navbar-inverse">
     <div class="navbar-inner">
@@ -54,7 +54,7 @@ $('.datepicker').datepicker({
                 {{ knp_menu_render('MsiCmfBundle:MenuBuilder:adminMenu', {'allow_safe_labels': true, 'depth': 3, 'currentClass': 'active'}) }}
             {% endif %}
             {% if is_granted('ROLE_ADMIN') %}
-            <p class="navbar-text pull-right">Logged in as <a href="{{ path('fos_user_profile_show') }}">{{ app.user.username }}</a> | <a href="{{ path('fos_user_security_logout') }}">{{ 'Logout'|trans }}</a></p>
+            <p class="navbar-text pull-right">{{ app.user.username }} | <a href="{{ path('fos_user_security_logout') }}">{{ 'Logout'|trans }}</a></p>
             {% endif %}
         </div>
     </div>
@@ -90,6 +90,7 @@ $('.datepicker').datepicker({
                         <i class="icon-ok-sign"></i> <span></span>
                     </div>
                 </div>
+
                 {% if app.session.started %}
                     {% for flashMessage in app.session.flashbag.get('success') %}
                     <div class="alert-wrap">
@@ -99,6 +100,7 @@ $('.datepicker').datepicker({
                     </div>
                     {% endfor %}
                 {% endif %}
+
                 {% set title = block('title') %}
                 {% if title %}
                 <div class="row-fluid">
@@ -106,8 +108,11 @@ $('.datepicker').datepicker({
                         <h2>{{ title|raw }}{{ block('title_suffix') }}</h2>
                     </div>
                     <div class="span6">
-                        {% if block('actions')|length > 0 %}
-                            <div class="pull-right btn-toolbar">{{ block('actions') }}</div>
+                        {% set actions = block('actions') %}
+                        {% if actions %}
+                            <div class="pull-right btn-toolbar">
+                                {{ block('actions') }}
+                            </div>
                         {% endif %}
                     </div>
                 </div>
@@ -116,13 +121,12 @@ $('.datepicker').datepicker({
 
             <div class="row-fluid">
                 <div class="span12">
-                    {{ msi_block_render('admin_content_top', page) }}
+                    {{ msi_block_render('content_top', page) }}
                     {{ block('page_content') }}
-                    {{ msi_block_render('admin_content_bottom', page) }}
+                    {{ msi_block_render('content_bottom', page) }}
                 </div>
             </div>
         </div>
-        <div class="clearfix"></div>
     </div>
 </div>
 {% endblock %}

@@ -9,25 +9,25 @@ locale:
     fr: Français
     en: English
 
+save: Save
+save_quit: Save & Quit
+save_add: Save & Add
+
 Dashboard: Dashboard
 Language:: Language:
 Add: Add
 Edit: Edit
-Save: Save
-Save and close: Save and Close
-Save and add: Save and Add
 Main: Main
 Delete: Delete
 Show: Show
 Cancel: Cancel
 Back: Back
-Save Changes: Save changes
 View site: View Site
 index_title: %label% List
 Reset: Reset
 Search: Search
 Profile: Profile
-Log out: Log out
+Logout: Logout
 Français: Français
 Filter: Filter
 Content: Content
