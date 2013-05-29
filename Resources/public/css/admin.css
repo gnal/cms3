@@ -52,6 +52,12 @@ h1 a {
     color: #333;
 }
 
+/* content */
+
+#content {
+    padding: 0 12px;
+}
+
 /* sidebar */
 
 #sidebar {
@@ -85,12 +91,6 @@ h1 a {
     background: #eee;
     border-right: 1px solid #ddd !important;
 }*/
-
-/* content */
-
-#content {
-    padding: 0 12px;
-}
 
 /* nav */
 
@@ -250,17 +250,19 @@ select {
     margin-bottom: 0;
 }
 
-.alert-wrap {
+/*.alert-wrap {
     position: absolute;
     left: 50%;
     top: -32px;
-}
+}*/
 
 .alert {
-    margin-top: 10px;
+/*    margin-top: 10px;
     position: relative;
     left: -50%;
-    padding: 5px 14px;
+    padding: 5px 14px;*/
+    margin-bottom: 15px;
+    margin-top: 5px;
     color: inherit;
     font-weight: bold;
 }

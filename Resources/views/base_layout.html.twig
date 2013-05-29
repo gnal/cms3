@@ -85,19 +85,19 @@ $('.datepicker').datepicker({
 
         <div id="content"{% if sidebar %}style="margin-left: 220px;"{% endif %}>
             <div class="page-header">
-                <div class="alert-wrap">
+                {#<div class="alert-wrap">
                     <div class="alert alert-success hide">
                         <i class="icon-ok-sign"></i> <span></span>
                     </div>
-                </div>
+                </div>#}
 
                 {% if app.session.started %}
                     {% for flashMessage in app.session.flashbag.get('success') %}
-                    <div class="alert-wrap">
+                    {#<div class="alert-wrap">#}
                         <div class="alert alert-success fade in">
                             <i class="icon-ok-sign"></i> <span>{{ flashMessage }}</span>
                         </div>
-                    </div>
+                    {#</div>#}
                     {% endfor %}
                 {% endif %}
 
