@@ -4,7 +4,7 @@ namespace Msi\CmfBundle\Doctrine\Extension\Uploadable;
 
 interface UploadableInterface
 {
-    function getUploadFieldNames();
+    function getUploadFields();
 
     function getCreatedAt();
 

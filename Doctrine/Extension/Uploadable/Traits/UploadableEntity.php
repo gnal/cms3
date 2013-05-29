@@ -6,7 +6,7 @@ trait UploadableEntity
 {
     public function getUploadDir($fieldName)
     {
-        if (!in_array($fieldName, $this->getUploadFieldNames())) {
+        if (!in_array($fieldName, $this->getUploadFields())) {
             throw new \InvalidArgumentException('upload field name "'.$fieldName.'" doesn\'t exist for entity '.get_class($this));
         }
 
@@ -18,7 +18,7 @@ trait UploadableEntity
 
     public function getPathname($fieldName, $prefix = '')
     {
-        if (!in_array($fieldName, $this->getUploadFieldNames())) {
+        if (!in_array($fieldName, $this->getUploadFields())) {
             throw new \InvalidArgumentException('upload field name "'.$fieldName.'" doesn\'t exist for entity '.get_class($this));
         }
 

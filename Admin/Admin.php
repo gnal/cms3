@@ -6,6 +6,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Msi\CmfBundle\Doctrine\Manager;
 use Doctrine\Common\Collections\ArrayCollection;
 use Msi\CmfBundle\Form\Type\DynamicType;
+
+use Msi\CmfBundle\Doctrine\Extension\Uploadable\UploadableInterface;
 use Msi\CmfBundle\Doctrine\Extension\Translatable\TranslatableInterface;
 
 use Symfony\Component\Form\FormBuilder;
@@ -115,6 +117,11 @@ abstract class Admin
     public function isSortable()
     {
         return property_exists($this->getObjectManager()->getClass(), 'position');
+    }
+
+    public function isUploadable()
+    {
+        return $this->getObject() instanceof UploadableInterface;
     }
 
     public function isTranslatable()
@@ -371,7 +378,7 @@ abstract class Admin
         $resolver->setDefaults([
             'controller'        => 'MsiCmfBundle:Core:',
             'form_template'     => 'MsiCmfBundle:Admin:form.html.twig',
-            'sidebar_template'     => 'MsiCmfBundle:Admin:sidebar.html.twig',
+            'sidebar_template'  => 'MsiCmfBundle:Admin:sidebar.html.twig',
             'index_template'    => 'MsiCmfBundle:Admin:index.html.twig',
             'new_template'      => 'MsiCmfBundle:Admin:new.html.twig',
             'edit_template'     => 'MsiCmfBundle:Admin:edit.html.twig',
