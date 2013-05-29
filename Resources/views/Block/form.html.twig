@@ -4,7 +4,6 @@
     {% if admin.object.id %}
     <div class="tab-pane fade active in" id="tab1">
         <fieldset>
-            <h4>{{ 'Content'|trans }}</h4>
             {% if admin.container.get(admin.object.type).name == 'text' %}
             <ul class="nav nav-tabs">
                 {% for translation in form.translations %}
@@ -33,7 +32,6 @@
 
     <div class="tab-pane fade{% if admin.object.id == null %} active in{% endif %}" id="tab2">
         <fieldset>
-            <h4>{{ 'Settings'|trans }}</h4>
             {{ form_row(form.name) }}
             {{ form_row(form.type) }}
             {{ form_row(form.slot) }}
@@ -46,7 +44,6 @@
     {% if app.user.isSuperAdmin %}
     <div class="tab-pane fade" id="tab3">
         <fieldset>
-            <h4>ACL</h4>
             {{ form_row(form.operators) }}
         </fieldset>
     </div>
