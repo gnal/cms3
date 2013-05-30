@@ -1,6 +1,6 @@
 entity:
     MenuRoot: Menu|Menus
-    MenuNode: Menu item|Menu items
+    MenuNode: Item|Items
     Page: Page|Pages
     Block: Block|Blocks
     Site: Site|Sites

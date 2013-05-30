@@ -1,5 +1,38 @@
 {% extends 'MsiCmfBundle:Admin:index.html.twig' %}
 
+{% block sidebar %}
+<div class="page-header">
+    <h2>Menu</h2>
+</div>
+<ul class="unstyled">
+    <li><i class="icon-folder-open"></i> {{ admin.grid.rows.0.parent.translation.name }}</li>
+    {% for item in admin.grid.rows %}
+        {% set l = loop.index %}
+        <li>
+            {% for i in 0..item.lvl %}
+                {% if i != 0 %}
+                    {% if item.lvl and i < item.lvl %}
+                        {% if i < item.lvl and i > 1 %}
+                            <img style="width: 16px;height: 18px;" class="" src="http://dev.magento.com/js/spacer.gif" alt="">
+                        {% else %}
+                            <img class="" src="/bundles/msicmf/img/elbow-line.gif" alt="">
+                        {% endif %}
+                    {% else %}
+                        {% if item.rgt == item.parent.rgt - 1 %}
+                            <img class="" src="/bundles/msicmf/img/elbow-end.gif" alt="">
+                        {% else %}
+                            <img class="" src="/bundles/msicmf/img/elbow.gif" alt="">
+                        {% endif %}
+                        <i class="icon-folder-open"></i>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+            {{ item.translation.name }}
+        </li>
+    {% endfor %}
+</ul>
+{% endblock sidebar %}
+
 {% block js %}
 {{ parent() }}
 <script>
