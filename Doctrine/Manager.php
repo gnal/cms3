@@ -70,15 +70,15 @@ class Manager
         $this->update($entity);
     }
 
-    public function moveUp($entity)
+    public function moveUp($entity, $number = 1)
     {
-        $this->repository->moveUp($entity, 1);
+        $this->repository->moveUp($entity, $number);
         $this->update($entity);
     }
 
-    public function moveDown($entity)
+    public function moveDown($entity, $number)
     {
-        $this->repository->moveDown($entity, 1);
+        $this->repository->moveDown($entity, $number);
         $this->update($entity);
     }
 

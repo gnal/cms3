@@ -3,23 +3,41 @@
 namespace Msi\CmfBundle\Controller\Admin;
 
 use Msi\CmfBundle\Controller\CoreController;
-use Doctrine\ORM\QueryBuilder;
+use Symfony\Component\HttpFoundation\Request;
 
 class MenuNodeController extends CoreController
 {
-    public function promoteAction()
+    public function sortAction(Request $request)
     {
-        $node = $this->admin->getObjectManager()->getFindByQueryBuilder(array('a.id' => $this->admin->getObject()->getId()))->getQuery()->getOneOrNullResult();
-        $this->admin->getObjectManager()->moveUp($node);
+        $node = $this->admin->getObjectManager()->getFindByQueryBuilder(
+            ['a.id' => $request->query->get('current')]
+        )->getQuery()->getOneOrNullResult();
 
-        return $this->getResponse();
-    }
+        $currentRow = $request->query->get('currentRow');
+        $nextRow = $request->query->get('nextRow');
+        $prevRow = $request->query->get('prevRow');
 
-    public function demoteAction()
-    {
-        $node = $this->admin->getObjectManager()->getFindByQueryBuilder(array('a.id' => $this->admin->getObject()->getId()))->getQuery()->getOneOrNullResult();
-        $this->admin->getObjectManager()->moveDown($node);
+        $newPos = $nextRow ?: $prevRow;
 
-        return $this->getResponse();
+        // $nextRowParentId = $request->query->get('nextRowParentId');
+        // $prevRowParentId = $request->query->get('prevRowParentId');
+
+        // $newParentId = $nextRow ? $nextRowParentId : $prevRowParentId;
+
+        // if ($newParentId != $node->getParent()->getId()) {
+        //     $parent = $this->admin->getObjectManager()->getFindByQueryBuilder(
+        //         ['a.id' => $newParentId]
+        //     )->getQuery()->getOneOrNullResult();
+        //     $node->setParent($parent);
+        //     $this->admin->getObjectManager()->update($node);
+        // }
+
+        if ($newPos < $currentRow) {
+            $this->admin->getObjectManager()->moveUp($node, $currentRow - $newPos);
+        } else {
+            $this->admin->getObjectManager()->moveDown($node, $newPos - $currentRow);
+        }
+
+        return $this->redirect($this->admin->genUrl('list'));
     }
 }

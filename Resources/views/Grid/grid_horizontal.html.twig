@@ -1,4 +1,4 @@
-<table class="{% if grid.sortable %}sortable {% endif %}table table-bordered table-striped">
+<table class="{% if grid.sortable or admin.id == 'msi_cmf_menu_node_admin' %}sortable {% endif %}table table-bordered table-striped">
     {# Head #}
     <thead>
         <tr>
@@ -16,7 +16,7 @@
     {# Body #}
     <tbody>
     {% for row in grid.rows %}
-        <tr id="tr{{ row.id }}">
+        <tr id="tr{{ row.id }}" data-row="{{ loop.index }}">
             {#{% if is_granted('ROLE_SUPER_ADMIN') %}
             <td class="span1">
                 {{ row.id }}

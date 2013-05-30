@@ -1,0 +1,95 @@
+{% extends 'MsiCmfBundle:Admin:index.html.twig' %}
+
+{% block js %}
+{{ parent() }}
+<script>
+(function($) {
+    "use strict";
+    // Return a helper with preserved width of cells
+    var fixHelper = function(e, ui) {
+        ui.children().each(function() {
+            var $this = $(this);
+            $this.width($this.width());
+        });
+        return ui;
+    };
+
+    // fill empty tr created by jquery ui
+
+    var nbColumn = $('table.table').children().first().children().children().length;
+    var placeholderFiller = '';
+
+    for (var i = 0; i < nbColumn; i++) {
+        placeholderFiller += '<td>&nbsp;</td>';
+    };
+
+    $("table tbody").sortable({
+        helper: fixHelper,
+        handle: $('td'),
+        distance: 30,
+        containment: $('table'),
+        placeholder: "ui-state-highlight",
+        forcePlaceholderSize: true,
+        start: function (event, ui) {
+            ui.placeholder.html(placeholderFiller);
+        },
+    }).disableSelection();
+
+    var $table = $('table');
+
+    $table.on('sortstop', function(e, ui) {
+        var next = null,
+            nextRow = null,
+            prevRow = null,
+            nextRowParentId = null,
+            prevRowParentId = null,
+            prev = null;
+
+        $('table tbody').sortable('disable');
+
+        if (typeof $(ui.item).next('tr').attr('id') !== 'undefined') {
+            next = $(ui.item).next('tr').attr('id').substr(2);
+        }
+
+        if (typeof $(ui.item).prev('tr').attr('id') !== 'undefined') {
+            prev = $(ui.item).prev('tr').attr('id').substr(2);
+        }
+
+        if (typeof $(ui.item).next('tr').data('row') !== 'undefined') {
+            nextRow = $(ui.item).next('tr').data('row');
+        }
+
+        if (typeof $(ui.item).prev('tr').data('row') !== 'undefined') {
+            prevRow = $(ui.item).prev('tr').data('row');
+        }
+
+        $.ajax("{{ admin.genUrl('sort') }}", {
+            data: {
+                'current': $(ui.item).attr('id').substr(2),
+                'next': next,
+                'prev': prev,
+                'currentRow': $(ui.item).data('row'),
+                'nextRow': nextRow,
+                'prevRow': prevRow
+            },
+            success: function(data) {
+                $('table tbody').sortable('enable');
+                $('table tbody').html($(data).find('table tbody').html());
+                $("table tbody").sortable({
+        helper: fixHelper,
+        handle: $('td'),
+        distance: 30,
+        containment: $('table'),
+        placeholder: "ui-state-highlight",
+        forcePlaceholderSize: true,
+        start: function (event, ui) {
+            ui.placeholder.html(placeholderFiller);
+        },
+    }).disableSelection();
+                // gotta update new positions and unlock
+            },
+        });
+    });
+})(jQuery);
+</script>
+{% endblock js %}

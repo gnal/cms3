@@ -5,7 +5,7 @@ html {
 }
 
 body {
-    background: #f5f5f5;
+    background: #eee;
 }
 
 .container-fluid {
@@ -17,9 +17,10 @@ body {
     position: relative;
     background: #fff;
     border: 1px solid #ddd;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    border-radius: 4px;
+    /*-webkit-border-radius: 4px;*/
+    /*-moz-border-radius: 4px;*/
+    /*border-radius: 4px;*/
+    border-radius: 0;
 }
 
 a:hover {
@@ -98,14 +99,20 @@ h1 a {
     margin-bottom: 10px;
 }
 
+.navbar-fixed-top .navbar-inner,
+.navbar-static-top .navbar-inner {
+    box-shadow: none;
+}
+
 .navbar-inverse .navbar-inner {
     background: #262626;
     border: 0;
 }
 
 .navbar .brand {
-    color: #fff;
+    /*color: #fff;*/
     font-size: 14px;
+    /*font-weight: bold;*/
 }
 
 .navbar .nav > .current_ancestor > a,
@@ -163,10 +170,6 @@ table + div.pagination {
 
 .table, .table th, .table td, .table tr {
     border-radius: 0 !important;
-}
-
-.td-sort {
-    cursor: move;
 }
 
 /* form */
@@ -230,9 +233,10 @@ select {
     padding: 8px 20px;
     background: #fff;
     border: 1px solid #ddd;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    border-radius: 4px;
+    /*-webkit-border-radius: 4px;*/
+    /*-moz-border-radius: 4px;*/
+    /*border-radius: 4px;*/
+    border-radius: 0;
 }
 
 .btn-toolbar {
