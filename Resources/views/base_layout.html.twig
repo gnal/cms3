@@ -47,7 +47,7 @@ $('.datepicker').datepicker({
 
 <div class="navbar navbar-fixed-top navbar-inverse">
     <div class="navbar-inner">
-        <div class="container-fluid" style="padding: 0 23px;">
+        <div class="container-fluid" style="padding: 0 31px;">
             <a class="brand" href="{{ path('msi_cmf_dashboard') }}">{{ block('brand') }}</a>
             {% if is_granted('ROLE_ADMIN') %}
                 {{ knp_menu_render('MsiCmfBundle:MenuBuilder:adminMenu', {'allow_safe_labels': true, 'depth': 3, 'currentClass': 'active'}) }}
