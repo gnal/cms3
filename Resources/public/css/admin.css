@@ -70,7 +70,7 @@ h1 a {
     width: 100%;
 }
 
-#sidebar ul:first-child {
+#sidebar ul:first-child, #sidebar form:first-child {
     margin-top: 20px;
 }
 
@@ -285,6 +285,18 @@ select {
     color: inherit;
     font-weight: bold;
 }
+
+/*#sortable1 > li {
+    background: #eee;
+}
+
+#sortable1 > li.dontmove {
+    background-color: #eee;
+}*/
+
+/*#sortable1 > li:hover {
+    background: #eee;
+}*/
 
 #loader {
     position: fixed;

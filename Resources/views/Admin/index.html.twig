@@ -78,7 +78,7 @@
     $("table.sortable tbody").sortable({
         helper: fixHelper,
         handle: $('td'),
-        distance: 30,
+        cancel: 'a,button'
         containment: $('table'),
         placeholder: "ui-state-highlight",
         forcePlaceholderSize: true,

@@ -9,33 +9,29 @@ class MenuNodeController extends CoreController
 {
     public function sortAction(Request $request)
     {
+        $id = $request->query->get('id');
         $node = $this->admin->getObjectManager()->getFindByQueryBuilder(
-            ['a.id' => $request->query->get('current')]
+            ['a.id' => $request->query->get('id')]
         )->getQuery()->getOneOrNullResult();
 
-        $currentRow = $request->query->get('currentRow');
-        $nextRow = $request->query->get('nextRow');
-        $prevRow = $request->query->get('prevRow');
+        foreach ($request->query->get('array1') as $k => $v) {
+            if ($v == $id) {
+                $start = $k;
+            }
+        }
 
-        $newPos = $nextRow ?: $prevRow;
+        foreach ($request->query->get('array2') as $k => $v) {
+            if ($v == $id) {
+                $end = $k;
+            }
+        }
 
-        // $nextRowParentId = $request->query->get('nextRowParentId');
-        // $prevRowParentId = $request->query->get('prevRowParentId');
+        $number = $start - $end;
 
-        // $newParentId = $nextRow ? $nextRowParentId : $prevRowParentId;
-
-        // if ($newParentId != $node->getParent()->getId()) {
-        //     $parent = $this->admin->getObjectManager()->getFindByQueryBuilder(
-        //         ['a.id' => $newParentId]
-        //     )->getQuery()->getOneOrNullResult();
-        //     $node->setParent($parent);
-        //     $this->admin->getObjectManager()->update($node);
-        // }
-
-        if ($newPos < $currentRow) {
-            $this->admin->getObjectManager()->moveUp($node, $currentRow - $newPos);
-        } else {
-            $this->admin->getObjectManager()->moveDown($node, $newPos - $currentRow);
+        if ($number > 0) {
+            $this->admin->getObjectManager()->moveUp($node, abs($number));
+        } elseif ($number < 0) {
+            $this->admin->getObjectManager()->moveDown($node, abs($number));
         }
 
         return $this->redirect($this->admin->genUrl('list'));
