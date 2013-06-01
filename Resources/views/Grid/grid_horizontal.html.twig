@@ -5,9 +5,9 @@
         {#{% if is_granted('ROLE_SUPER_ADMIN') %}
             <th>ID</th>
         {% endif %}#}
-        {% if admin.isTranslatable and admin.isTranslationField('published') %}
+        {#{% if admin.isTranslatable and admin.isTranslationField('published') %}
             <th>{{ 'Published'|trans }}</th>
-        {% endif %}
+        {% endif %}#}
         {% for column in grid.columns %}
             <th>{{ column.get('label')|capitalize|trans }}</th>
         {% endfor %}
@@ -22,7 +22,7 @@
                 {{ row.id }}
             </td>
             {% endif %}#}
-            {% if admin.isTranslatable and admin.isTranslationField('published') %}
+            {#{% if admin.isTranslatable and admin.isTranslationField('published') %}
                 <td style="text-align:center;" class="span1" id="td{{ loop.index }}{{ row.id }}">
                     <div style="white-space: nowrap;">
                     {% for locale in app_locales %}
@@ -36,7 +36,7 @@
                     {% endfor %}
                     </div>
                 </td>
-            {% endif %}
+            {% endif %}#}
             {% for column in grid.columns %}
                 <td {% for attrname,attrvalue in column.options.attr %}{{attrname}}="{{attrvalue}}" {% endfor %}id="td{{ loop.index~row.id }}">
                 {% include 'MsiCmfBundle:Column:'~column.type~'.html.twig' with {'i': loop.index, 'column': column.resolveRow(row)} %}
@@ -46,7 +46,7 @@
     {% endfor %}
     </tbody>
     <tfoot>
-        <tr><td colspan={{ grid.columns|length + 2 }}></td></tr>
+        <tr><td colspan={{ grid.columns|length }}></td></tr>
     </tfoot>
 </table>
 {#<p class="pull-left" style="margin-bottom: 20px;">

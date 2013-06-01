@@ -6,12 +6,16 @@
 
 {% block sidebar %}
 {% if filterForm is defined %}
-    <h2><small>{{ 'Filter'|trans }}</small></h2>
+    {#<div class="page-header">
+        <h2 class="muted">{{ 'Filter'|trans }}</h2>
+    </div>#}
     <form novalidate method="GET" class="form-horizontal" action="{{ admin.genUrl('list') }}">
         {% form_theme filterForm 'MsiCmfBundle:Form:form.html.twig' %}
         {{ form_widget(filterForm) }}
-        <button type="submit" class="btn btn-primary"><i class="icon-white icon-filter"></i> {{ 'Filter'|trans }}</button>
-        <a class="btn btn-link" href="{{ admin.genUrl('list', {'parentId': app.request.query.get('parentId')}, false) }}">{{ 'Cancel'|trans }}</a>
+        <div class="btn-group">
+            <button type="submit" class="btn"><i class="icon-filter"></i></button>
+            <a class="btn" href="{{ admin.genUrl('list', {'parentId': app.request.query.get('parentId')}, false) }}"><i class="icon-remove"></i></a>
+        </div>
     </form>
 {% endif %}
 {% if admin.getOption('uploadify') %}
@@ -22,31 +26,34 @@
 
 {% block actions %}
 {% if admin.isGranted('create') %}
-    <a href="{{ admin.genUrl('new') }}" class="btn btn-success"><i class="icon-white icon-plus"></i> {{ 'Add'|trans }} {{ admin.getLabel(1) }}</a>
+    <a href="{{ admin.genUrl('new') }}" class="btn btn-success"><i class="icon-white icon-plus-sign"></i> {{ 'Add'|trans }} {{ admin.getLabel(1) }}</a>
 {% endif %}
 {% endblock %}
 
 {% block content %}
 {# Search #}
-{#<form novalidate class="form-inline pull-right" method="GET" action="{{ admin.genUrl('list') }}">
-    {% if admin.hasParent() %}<input type="hidden" value="{{ app.request.query.get('parentId') }}" name="parentId">{% endif %}
-    <input class="input-xlarge" value="{{ app.request.query.get('q') }}" name="q" type="text">
-    <button type="submit" class="btn btn-primary"><i class="icon-white icon-search"></i> {{ 'Search'|trans }}</button>
-    <a class="btn btn-link" href="{{ admin.genUrl('list', {'parentId': app.request.query.get('parentId')}, false) }}">{{ 'Cancel'|trans }}</a>
-</form>#}
+<form novalidate class="form-inline pull-right" method="GET" action="{{ admin.genUrl('list') }}">
+    {% if admin.hasParent() %}
+        <input type="hidden" value="{{ app.request.query.get('parentId') }}" name="parentId">
+    {% endif %}
+    <div class="input-append">
+        <input class="input-large" value="{{ app.request.query.get('q') }}" name="q" type="text">
+        <button type="submit" class="btn"><i class="icon-search"></i></button>
+        <a class="btn" href="{{ admin.genUrl('list', {'parentId': app.request.query.get('parentId')}, false) }}"><i class="icon-remove"></i></a>
+    </div>
+</form>
 {# Limit #}
-{{ msi_pager_render(pager) }}
+{% include 'MsiCmfBundle:Pager:pager.html.twig' %}
 <form id="limitForm" novalidate class="pull-left form-search" method="POST" action="{{ path('msi_cmf_limit') }}">
+    <small>view</small>
     <select name="limit">
         <option {% if app.session.get('limit') == 10 %}selected=selected{% endif %} value="10">10</option>
         <option {% if app.session.get('limit', 25) == 25 %}selected=selected{% endif %} value="25">25</option>
         <option {% if app.session.get('limit') == 50 %}selected=selected{% endif %} value="50">50</option>
         <option {% if app.session.get('limit') == 100 %}selected=selected{% endif %} value="100">100</option>
     </select>
+    <small>rows per page | {{ pager.count|number_format }} rows in total{#{{ pager.from|number_format }} to {{ pager.to|number_format }} of {{ pager.count|number_format }} entries#}</small>
 </form>
-<p class="pull-left" style="margin: 0 0 0 20px;line-height: 30px;">
-    <small>Showing {{ pager.from|number_format }} to {{ pager.to|number_format }} of {{ pager.count|number_format }} entries</small>
-</p>
 {# Table #}
 {% include 'MsiCmfBundle:Grid:grid_horizontal.html.twig' with {'grid': admin.getGrid()} %}
 {% endblock %}
