@@ -93,6 +93,13 @@ class BlockAdmin extends Admin
 
     public function buildFilterForm(FormBuilder $builder)
     {
+        $types = [];
+        foreach ($this->container->getServiceIds() as $id) {
+            if (preg_match('@^.+_.+\.block\..+$@', $id)) {
+                $types[$id] = $id;
+            }
+        }
+
         $builder
             ->add('pages', 'entity', array(
                 'class' => $this->container->getParameter('msi_cmf.page.class'),
@@ -108,11 +115,7 @@ class BlockAdmin extends Admin
             ->add('type', 'choice', array(
                 'label' => ' ',
                 'empty_value' => '- Type -',
-                'choices' => array(
-                    'text' => 'Text',
-                    'action' => 'Action',
-                    'template' => 'Template',
-                ),
+                'choices' => $types,
             ))
         ;
     }
