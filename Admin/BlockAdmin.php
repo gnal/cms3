@@ -13,7 +13,7 @@ class BlockAdmin extends Admin
     public function configure()
     {
         $this->options = [
-            'search_fields' => ['a.id', 'a.type', 'a.name'],
+            'search_fields' => ['a.id', 'a.type', 'a.name', 'a.slot'],
             'form_template' => 'MsiCmfBundle:Block:form.html.twig',
             'sidebar_template' => 'MsiCmfBundle:Block:sidebar.html.twig',
         ];
@@ -24,6 +24,7 @@ class BlockAdmin extends Admin
         $builder
             ->add('published', 'boolean')
             ->add('name')
+            ->add('type')
             ->add('', 'action')
         ;
     }
@@ -55,13 +56,15 @@ class BlockAdmin extends Admin
             ]);
         }
 
+        $types = [];
+        foreach ($this->container->getServiceIds() as $id) {
+            if (preg_match('@^.+_.+\.block\..+$@', $id)) {
+                $types[$id] = $id;
+            }
+        }
+
         $builder->add('type', 'choice', [
-            'choices' => [
-                'msi_cmf.block.text' => 'Text',
-                'msi_cmf.block.action' => 'Action',
-                'msi_cmf.block.template' => 'Template',
-                'msi_cmf.block.menu' => 'Menu',
-            ],
+            'choices' => $types,
         ]);
 
         if ($this->container->get('security.context')->getToken()->getUser()->isSuperAdmin()) {
