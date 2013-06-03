@@ -31,19 +31,24 @@
 {% endblock %}
 
 {% block content %}
-{# Search #}
-<form novalidate class="form-inline pull-right" method="GET" action="{{ admin.genUrl('list') }}">
-    {% if admin.hasParent() %}
-        <input type="hidden" value="{{ app.request.query.get('parentId') }}" name="parentId">
-    {% endif %}
-    <div class="input-append">
-        <input class="input-medium" value="{{ app.request.query.get('q') }}" name="q" type="text">
-        <button type="submit" class="btn"><i class="icon-search"></i></button>
-        <a class="btn" href="{{ admin.genUrl('list', {'parentId': app.request.query.get('parentId')}, false) }}"><i class="icon-remove"></i></a>
+<div class="row-fluid">
+    <div class="span6">
+        {% include 'MsiCmfBundle:Pager:pager.html.twig' %}
     </div>
-</form>
-{# Limit #}
-{% include 'MsiCmfBundle:Pager:pager.html.twig' %}
+    <div class="span6">
+        <form novalidate class="form-inline pull-right" method="GET" action="{{ admin.genUrl('list') }}">
+            {% if admin.hasParent() %}
+                <input type="hidden" value="{{ app.request.query.get('parentId') }}" name="parentId">
+            {% endif %}
+            <div class="input-append">
+                <input class="input-medium" value="{{ app.request.query.get('q') }}" name="q" type="text">
+                <button type="submit" class="btn"><i class="icon-search"></i></button>
+                <a class="btn" href="{{ admin.genUrl('list', {'parentId': app.request.query.get('parentId')}, false) }}"><i class="icon-remove"></i></a>
+            </div>
+        </form>
+    </div>
+</div>
+{% include 'MsiCmfBundle:Grid:grid_horizontal.html.twig' with {'grid': admin.getGrid()} %}
 <form id="limitForm" novalidate class="pull-left form-search" method="POST" action="{{ path('msi_cmf_limit') }}">
     <small>view</small>
     <select name="limit">
@@ -52,10 +57,8 @@
         <option {% if app.session.get('limit') == 50 %}selected=selected{% endif %} value="50">50</option>
         <option {% if app.session.get('limit') == 100 %}selected=selected{% endif %} value="100">100</option>
     </select>
-    <small>rows per page | {{ pager.count|number_format }} rows in total{#{{ pager.from|number_format }} to {{ pager.to|number_format }} of {{ pager.count|number_format }} entries#}</small>
+    <small>rows per page | {{ pager.count|number_format }} rows in total</small>
 </form>
-{# Table #}
-{% include 'MsiCmfBundle:Grid:grid_horizontal.html.twig' with {'grid': admin.getGrid()} %}
 {% endblock %}
 
 {% block js %}

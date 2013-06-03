@@ -7,5 +7,5 @@
         <a class="btn{% if page == pager.countPages %} disabled{% endif %}" href="{{ path(app.request.attributes.get('_route'), app.request.query.all|merge({'page': page != pager.countPages ? page + 1 : pager.countPages})) }}"><i class="icon-chevron-right"></i></a>
         <button class="btn" type=submit><i class="icon-search"></i></button>
     </div>
-    <small>of {{ pager.countPages }} pages |</small>
+    <small>of {{ pager.countPages }} pages</small>
 </form>

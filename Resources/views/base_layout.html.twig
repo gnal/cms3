@@ -107,22 +107,20 @@ $('.datepicker').datepicker({
                     {% endfor %}
                 {% endif %}
 
-                {% set title = block('title') %}
-                {% if title %}
+                {% set actions = block('actions') %}
                 <div class="row-fluid">
-                    <div class="span5">
-                        <h2>{{ title|raw }}{{ block('title_suffix') }}</h2>
+                    <div class="span{% if actions %}6{% else %}12{% endif %}">
+                        <h2>{{ block('title')|raw }}{{ block('title_suffix') }}</h2>
                     </div>
-                    <div class="span7">
-                        {% set actions = block('actions') %}
-                        {% if actions %}
-                            <div class="pull-right btn-toolbar">
-                                {{ block('actions') }}
-                            </div>
-                        {% endif %}
+
+                    {% if actions %}
+                    <div class="span6">
+                        <div class="pull-right btn-toolbar">
+                            {{ block('actions') }}
+                        </div>
                     </div>
+                    {% endif %}
                 </div>
-                {% endif %}
             </div>
 
             <div class="row-fluid">
