@@ -123,7 +123,7 @@
 	$mcFileManagerConfig['SessionAuthenticator.config_prefix'] = "filemanager";
 
 	// ExternalAuthenticator config
-	$mcImageManagerConfig['ExternalAuthenticator.external_auth_url'] = "/_tinymce/login";
+	$mcFileManagerConfig['ExternalAuthenticator.external_auth_url'] = "/_tinymce/login";
 	$mcFileManagerConfig['ExternalAuthenticator.secret_key'] = "someSecretKey";
 
 	// Local filesystem options
