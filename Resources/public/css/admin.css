@@ -9,8 +9,8 @@ body {
 }
 
 .container-fluid {
-    min-width: 960px;
-    padding: 0;
+    /*min-width: 960px;*/
+    padding: 0 10px;
 }
 
 #main {
@@ -55,7 +55,7 @@ h1 a {
 /* content */
 
 #content {
-    padding: 0 20px;
+    padding: 0 10px;
 }
 
 /* sidebar */
@@ -114,9 +114,10 @@ h1 a {
 }
 
 .navbar .brand {
-    color: #fff;
-    /*font-size: 14px;*/
-    /*font-weight: bold;*/
+    /*color: #000;*/
+    font-weight: bold;
+    /*text-shadow: 0 1px 0 rgba(255,255,255,.1), 0 0 30px rgba(255,255,255,.125);*/
+    font-size: 14px;
 }
 
 .navbar .nav > .current_ancestor > a,
@@ -161,6 +162,7 @@ table + div.pagination {
     box-shadow: 0 0 0 3px #f5f5f5;
     /*border-color: #bbb;*/
     border-color: #ddd;
+    margin-bottom: 10px;
 }
 
 .table th,
@@ -179,6 +181,10 @@ table + div.pagination {
 }
 
 /* form */
+
+form {
+    margin-bottom: 10px;
+}
 
 .mceLayout {
     margin-bottom: 20px !important;
@@ -210,7 +216,7 @@ input[readonly] {
     vertical-align: text-top;
 }
 
-.form-horizontal .controls {
+/*.form-horizontal .controls {
     margin-left: 0;
 }
 
@@ -225,7 +231,7 @@ input, .uneditable-input {
 textarea {
     width: 95%;
     height: 100px;
-}
+}*/
 
 select {
     /*min-width: 90px;*/
@@ -236,7 +242,7 @@ select {
 
 .breadcrumb {
     margin: 0 0 10px;
-    padding: 8px 20px;
+    padding: 10px 10px;
     background: #fff;
     border: 1px solid #ddd;
     /*-webkit-border-radius: 4px;*/
@@ -250,8 +256,8 @@ select {
 }
 
 .page-header {
-    margin: 0 0 20px;
-    padding: 15px 0;
+    margin: 0 0 10px;
+    padding: 5px 0;
     border-color: #ddd;
 }
 
@@ -370,4 +376,25 @@ select {
     text-indent: -9999px;
     width: 14px;
     line-height: 14px;
+}
+
+/* responsive */
+@media (max-width: 767px) {
+    body {
+        padding-right: 0;
+        padding-left: 0;
+    }
+    .navbar-fixed-top,
+    .navbar-fixed-bottom,
+    .navbar-static-top {
+        margin-right: 0;
+        margin-left: 0;
+    }
+}
+
+@media (max-width: 979px) {
+    .navbar-fixed-top .navbar-inner,
+    .navbar-fixed-bottom .navbar-inner {
+        padding: 0;
+    }
 }
