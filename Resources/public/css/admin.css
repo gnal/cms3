@@ -14,10 +14,9 @@ body {
     position: relative;
     background: #fff;
     border: 1px solid #ddd;
-    /*-webkit-border-radius: 4px;*/
-    /*-moz-border-radius: 4px;*/
-    /*border-radius: 4px;*/
-    border-radius: 0;
+    -webkit-border-radius:  4px;
+    -moz-border-radius:  4px;
+    border-radius:  4px;
 }
 
 a:hover {
@@ -238,10 +237,9 @@ select {
     padding: 10px 10px;
     background: #fff;
     border: 1px solid #ddd;
-    /*-webkit-border-radius: 4px;*/
-    /*-moz-border-radius: 4px;*/
-    /*border-radius: 4px;*/
-    border-radius: 0;
+    -webkit-border-radius:  4px;
+    -moz-border-radius:  4px;
+    border-radius:  4px;
 }
 
 .btn-toolbar {
