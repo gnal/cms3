@@ -103,10 +103,10 @@ $('.datepicker').datepicker({
                 {% set title = block('title') %}
                 {% if title %}
                 <div class="row-fluid">
-                    <div class="span6">
+                    <div class="span5">
                         <h2>{{ title|raw }}{{ block('title_suffix') }}</h2>
                     </div>
-                    <div class="span6">
+                    <div class="span7">
                         {% set actions = block('actions') %}
                         {% if actions %}
                             <div class="pull-right btn-toolbar">

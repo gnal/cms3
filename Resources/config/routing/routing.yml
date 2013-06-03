@@ -9,3 +9,5 @@ msi_cmf_limit:
 msi_page_show:
     pattern: /{_locale}/{slug}
     defaults: { _controller: MsiCmfBundle:Page:show, slug: ~ }
+    requirements:
+        _locale: fr|en
