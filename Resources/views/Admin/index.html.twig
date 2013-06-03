@@ -37,7 +37,7 @@
         <input type="hidden" value="{{ app.request.query.get('parentId') }}" name="parentId">
     {% endif %}
     <div class="input-append">
-        <input class="input-large" value="{{ app.request.query.get('q') }}" name="q" type="text">
+        <input class="input-medium" value="{{ app.request.query.get('q') }}" name="q" type="text">
         <button type="submit" class="btn"><i class="icon-search"></i></button>
         <a class="btn" href="{{ admin.genUrl('list', {'parentId': app.request.query.get('parentId')}, false) }}"><i class="icon-remove"></i></a>
     </div>
