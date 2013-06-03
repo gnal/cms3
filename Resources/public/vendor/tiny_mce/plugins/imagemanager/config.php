@@ -94,7 +94,7 @@
 	$mcImageManagerConfig['edit.format'] = "";
 
 	// Authenication
-	$mcImageManagerConfig['authenticator'] = "SymfonyAuthenticator";
+	$mcImageManagerConfig['authenticator'] = "ExternalAuthenticator";
 	$mcImageManagerConfig['authenticator.login_page'] = "login_session_auth.php";
 	$mcImageManagerConfig['authenticator.allow_override'] = "*";
 
@@ -107,7 +107,7 @@
 	$mcImageManagerConfig['SessionAuthenticator.config_prefix'] = "imagemanager";
 
 	// ExternalAuthenticator config
-	$mcImageManagerConfig['ExternalAuthenticator.external_auth_url'] = "auth_example.jsp";
+	$mcImageManagerConfig['ExternalAuthenticator.external_auth_url'] = "/_tinymce/login";
 	$mcImageManagerConfig['ExternalAuthenticator.secret_key'] = "someSecretKey";
 
 	// Local filesystem options

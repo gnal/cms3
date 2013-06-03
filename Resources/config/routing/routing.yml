@@ -11,3 +11,7 @@ msi_page_show:
     defaults: { _controller: MsiCmfBundle:Page:show, slug: ~ }
     requirements:
         _locale: fr|en
+
+tinymce_login:
+    pattern: /_tinymce/login
+    defaults: { _controller: MsiCmfBundle:Default:tinymcelogin }

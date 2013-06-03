@@ -110,7 +110,7 @@
 	$mcFileManagerConfig['unzip.allow_override'] = "*";
 
 	// Authenication
-	$mcFileManagerConfig['authenticator'] = "SymfonyAuthenticator";
+	$mcFileManagerConfig['authenticator'] = "ExternalAuthenticator";
 	$mcFileManagerConfig['authenticator.login_page'] = "login_session_auth.php";
 	$mcFileManagerConfig['authenticator.allow_override'] = "*";
 
@@ -123,7 +123,7 @@
 	$mcFileManagerConfig['SessionAuthenticator.config_prefix'] = "filemanager";
 
 	// ExternalAuthenticator config
-	$mcFileManagerConfig['ExternalAuthenticator.external_auth_url'] = "auth_example.jsp";
+	$mcImageManagerConfig['ExternalAuthenticator.external_auth_url'] = "/_tinymce/login";
 	$mcFileManagerConfig['ExternalAuthenticator.secret_key'] = "someSecretKey";
 
 	// Local filesystem options
