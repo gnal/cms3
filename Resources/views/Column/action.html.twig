@@ -1,16 +1,17 @@
-<div style="white-space: nowrap;">
+{#<div style="white-space: nowrap;">#}
+<div class="btn-group">
 {% for key, val in column.options.actions %}
     <a class="btn" href="{% if val != '#' %}{{ path(val, {'id': row.id}) }}{% else %}{{ val }}{% endif %}">{{ key|raw }}</a>
 {% endfor %}
 
 {% if admin.isGranted('update') %}
-    <a title="{{ 'Edit'|trans }}" href="{{ admin.genUrl('edit', {'id': row.id}) }}" class="btn btn-primary"><i class="icon-white icon-pencil"></i> {{ 'Edit'|trans }}</a>
+    <a title="{{ 'Edit'|trans }}" href="{{ admin.genUrl('edit', {'id': row.id}) }}" class="btn"><i class="icon-pencil"></i></a>
 {% endif %}
 {% if admin.isGranted('delete') %}
     {% if column.options.soft_delete %}
-        <a title="{{ 'Delete'|trans }}" class="btn btn-danger msi_cmf_admin_delete" data-url="{{ admin.genUrl('softDelete', {'id': row.id}) }}" href="#"><i class="icon-white icon-trash"></i> {{ 'Delete'|trans }}></a>
+        <a title="{{ 'Delete'|trans }}" class="btn msi_cmf_admin_delete" data-url="{{ admin.genUrl('softDelete', {'id': row.id}) }}" href="#"><i class="icon-trash"></i></a>
     {% else %}
-        <a title="{{ 'Delete'|trans }}" class="btn btn-danger msi_cmf_admin_delete" data-url="{{ admin.genUrl('delete', {'id': row.id}) }}" href="#"><i class="icon-white icon-trash"></i> {{ 'Delete'|trans }}</a>
+        <a title="{{ 'Delete'|trans }}" class="btn msi_cmf_admin_delete" data-url="{{ admin.genUrl('delete', {'id': row.id}) }}" href="#"><i class="icon-trash"></i></a>
     {% endif %}
 {% endif %}
 </div>
