@@ -9,18 +9,18 @@
                 {% if i != 0 %}
                     {% if item.lvl and i < item.lvl %}
                         {% if i < item.lvl and i > 1 %}
-                            <img style="width: 16px;height: 14px;" src="http://dev.magento.com/js/spacer.gif" alt="0">
+                            <i class="icon-minus"></i>
                         {% else %}
                             {#<img src="/bundles/msicmf/img/elbow-line.gif" alt="0">#}
-                            <img style="width: 16px;height: 14px;" src="http://dev.magento.com/js/spacer.gif" alt="0">
+                            <i class="icon-minus"></i>
                         {% endif %}
                     {% else %}
                         {% if item.rgt == item.parent.rgt - 1 %}
                             {#<img src="/bundles/msicmf/img/elbow-end.gif" alt="0">#}
-                            <img style="width: 16px;height: 14px;" src="http://dev.magento.com/js/spacer.gif" alt="0">
+                            <i class="icon-minus"></i>
                         {% else %}
                             {#<img src="/bundles/msicmf/img/elbow.gif" alt="0">#}
-                            <img style="width: 16px;height: 14px;" src="http://dev.magento.com/js/spacer.gif" alt="0">
+                            <i class="icon-minus"></i>
                         {% endif %}
                         <i class="icon-folder-open"></i>
                     {% endif %}
