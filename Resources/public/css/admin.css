@@ -23,11 +23,9 @@ h2 {
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     border-radius: 4px;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     padding: 15px 15px 0;
 }
-
-/* sidebar */
 
 #sidebar select {
     width: 100%;
@@ -37,33 +35,15 @@ h2 {
     margin-bottom: 15px;
 }
 
-/*.nav-stacked {
-    margin: 0 -20px 0 -20px;
-}
-
-.nav-tabs.nav-stacked>li>a {
-    border-width: 1px 0;
-    border-radius: 0 !important;
-}*/
+/* nav */
 
 .nav-tabs>.active>a, .nav-tabs>.active>a:hover, .nav-tabs>.active>a:focus {
     background-color: #eeeeee;
 }
 
-/*.nav-tabs.nav-stacked>li:first-child>a {
-    border-top: 0;
-}
-
-.nav-tabs.nav-stacked>li>a:hover {
-    background: #eee;
-    border-right: 1px solid #ddd !important;
-}*/
-
-/* nav */
-
 .navbar-fixed-top, .navbar-fixed-bottom {
     position: relative;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
 
 .navbar-fixed-top .navbar-inner,
@@ -122,7 +102,7 @@ table + div.pagination {
     box-shadow: 0 0 0 3px #f5f5f5;
     /*border-color: #bbb;*/
     border-color: #ddd;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
 
 .table th,
@@ -143,7 +123,7 @@ table + div.pagination {
 /* form */
 
 form {
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
 
 .mceLayout {
@@ -204,7 +184,7 @@ select {
 /* boostrap */
 
 .breadcrumb {
-    margin: 0 0 10px;
+    margin: 0 0 15px;
     padding: 10px 15px;
     background: #fff;
     border: 1px solid #ddd;
@@ -218,13 +198,9 @@ select {
 }
 
 .page-header {
-    margin: 0 0 10px;
-    padding: 5px 0;
+    margin: 0 0 15px;
+    padding: 0 0 10px;
     border-color: #ddd;
-}
-
-.pagination {
-    margin: 0 20px 0 0;
 }
 
 .form-actions {
@@ -255,14 +231,6 @@ select {
     color: inherit;
     font-weight: bold;
 }
-
-/*#sortable1 > li {
-    background: #eee;
-}
-
-#sortable1 > li.dontmove {
-    background-color: #eee;
-}*/
 
 #sortable1 > li:hover {
     background: #eee;
