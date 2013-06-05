@@ -3,11 +3,11 @@
 {% block title %}{{ 'Add'|trans }} {{ admin.getLabel() }}{% endblock title %}
 
 {% block actions %}
-{#<button class="btn btn-primary msi_cmf_save"><i class="icon-white icon-ok"></i> {{ 'save'|trans }}</button>
-<button class="btn btn-primary msi_cmf_save_add"><i class="icon-white icon-ok"></i> {{ 'save_add'|trans }}</button>
-<button class="btn btn-primary msi_cmf_save_quit"><i class="icon-white icon-ok"></i> {{ 'save_quit'|trans }}</button>#}
+<button class="btn btn-primary msi_cmf_save"><i class="icon-white icon-ok"></i> {{ 'save'|trans }}</button>
+<button class="btn btn-primary msi_cmf_save_add"><i class="icon-white icon-plus"></i> {{ 'save_add'|trans }}</button>
+<button class="btn btn-primary msi_cmf_save_quit"><i class="icon-white icon-minus"></i> {{ 'save_quit'|trans }}</button>
 
-<div class="btn-group">
+{#<div class="btn-group">
     <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
         <i class="icon-white icon-ok-sign"></i> {{ 'save'|trans }}
         <span class="caret"></span>
@@ -17,11 +17,20 @@
         <li><a class="msi_cmf_save_add" href="#"><i class="icon-plus"></i> {{ 'save_add'|trans }}</a></li>
         <li><a class="msi_cmf_save_quit" href="#"><i class="icon-minus"></i> {{ 'save_quit'|trans }}</a></li>
     </ul>
-</div>
+</div>#}
 {% endblock actions %}
 
 {% block sidebar %}
-{% include admin.getOption('sidebar_template') %}
+{% if admin.getOption('sidebar_nav_template') %}
+    <ul class="nav nav-list">
+        {% if admin.getOption('sidebar_nav_template') %}
+            {% include admin.getOption('sidebar_nav_template') %}
+        {% endif %}
+    </ul>
+{% endif %}
+{% if admin.getOption('sidebar_template') %}
+    {% include admin.getOption('sidebar_template') %}
+{% endif %}
 {% endblock sidebar %}
 
 {% block content %}

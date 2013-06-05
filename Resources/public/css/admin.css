@@ -6,19 +6,6 @@ body {
     background: #eee;
 }
 
-.container-fluid {
-    padding: 0 10px;
-}
-
-#main {
-    position: relative;
-    background: #fff;
-    border: 1px solid #ddd;
-    -webkit-border-radius:  4px;
-    -moz-border-radius:  4px;
-    border-radius:  4px;
-}
-
 a:hover {
     text-decoration: none;
 }
@@ -28,42 +15,26 @@ h2 {
     font-size: 17.5px;
 }
 
-/* header */
-
-.header {
-    padding: 15px 0;
-    background: #fff;
-}
-
-h1 {
-    margin: 0;
-    font-size: 31.5px;
-}
-
-h1 a {
-    color: #333;
-}
-
 /* content */
 
-#content {
-    padding: 0 10px;
+#content, #sidebar {
+    background: #fff;
+    border: 1px solid #ddd;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    padding: 15px 15px 0;
 }
 
 /* sidebar */
-
-#sidebar {
-    position: absolute;
-    width: 180px;
-    padding: 0 20px 0;
-}
 
 #sidebar select {
     width: 100%;
 }
 
-#sidebar ul:first-child, #sidebar form:first-child {
-    margin-top: 20px;
+#sidebar .nav.nav-list {
+    margin-bottom: 15px;
 }
 
 /*.nav-stacked {
@@ -234,7 +205,7 @@ select {
 
 .breadcrumb {
     margin: 0 0 10px;
-    padding: 10px 10px;
+    padding: 10px 15px;
     background: #fff;
     border: 1px solid #ddd;
     -webkit-border-radius:  4px;

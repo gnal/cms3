@@ -11,7 +11,7 @@ class SiteAdmin extends Admin
     {
         $this->options = [
             'form_template' => 'MsiCmfBundle:Site:form.html.twig',
-            'sidebar_template' => 'MsiCmfBundle:Site:sidebar.html.twig',
+            'sidebar_nav_template' => 'MsiCmfBundle:Site:sidebar_nav.html.twig',
             'search_fields' => ['a.id', 'a.host', 't.brand'],
         ];
     }

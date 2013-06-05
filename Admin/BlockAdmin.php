@@ -15,7 +15,7 @@ class BlockAdmin extends Admin
         $this->options = [
             'search_fields' => ['a.id', 'a.type', 'a.name', 'a.slot'],
             'form_template' => 'MsiCmfBundle:Block:form.html.twig',
-            'sidebar_template' => 'MsiCmfBundle:Block:sidebar.html.twig',
+            'sidebar_nav_template' => 'MsiCmfBundle:Block:sidebar_nav.html.twig',
         ];
     }
 

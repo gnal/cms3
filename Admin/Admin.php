@@ -376,15 +376,16 @@ abstract class Admin
     protected function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults([
-            'controller'        => 'MsiCmfBundle:Core:',
-            'form_template'     => 'MsiCmfBundle:Admin:form.html.twig',
-            'sidebar_template'  => 'MsiCmfBundle:Admin:sidebar.html.twig',
-            'index_template'    => 'MsiCmfBundle:Admin:index.html.twig',
-            'new_template'      => 'MsiCmfBundle:Admin:new.html.twig',
-            'edit_template'     => 'MsiCmfBundle:Admin:edit.html.twig',
-            'search_fields'     => ['a.id'],
-            'order_by'          => ['a.id' => 'DESC'],
-            'uploadify'         => false,
+            'controller'           => 'MsiCmfBundle:Core:',
+            'form_template'        => 'MsiCmfBundle:Admin:form.html.twig',
+            'sidebar_template'     => null,
+            'sidebar_nav_template' => null,
+            'index_template'       => 'MsiCmfBundle:Admin:index.html.twig',
+            'new_template'         => 'MsiCmfBundle:Admin:new.html.twig',
+            'edit_template'        => 'MsiCmfBundle:Admin:edit.html.twig',
+            'search_fields'        => ['a.id'],
+            'order_by'             => ['a.id' => 'DESC'],
+            'uploadify'            => false,
         ]);
 
         $resolver->setOptional([

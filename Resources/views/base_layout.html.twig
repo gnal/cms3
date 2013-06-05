@@ -78,56 +78,59 @@ $('.datepicker').datepicker({
 </div>
 {% endif %}
 
-<div class="container-fluid" style="margin-bottom: 10px;">
+<div class="container-fluid">
     {% set sidebar = block('sidebar') %}
-    <div id="main"{% if sidebar %}style="background: url(/bundles/msicmf/img/sidebar.png) repeat-y #fff;"{% endif %}>
+    <div class="row-fluid">
         {% if sidebar %}
-        <div id="sidebar">
-            {{ msi_block_render('admin_sidebar_top', page) }}
-            {{ sidebar|raw }}
-            {{ msi_block_render('admin_sidebar_bottom', page) }}
+        <div class="span3">
+            <div id="sidebar">
+                {{ msi_block_render('admin_sidebar_top', page) }}
+                {{ sidebar|raw }}
+                {{ msi_block_render('admin_sidebar_bottom', page) }}
+            </div>
         </div>
         {% endif %}
-
-        <div id="content"{% if sidebar %}style="margin-left: 220px;"{% endif %}>
-            <div class="page-header">
-                {#<div class="alert-wrap">
-                    <div class="alert alert-success hide">
-                        <i class="icon-ok-sign"></i> <span></span>
-                    </div>
-                </div>#}
-
-                {% if app.session.started %}
-                    {% for flashMessage in app.session.flashbag.get('success') %}
-                    {#<div class="alert-wrap">#}
-                        <div class="alert alert-success fade in">
-                            <i class="icon-ok-sign"></i> <span>{{ flashMessage }}</span>
+        <div class="{% if sidebar %}span9{% else %}span12{% endif %}">
+            <div id="content">
+                <div class="page-header">
+                    {#<div class="alert-wrap">
+                        <div class="alert alert-success hide">
+                            <i class="icon-ok-sign"></i> <span></span>
                         </div>
-                    {#</div>#}
-                    {% endfor %}
-                {% endif %}
+                    </div>#}
 
-                {% set actions = block('actions') %}
-                <div class="row-fluid">
-                    <div class="span{% if actions %}6{% else %}12{% endif %}">
-                        <h2>{{ block('title')|raw }}{{ block('title_suffix') }}</h2>
-                    </div>
-
-                    {% if actions %}
-                    <div class="span6">
-                        <div class="pull-right btn-toolbar">
-                            {{ block('actions') }}
-                        </div>
-                    </div>
+                    {% if app.session.started %}
+                        {% for flashMessage in app.session.flashbag.get('success') %}
+                        {#<div class="alert-wrap">#}
+                            <div class="alert alert-success fade in">
+                                <i class="icon-ok-sign"></i> <span>{{ flashMessage }}</span>
+                            </div>
+                        {#</div>#}
+                        {% endfor %}
                     {% endif %}
-                </div>
-            </div>
 
-            <div class="row-fluid">
-                <div class="span12">
-                    {{ msi_block_render('content_top', page) }}
-                    {{ block('page_content') }}
-                    {{ msi_block_render('content_bottom', page) }}
+                    {% set actions = block('actions') %}
+                    <div class="row-fluid">
+                        <div class="span{% if actions %}6{% else %}12{% endif %}">
+                            <h2>{{ block('title')|raw }}{{ block('title_suffix') }}</h2>
+                        </div>
+
+                        {% if actions %}
+                        <div class="span6">
+                            <div class="pull-right btn-toolbar">
+                                {{ block('actions') }}
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="row-fluid">
+                    <div class="span12">
+                        {{ msi_block_render('content_top', page) }}
+                        {{ block('page_content') }}
+                        {{ msi_block_render('content_bottom', page) }}
+                    </div>
                 </div>
             </div>
         </div>

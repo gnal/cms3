@@ -6,10 +6,7 @@
 
 {% block sidebar %}
 {% if filterForm is defined %}
-    {#<div class="page-header">
-        <h2 class="muted">{{ 'Filter'|trans }}</h2>
-    </div>#}
-    <form novalidate method="GET" class="form-horizontal" action="{{ admin.genUrl('list') }}">
+    <form novalidate method="GET" action="{{ admin.genUrl('list') }}">
         {% form_theme filterForm 'MsiCmfBundle:Form:form.html.twig' %}
         {{ form_widget(filterForm) }}
         <div class="btn-group">
