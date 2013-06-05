@@ -5,7 +5,6 @@ namespace Msi\CmfBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\Common\Collections\ArrayCollection;
-use Knp\Menu\NodeInterface;
 use Msi\CmfBundle\Doctrine\Extension\Translatable\TranslatableInterface;
 use Msi\CmfBundle\Doctrine\Extension\Timestampable\TimestampableInterface;
 
@@ -13,7 +12,7 @@ use Msi\CmfBundle\Doctrine\Extension\Timestampable\TimestampableInterface;
  * @ORM\MappedSuperclass
  * @Gedmo\Tree(type="nested")
  */
-abstract class Menu implements NodeInterface, TranslatableInterface, TimestampableInterface
+abstract class Menu implements TranslatableInterface, TimestampableInterface
 {
     use \Msi\CmfBundle\Doctrine\Extension\Timestampable\Traits\TimestampableEntity;
     use \Msi\CmfBundle\Doctrine\Extension\Translatable\Traits\TranslatableEntity;
@@ -48,8 +47,6 @@ abstract class Menu implements NodeInterface, TranslatableInterface, Timestampab
      * @ORM\Column(type="integer")
      */
     protected $menu;
-
-    protected $options = array();
 
     /**
      * @ORM\Column(type="boolean")
@@ -118,31 +115,6 @@ abstract class Menu implements NodeInterface, TranslatableInterface, Timestampab
         return $this;
     }
 
-    public function getOptions()
-    {
-        $this->options['extras']['groups'] = $this->operators;
-        $this->options['extras']['published'] = $this->getPublished();
-
-        if ($this->page) {
-            if (!$this->page->getRoute()) {
-                $this->options['route'] = 'msi_page_show';
-                $this->options['routeParameters'] = array('slug' => $this->page->getTranslation()->getSlug());
-            } else {
-                $this->options['route'] = $this->page->getRoute();
-            }
-        } else if (preg_match('#^@#', $this->getTranslation()->getRoute())) {
-            $this->options['route'] = substr($this->getTranslation()->getRoute(), 1);
-        } else {
-            $this->options['uri'] = $this->getTranslation()->getRoute();
-        }
-
-        if ($this->targetBlank) {
-            $this->options['linkAttributes'] = array('target' => '_blank');
-        }
-
-        return $this->options;
-    }
-
     public function setOption($k ,$v)
     {
         $this->options[$k] = $v;
@@ -170,11 +142,6 @@ abstract class Menu implements NodeInterface, TranslatableInterface, Timestampab
         $this->parent = $parent;
 
         return $this;
-    }
-
-    public function getName()
-    {
-        return $this->getTranslation()->getName();
     }
 
     public function getLvl()

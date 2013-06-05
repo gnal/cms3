@@ -12,18 +12,24 @@ class BaseMenuBuilder extends ContainerAware
 
     protected function getMenu(FactoryInterface $factory, $name)
     {
-        $root = $this->container->get('msi_cmf.menu_root_manager')->findRootByName($name);
+        $root = $this->container->get('msi_cmf.menu_root_manager')->findRootByName($name)[0];
 
-        return $this->create($factory, $root);
+        return $this->create($factory, $root, $name);
     }
 
     public function create(FactoryInterface $factory, $node)
     {
-        if (!$node) {
-            throw new NotFoundHttpException();
-        }
+        $array = [
+            'name' => $node['translations'][0]['name'],
+            'extras' => [
+                'groups' => $node['operators'],
+                'published' => $node['published'],
+            ],
+        ];
 
-        $item = $factory->createFromNode($node);
+        $this->buildArray($node, $array);
+
+        $item = $factory->createFromArray($array);
 
         if (!$item->getExtra('published')) {
             return $factory->createItem('default');
@@ -34,6 +40,44 @@ class BaseMenuBuilder extends ContainerAware
         $this->addWalker('checkRole');
 
         return $item;
+    }
+
+    public function buildArray($node, &$array)
+    {
+        $locale = $this->container->get('request')->getLocale() === 'fr' ? 0 : 1;
+
+        foreach ($node['children'] as $child) {
+            $route = $child['translations'][$locale]['route'];
+            $options = [];
+
+            if ($child['page']) {
+                if (!$this->page->getRoute()) {
+                    $options['route'] = 'msi_page_show';
+                    $options['routeParameters'] = ['slug' => $child['page']['translations'][$locale]['slug']];
+                } else {
+                    $options['route'] = $child['page']['route'];
+                }
+            } elseif (preg_match('#^@#', $route)) {
+                $options['route'] = substr($route, 1);
+            } else {
+                $options['uri'] = $route;
+            }
+
+            if ($child['targetBlank']) {
+                $options['linkAttributes'] = ['target' => '_blank'];
+            }
+
+            $options['extras'] = [
+                'groups' => $child['operators'],
+                'published' => $child['published'],
+            ];
+
+            $array['children'][$child['translations'][0]['name']] = $options;
+
+            if (count($child['children'])) {
+                $this->buildArray($child, $array['children'][$child['translations'][0]['name']]);
+            }
+        }
     }
 
     public function setBootstrapDropdownMenuAttributes($node)
@@ -80,7 +124,7 @@ class BaseMenuBuilder extends ContainerAware
             return;
         }
 
-        if (!$node->getExtra('groups')->count()) {
+        if (!count($node->getExtra('groups'))) {
             return;
         }
 
@@ -93,25 +137,25 @@ class BaseMenuBuilder extends ContainerAware
         $node->getParent()->removeChild($node);
     }
 
-    protected function findCurrent($node)
-    {
-        $requestUri = $this->container->get('request')->getRequestUri();
-        if ($pos = strrpos($requestUri, '?')) {
-            $requestUri = substr($requestUri, 0, $pos);
-        }
-        foreach ($node->getChildren() as $child) {
-            $menuUri = $child->getUri();
-            if ($pos = strrpos($menuUri, '?')) {
-                $menuUri = substr($menuUri, 0, $pos);
-            }
-            if ($menuUri === $requestUri) {
-                $child->setCurrent(true);
-            } else {
-                $child->setCurrent(false);
-                $this->findCurrent($child);
-            }
-        }
-    }
+    // protected function findCurrent($node)
+    // {
+    //     $requestUri = $this->container->get('request')->getRequestUri();
+    //     if ($pos = strrpos($requestUri, '?')) {
+    //         $requestUri = substr($requestUri, 0, $pos);
+    //     }
+    //     foreach ($node->getChildren() as $child) {
+    //         $menuUri = $child->getUri();
+    //         if ($pos = strrpos($menuUri, '?')) {
+    //             $menuUri = substr($menuUri, 0, $pos);
+    //         }
+    //         if ($menuUri === $requestUri) {
+    //             $child->setCurrent(true);
+    //         } else {
+    //             $child->setCurrent(false);
+    //             $this->findCurrent($child);
+    //         }
+    //     }
+    // }
 
     public function execute($menu)
     {
