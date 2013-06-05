@@ -9,10 +9,10 @@ class MenuManager extends BaseManager
     public function findRootByName($name)
     {
         $qb = $this->getFindByQueryBuilder(
-            array(
+            [
                 't.name' => $name,
-            ),
-            array(
+            ],
+            [
                 'a.children' => 'lvl1',
                 'lvl1.children' => 'lvl2',
                 'lvl2.children' => 'lvl3',
@@ -36,7 +36,7 @@ class MenuManager extends BaseManager
                 'p1.translations' => 'p1t',
                 'p2.translations' => 'p2t',
                 'p3.translations' => 'p3t',
-            )
+            ]
         );
 
         // $orX = $qb->expr()->orX();

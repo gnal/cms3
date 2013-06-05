@@ -44,7 +44,7 @@ class BaseMenuBuilder extends ContainerAware
 
     public function buildArray($node, &$array)
     {
-        $locale = $this->container->get('request')->getLocale() === 'fr' ? 0 : 1;
+        $locale = $this->container->get('request')->getLocale() === 'fr' ? 1 : 0;
 
         foreach ($node['children'] as $child) {
             $route = $child['translations'][$locale]['route'];
@@ -72,10 +72,10 @@ class BaseMenuBuilder extends ContainerAware
                 'published' => $child['published'],
             ];
 
-            $array['children'][$child['translations'][0]['name']] = $options;
+            $array['children'][$child['translations'][$locale]['name']] = $options;
 
             if (count($child['children'])) {
-                $this->buildArray($child, $array['children'][$child['translations'][0]['name']]);
+                $this->buildArray($child, $array['children'][$child['translations'][$locale]['name']]);
             }
         }
     }
