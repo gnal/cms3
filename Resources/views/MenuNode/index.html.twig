@@ -59,7 +59,6 @@ if ( typeof Object.create !== 'function' ) {
             var self = this;
 
             self.$el.sortable({
-                // axis: 'y',
                 items: 'li:not(.dontmove)',
                 start: function(e, ui) {
                     self.$el.children().each(function(i, e) {

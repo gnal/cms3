@@ -264,9 +264,10 @@ select {
     background-color: #eee;
 }*/
 
-/*#sortable1 > li:hover {
+#sortable1 > li:hover {
     background: #eee;
-}*/
+    cursor: move;
+}
 
 #loader {
     position: fixed;
