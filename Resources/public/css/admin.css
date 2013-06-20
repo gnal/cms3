@@ -110,7 +110,7 @@ table + div.pagination {
 }
 
 .table {
-    margin-bottom: 0;
+    margin-bottom: 3px;
     border-width: 1px 0 0;
 }
 
