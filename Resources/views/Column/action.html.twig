@@ -5,13 +5,13 @@
 {% endfor %}
 
 {% if admin.isGranted('update') %}
-    <a title="{{ 'Edit'|trans }}" href="{{ admin.genUrl('edit', {'id': row.id}) }}" class="btn"><i class="icon-pencil"></i></a>
+    <a title="{{ 'Edit'|trans }}" href="{{ admin.genUrl('edit', {'id': row.id}) }}" class="btn btn-mini"><i class="icon-pencil"></i></a>
 {% endif %}
 {% if admin.isGranted('delete') %}
     {% if column.options.soft_delete %}
-        <a title="{{ 'Delete'|trans }}" class="btn msi_cmf_admin_delete" data-url="{{ admin.genUrl('softDelete', {'id': row.id}) }}" href="#"><i class="icon-trash"></i></a>
+        <a title="{{ 'Delete'|trans }}" class="btn btn-mini msi_cmf_admin_delete" data-url="{{ admin.genUrl('softDelete', {'id': row.id}) }}" href="#"><i class="icon-trash"></i></a>
     {% else %}
-        <a title="{{ 'Delete'|trans }}" class="btn msi_cmf_admin_delete" data-url="{{ admin.genUrl('delete', {'id': row.id}) }}" href="#"><i class="icon-trash"></i></a>
+        <a title="{{ 'Delete'|trans }}" class="btn btn-mini msi_cmf_admin_delete" data-url="{{ admin.genUrl('delete', {'id': row.id}) }}" href="#"><i class="icon-trash"></i></a>
     {% endif %}
 {% endif %}
 </div>
