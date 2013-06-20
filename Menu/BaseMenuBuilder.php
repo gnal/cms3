@@ -51,7 +51,7 @@ class BaseMenuBuilder extends ContainerAware
             $options = [];
 
             if ($child['page']) {
-                if (!$this->page->getRoute()) {
+                if (!$child['page']['route']) {
                     $options['route'] = 'msi_page_show';
                     $options['routeParameters'] = ['slug' => $child['page']['translations'][$locale]['slug']];
                 } else {
