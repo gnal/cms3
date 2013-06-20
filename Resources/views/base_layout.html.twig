@@ -64,7 +64,7 @@ $('.datepicker').datepicker({
     </div>
 </div>
 
-{% if is_granted('ROLE_ADMIN') %}
+{#{% if is_granted('ROLE_ADMIN') %}
 <div class="container-fluid visible-desktop">
     <div class="row-fluid">
         <div class="span12">
@@ -74,7 +74,7 @@ $('.datepicker').datepicker({
         </div>
     </div>
 </div>
-{% endif %}
+{% endif %}#}
 
 <div class="container-fluid">
     {% set sidebar = block('sidebar') %}
@@ -122,6 +122,10 @@ $('.datepicker').datepicker({
                         {% endif %}
                     </div>
                 </div>
+
+                {% block breadcrumb %}
+                    {% include 'MsiCmfBundle:Default:breadcrumb.html.twig' with {'crumbs': admin is defined ? admin.buildBreadcrumb : [] } %}
+                {% endblock breadcrumb %}
 
                 <div class="row-fluid">
                     <div class="span12">
