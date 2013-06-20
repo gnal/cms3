@@ -12,7 +12,7 @@ a:hover {
 
 h2 {
     margin: 0 0 0;
-    font-size: 17.5px;
+    font-size: 24.5px;
     line-height: 30px;
 }
 
@@ -22,12 +22,14 @@ h2 {
     background: #fff;
     border: 1px solid #ccc;
     margin-bottom: 20px;
-    padding: 20px;
+    padding: 20px 20px 0;
 }
 
 .breadcrumb {
     border-radius: 0 !important;
     margin: 0 -20px 20px;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 .page-header {
@@ -38,6 +40,10 @@ h2 {
 
 #sidebar select {
     width: 100%;
+}
+
+#sidebar .nav-list {
+    margin-bottom: 20px;
 }
 
 /********************************************************cleaned until here*/
@@ -104,9 +110,6 @@ table + div.pagination {
 }
 
 .table {
-/*    -webkit-box-shadow: 0 0 0 3px #f5f5f5;
-    -moz-box-shadow: 0 0 0 3px #f5f5f5;
-    box-shadow: 0 0 0 3px #f5f5f5;*/
     margin-bottom: 0;
     border-width: 1px 0 0;
 }
@@ -136,10 +139,6 @@ table + div.pagination {
 }
 
 /* form */
-
-form {
-    margin-bottom: 15px;
-}
 
 .mceLayout {
     margin-bottom: 20px !important;
@@ -221,12 +220,6 @@ select {
 }*/
 
 .alert {
-/*    margin-top: 10px;
-    position: relative;
-    left: -50%;
-    padding: 5px 14px;*/
-    margin-bottom: 15px;
-    margin-top: 5px;
     color: inherit;
     font-weight: bold;
 }
