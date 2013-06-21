@@ -23,6 +23,9 @@ h2 {
     border: 1px solid #ccc;
     margin-bottom: 20px;
     padding: 20px 20px 0;
+      -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+          border-radius: 4px;
 }
 
 .breadcrumb {
@@ -51,29 +54,29 @@ h2 {
 /* nav */
 
 .nav-tabs>.active>a, .nav-tabs>.active>a:hover, .nav-tabs>.active>a:focus {
-    background-color: #eeeeee;
+    /*background-color: #eeeeee;*/
 }
 
 .navbar-fixed-top, .navbar-fixed-bottom {
     position: relative;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
-.navbar-fixed-top .navbar-inner,
+/*.navbar-fixed-top .navbar-inner,
 .navbar-static-top .navbar-inner {
     box-shadow: none;
-}
+}*/
 
 .navbar-inverse .navbar-inner {
-    background: #262626;
-    border: 0;
+    /*background: #262626;*/
+    /*border: 0;*/
 }
 
 .navbar .brand {
-    font-weight: bold;
+    /*font-weight: bold;*/
 }
 
-.navbar .nav > .current_ancestor > a,
+/*.navbar .nav > .current_ancestor > a,
 .navbar .nav > .current_ancestor > a:hover,
 .navbar .nav > .current_ancestor > a:focus {
     color: #ffffff;
@@ -97,13 +100,9 @@ h2 {
     background-repeat: repeat-x;
     outline: 0;
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0088cc', endColorstr='#ff0077b3', GradientType=0);
-}
+}*/
 
 /* table */
-
-table + div.pagination {
-    margin-top: 0;
-}
 
 .table.sortable td {
     cursor: move;
@@ -134,9 +133,9 @@ table + div.pagination {
     border-color: #ccc;
 }
 
-.table tbody tr:hover td {
+/*.table tbody tr:hover td {
     background: #e5ecf9 !important;
-}
+}*/
 
 /* form */
 
@@ -174,22 +173,9 @@ input[readonly] {
     margin-bottom: 10px;
 }
 
-/*.form-horizontal .controls {
-    margin-left: 0;
+.control-group:last-child {
+    margin-bottom: 0;
 }
-
-.form-horizontal label + .controls {
-    margin-left: 180px;
-}
-
-input, .uneditable-input {
-    width: 286px;
-}
-
-textarea {
-    width: 95%;
-    height: 100px;
-}*/
 
 select {
     width: auto;
@@ -197,7 +183,7 @@ select {
 
 /* boostrap */
 
-.btn-toolbar {
+.page-header .btn-toolbar {
     margin: 0;
 }
 

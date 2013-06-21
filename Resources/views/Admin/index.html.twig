@@ -144,7 +144,7 @@ $(function() {
 {% endblock js %}
 
 {% block css %}
-{% if uploadify is defined %}
+{% if admin.getOption('uploadify') %}
 <link rel="stylesheet" href="{{ asset('bundles/msicmf/vendor/uploadify/uploadify.css') }}" />
 {% endif %}
 {{ parent() }}
