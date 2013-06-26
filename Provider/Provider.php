@@ -22,12 +22,14 @@ class Provider
     {
         if (!$this->site) {
             $site = $this->siteManager->getFindByQueryBuilder(
-                ['a.host' => $this->request->getHost()]
+                ['a.host' => $this->request->getHost()],
+                ['a.translations' => 't']
             )->getQuery()->getOneOrNullResult();
 
             if (!$site) {
                 $site = $this->siteManager->getFindByQueryBuilder(
-                    ['a.isDefault' => true]
+                    ['a.isDefault' => true],
+                    ['a.translations' => 't']
                 )->getQuery()->execute();
                 if (!isset($site[0])) {
                     throw new NotFoundHttpException('No site was found');
