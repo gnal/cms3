@@ -16,6 +16,10 @@ h2 {
     line-height: 30px;
 }
 
+ul, ol {
+    margin-bottom: 20px;
+}
+
 /* content */
 
 #content, #sidebar {

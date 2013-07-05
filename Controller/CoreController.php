@@ -228,6 +228,7 @@ class CoreController extends Controller
         // translations
         if (property_exists($this->admin->getObject(), 'translations')) {
             $join['a.translations'] = 't';
+            $where['t.locale'] = $this->getRequest()->getLocale();
         }
 
         // nested set

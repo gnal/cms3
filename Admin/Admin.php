@@ -27,6 +27,7 @@ abstract class Admin
     protected $entity;
     protected $parentEntity;
     protected $container;
+    protected $object;
     protected $objectManager;
     protected $forms;
     protected $grids;
