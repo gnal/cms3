@@ -1,8 +1,8 @@
 <?php
 
-namespace Msi\CmfBundle\Doctrine\Extension\Timestampable\Traits;
+namespace Msi\CmfBundle\Doctrine\Extension\Model;
 
-trait TimestampableEntity
+trait Timestampable
 {
     /**
      * @ORM\Column(type="datetime", name="created_at")

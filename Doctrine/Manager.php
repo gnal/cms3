@@ -5,7 +5,7 @@ namespace Msi\CmfBundle\Doctrine;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Doctrine\ORM\QueryBuilder;
-use Msi\CmfBundle\Doctrine\Extension\Translatable\TranslatableInterface;
+use Msi\CmfBundle\Tools\ClassAnalyzer;
 
 class Manager
 {
@@ -16,6 +16,7 @@ class Manager
     public function __construct($class)
     {
         $this->class = $class;
+        $this->classAnalyzer = new ClassAnalyzer;
     }
 
     public function update($entity)
@@ -123,7 +124,7 @@ class Manager
             $object = $this->create();
         }
 
-        if ($object instanceof TranslatableInterface) {
+        if ($this->classAnalyzer->hasTrait($this->getMetadata()->reflClass, 'Msi\CmfBundle\Doctrine\Extension\Model\Translatable')) {
             $this->createTranslations($object, $locales);
         }
 

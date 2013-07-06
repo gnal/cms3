@@ -1,8 +1,8 @@
 <?php
 
-namespace Msi\CmfBundle\Doctrine\Extension\Translatable\Traits;
+namespace Msi\CmfBundle\Doctrine\Extension\Model;
 
-trait TranslatableEntity
+trait Translatable
 {
     protected $requestLocale;
 

@@ -5,17 +5,15 @@ namespace Msi\CmfBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\Common\Collections\ArrayCollection;
-use Msi\CmfBundle\Doctrine\Extension\Translatable\TranslatableInterface;
-use Msi\CmfBundle\Doctrine\Extension\Timestampable\TimestampableInterface;
 
 /**
  * @ORM\MappedSuperclass
  * @Gedmo\Tree(type="nested")
  */
-abstract class Menu implements TranslatableInterface, TimestampableInterface
+abstract class Menu
 {
-    use \Msi\CmfBundle\Doctrine\Extension\Timestampable\Traits\TimestampableEntity;
-    use \Msi\CmfBundle\Doctrine\Extension\Translatable\Traits\TranslatableEntity;
+    use \Msi\CmfBundle\Doctrine\Extension\Model\Timestampable;
+    use \Msi\CmfBundle\Doctrine\Extension\Model\Translatable;
 
     /**
      * @ORM\Column(type="integer")

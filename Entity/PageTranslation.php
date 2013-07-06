@@ -12,7 +12,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 abstract class PageTranslation
 {
-    use \Msi\CmfBundle\Doctrine\Extension\Translatable\Traits\TranslationEntity;
+    use \Msi\CmfBundle\Doctrine\Extension\Model\Translation;
 
     /**
      * @ORM\Column(type="integer")

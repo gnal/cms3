@@ -1,19 +1,19 @@
 <?php
 
-namespace Msi\CmfBundle\Doctrine\Extension\Uploadable;
+namespace Msi\CmfBundle\Doctrine\Extension\EventListener;
 
-use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Events;
 use Doctrine\Common\EventArgs;
 
-use Msi\CmfBundle\Doctrine\Extension\Uploadable\UploadableInterface;
+use Msi\CmfBundle\Doctrine\Extension\BaseListener;
 
-class UploadableListener implements EventSubscriber
+class UploadableListener extends BaseListener
 {
     private $uploader;
 
     public function __construct($uploader)
     {
+        parent::__construct();
         $this->uploader = $uploader;
     }
 
@@ -31,7 +31,7 @@ class UploadableListener implements EventSubscriber
     public function prePersist(EventArgs $e)
     {
         $entity = $e->getEntity();
-        if ($entity instanceof UploadableInterface) {
+        if ($this->isEntitySupported($e)) {
             $this->uploader->preUpload($entity);
         }
     }
@@ -39,7 +39,7 @@ class UploadableListener implements EventSubscriber
     public function preUpdate(EventArgs $e)
     {
         $entity = $e->getEntity();
-        if ($entity instanceof UploadableInterface) {
+        if ($this->isEntitySupported($e)) {
             $this->uploader->preUpload($entity);
             $em   = $e->getEntityManager();
             $uow  = $em->getUnitOfWork();
@@ -51,7 +51,7 @@ class UploadableListener implements EventSubscriber
     public function postPersist(EventArgs $e)
     {
         $entity = $e->getEntity();
-        if ($entity instanceof UploadableInterface) {
+        if ($this->isEntitySupported($e)) {
             $this->uploader->postUpload($entity);
         }
     }
@@ -59,7 +59,7 @@ class UploadableListener implements EventSubscriber
     public function postUpdate(EventArgs $e)
     {
         $entity = $e->getEntity();
-        if ($entity instanceof UploadableInterface) {
+        if ($this->isEntitySupported($e)) {
             $this->uploader->postUpload($entity);
         }
     }
@@ -67,10 +67,17 @@ class UploadableListener implements EventSubscriber
     public function postRemove(EventArgs $e)
     {
         $entity = $e->getEntity();
-        if ($entity instanceof UploadableInterface) {
+        if ($this->isEntitySupported($e)) {
             foreach ($entity->getUploadFields() as $fieldName) {
                 $this->uploader->removeUpload($fieldName, $entity);
             }
         }
+    }
+
+    private function isEntitySupported($e)
+    {
+        $classMetadata = $e->getEntityManager()->getClassMetadata(get_class($e->getEntity()));
+
+        return $this->getClassAnalyzer()->hasTrait($classMetadata->reflClass, 'Msi\CmfBundle\Doctrine\Extension\Model\Uploadable');
     }
 }

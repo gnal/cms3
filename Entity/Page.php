@@ -4,16 +4,14 @@ namespace Msi\CmfBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
-use Msi\CmfBundle\Doctrine\Extension\Translatable\TranslatableInterface;
-use Msi\CmfBundle\Doctrine\Extension\Timestampable\TimestampableInterface;
 
 /**
  * @ORM\MappedSuperclass
  */
-abstract class Page implements TranslatableInterface, TimestampableInterface
+abstract class Page
 {
-    use \Msi\CmfBundle\Doctrine\Extension\Timestampable\Traits\TimestampableEntity;
-    use \Msi\CmfBundle\Doctrine\Extension\Translatable\Traits\TranslatableEntity;
+    use \Msi\CmfBundle\Doctrine\Extension\Model\Timestampable;
+    use \Msi\CmfBundle\Doctrine\Extension\Model\Translatable;
 
     /**
      * @ORM\Column(type="integer")

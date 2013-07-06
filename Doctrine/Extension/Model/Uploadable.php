@@ -1,8 +1,8 @@
 <?php
 
-namespace Msi\CmfBundle\Doctrine\Extension\Uploadable\Traits;
+namespace Msi\CmfBundle\Doctrine\Extension\Model;
 
-trait UploadableEntity
+trait Uploadable
 {
     public function getUploadDir($fieldName)
     {

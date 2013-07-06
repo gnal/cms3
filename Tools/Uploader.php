@@ -2,8 +2,6 @@
 
 namespace Msi\CmfBundle\Tools;
 
-use Msi\CmfBundle\Doctrine\Extension\Uploadable\UploadableInterface;
-
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpKernel\KernelInterface;
 
@@ -20,7 +18,7 @@ class Uploader
         return $this->kernel->getRootDir().'/../web/uploads/'.$dirname;
     }
 
-    public function removeUpload($fieldName, UploadableInterface $entity)
+    public function removeUpload($fieldName, $entity)
     {
         $finder = new Finder();
         $dirname = $entity->getUploadDir($fieldName);
@@ -44,7 +42,7 @@ class Uploader
     }
 
     // remove old upload and create database entry
-    public function preUpload(UploadableInterface $entity)
+    public function preUpload($entity)
     {
         foreach ($entity->getUploadFields() as $fieldName) {
             $getter = 'get'.ucfirst($fieldName).'File';
@@ -63,7 +61,7 @@ class Uploader
     }
 
     // move file to upload folder and process it (resize, etc)
-    public function postUpload(UploadableInterface $entity)
+    public function postUpload($entity)
     {
         foreach ($entity->getUploadFields() as $fieldName) {
             $getter = 'get'.ucfirst($fieldName).'File';

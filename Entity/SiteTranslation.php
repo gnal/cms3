@@ -11,7 +11,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 abstract class SiteTranslation
 {
-    use \Msi\CmfBundle\Doctrine\Extension\Translatable\Traits\TranslationEntity;
+    use \Msi\CmfBundle\Doctrine\Extension\Model\Translation;
 
     /**
      * @ORM\Column(type="text", nullable=true)

@@ -4,14 +4,13 @@ namespace Msi\CmfBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
-use Msi\CmfBundle\Doctrine\Extension\Translatable\TranslatableInterface;
 
 /**
  * @ORM\MappedSuperclass
  */
-abstract class Site implements TranslatableInterface
+abstract class Site
 {
-    use \Msi\CmfBundle\Doctrine\Extension\Translatable\Traits\TranslatableEntity;
+    use \Msi\CmfBundle\Doctrine\Extension\Model\Translatable;
 
     /**
      * @ORM\Column(type="string")

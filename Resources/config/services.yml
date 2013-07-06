@@ -56,18 +56,18 @@ services:
             - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
 
     msi_cmf.timestampable_listener:
-        class: Msi\CmfBundle\Doctrine\Extension\Timestampable\TimestampableListener
+        class: Msi\CmfBundle\Doctrine\Extension\EventListener\TimestampableListener
         tags:
             - { name: doctrine.event_subscriber }
 
     msi_cmf.translatable_listener:
-        class: Msi\CmfBundle\Doctrine\Extension\Translatable\TranslatableListener
+        class: Msi\CmfBundle\Doctrine\Extension\EventListener\TranslatableListener
         arguments: [ @service_container ]
         tags:
             - { name: doctrine.event_subscriber }
 
     msi_cmf.uploadable_listener:
-        class: Msi\CmfBundle\Doctrine\Extension\Uploadable\UploadableListener
+        class: Msi\CmfBundle\Doctrine\Extension\EventListener\UploadableListener
         arguments: [ @msi_cmf.uploader ]
         tags:
             - { name: doctrine.event_subscriber }

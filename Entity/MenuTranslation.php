@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 abstract class MenuTranslation
 {
-    use \Msi\CmfBundle\Doctrine\Extension\Translatable\Traits\TranslationEntity;
+    use \Msi\CmfBundle\Doctrine\Extension\Model\Translation;
 
     /**
      * @ORM\Column(type="integer")

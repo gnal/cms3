@@ -1,19 +1,21 @@
 <?php
 
-namespace Msi\CmfBundle\Doctrine\Extension\Translatable;
+namespace Msi\CmfBundle\Doctrine\Extension\EventListener;
 
-use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Events;
 use Doctrine\Common\EventArgs;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class TranslatableListener implements EventSubscriber
+use Msi\CmfBundle\Doctrine\Extension\BaseListener;
+
+class TranslatableListener extends BaseListener
 {
     protected $container;
     protected $skipPostLoad = false;
 
     public function __construct(ContainerInterface $container)
     {
+        parent::__construct();
         $this->container = $container;
     }
 
@@ -28,7 +30,7 @@ class TranslatableListener implements EventSubscriber
     {
         $entity = $e->getEntity();
 
-        if ($this->skipPostLoad === false && $entity instanceof TranslatableInterface) {
+        if ($this->skipPostLoad === false && $this->isEntitySupported($e)) {
             $entity->setRequestLocale($this->container->get('request')->getLocale());
         }
     }
@@ -38,5 +40,12 @@ class TranslatableListener implements EventSubscriber
         $this->skipPostLoad = $skipPostLoad;
 
         return $this;
+    }
+
+    private function isEntitySupported($e)
+    {
+        $classMetadata = $e->getEntityManager()->getClassMetadata(get_class($e->getEntity()));
+
+        return $this->getClassAnalyzer()->hasTrait($classMetadata->reflClass, 'Msi\CmfBundle\Doctrine\Extension\Model\Translatable');
     }
 }
