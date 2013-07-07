@@ -144,11 +144,7 @@ class CoreController extends Controller
         $this->isGranted('delete');
         $this->isGranted('ACL_DELETE', $this->admin->getObject());
 
-        if (!property_exists($this->admin->getObject(), 'deletedAt')) {
-            $this->admin->getObjectManager()->delete($this->admin->getObject());
-        } else {
-            $this->admin->getObjectManager()->update($this->admin->getObject()->setDeletedAt(new \DateTime()));
-        }
+        $this->admin->getObjectManager()->delete($this->admin->getObject());
 
         return $this->getResponse();
     }

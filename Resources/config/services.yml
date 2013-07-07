@@ -60,6 +60,11 @@ services:
         tags:
             - { name: doctrine.event_subscriber }
 
+    msi_cmf.soft_deletable_listener:
+        class: Msi\CmfBundle\Doctrine\Extension\EventListener\SoftDeletableListener
+        tags:
+            - { name: doctrine.event_subscriber }
+
     msi_cmf.timestampable_listener:
         class: Msi\CmfBundle\Doctrine\Extension\EventListener\TimestampableListener
         tags:
