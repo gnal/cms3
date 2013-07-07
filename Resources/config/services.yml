@@ -76,6 +76,12 @@ services:
         tags:
             - { name: doctrine.event_subscriber }
 
+    msi_cmf.blameable_listener:
+        class: Msi\CmfBundle\Doctrine\Extension\EventListener\BlameableListener
+        arguments: [ @service_container, Acme\UserBundle\Entity\User ]
+        tags:
+            - { name: doctrine.event_subscriber }
+
     msi_cmf.uploadable_listener:
         class: Msi\CmfBundle\Doctrine\Extension\EventListener\UploadableListener
         arguments: [ @msi_cmf.uploader ]
