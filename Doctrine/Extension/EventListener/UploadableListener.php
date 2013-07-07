@@ -31,7 +31,7 @@ class UploadableListener extends BaseListener
     public function prePersist(EventArgs $e)
     {
         $entity = $e->getEntity();
-        if ($this->isEntitySupported($e)) {
+        if ($this->isEntitySupported($e, 'Msi\CmfBundle\Doctrine\Extension\Model\Uploadable')) {
             $this->uploader->preUpload($entity);
         }
     }
@@ -39,7 +39,7 @@ class UploadableListener extends BaseListener
     public function preUpdate(EventArgs $e)
     {
         $entity = $e->getEntity();
-        if ($this->isEntitySupported($e)) {
+        if ($this->isEntitySupported($e, 'Msi\CmfBundle\Doctrine\Extension\Model\Uploadable')) {
             $this->uploader->preUpload($entity);
             $em   = $e->getEntityManager();
             $uow  = $em->getUnitOfWork();
@@ -51,7 +51,7 @@ class UploadableListener extends BaseListener
     public function postPersist(EventArgs $e)
     {
         $entity = $e->getEntity();
-        if ($this->isEntitySupported($e)) {
+        if ($this->isEntitySupported($e, 'Msi\CmfBundle\Doctrine\Extension\Model\Uploadable')) {
             $this->uploader->postUpload($entity);
         }
     }
@@ -59,7 +59,7 @@ class UploadableListener extends BaseListener
     public function postUpdate(EventArgs $e)
     {
         $entity = $e->getEntity();
-        if ($this->isEntitySupported($e)) {
+        if ($this->isEntitySupported($e, 'Msi\CmfBundle\Doctrine\Extension\Model\Uploadable')) {
             $this->uploader->postUpload($entity);
         }
     }
@@ -67,17 +67,10 @@ class UploadableListener extends BaseListener
     public function postRemove(EventArgs $e)
     {
         $entity = $e->getEntity();
-        if ($this->isEntitySupported($e)) {
+        if ($this->isEntitySupported($e, 'Msi\CmfBundle\Doctrine\Extension\Model\Uploadable')) {
             foreach ($entity->getUploadFields() as $fieldName) {
                 $this->uploader->removeUpload($fieldName, $entity);
             }
         }
-    }
-
-    private function isEntitySupported($e)
-    {
-        $classMetadata = $e->getEntityManager()->getClassMetadata(get_class($e->getEntity()));
-
-        return $this->getClassAnalyzer()->hasTrait($classMetadata->reflClass, 'Msi\CmfBundle\Doctrine\Extension\Model\Uploadable');
     }
 }

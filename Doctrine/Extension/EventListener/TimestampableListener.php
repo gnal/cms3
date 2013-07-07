@@ -28,7 +28,7 @@ class TimestampableListener extends BaseListener
     public function preUpdate(EventArgs $e)
     {
         $entity = $e->getEntity();
-        if ($this->isEntitySupported($e)) {
+        if ($this->isEntitySupported($e, 'Msi\CmfBundle\Doctrine\Extension\Model\Timestampable')) {
             $entity->setUpdatedAt(new \DateTime());
 
             $em = $e->getEntityManager();
@@ -36,12 +36,5 @@ class TimestampableListener extends BaseListener
             $meta = $em->getClassMetadata(get_class($entity));
             $uow->recomputeSingleEntityChangeSet($meta, $entity);
         }
-    }
-
-    private function isEntitySupported($e)
-    {
-        $classMetadata = $e->getEntityManager()->getClassMetadata(get_class($e->getEntity()));
-
-        return $this->getClassAnalyzer()->hasTrait($classMetadata->reflClass, 'Msi\CmfBundle\Doctrine\Extension\Model\Timestampable');
     }
 }

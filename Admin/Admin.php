@@ -7,9 +7,6 @@ use Msi\CmfBundle\Doctrine\Manager;
 use Doctrine\Common\Collections\ArrayCollection;
 use Msi\CmfBundle\Form\Type\DynamicType;
 
-use Msi\CmfBundle\Doctrine\Extension\Uploadable\UploadableInterface;
-use Msi\CmfBundle\Doctrine\Extension\Translatable\TranslatableInterface;
-
 use Symfony\Component\Form\FormBuilder;
 use Msi\CmfBundle\Grid\GridBuilder;
 use Doctrine\ORM\QueryBuilder;
@@ -122,12 +119,17 @@ abstract class Admin
 
     public function isUploadable()
     {
-        return $this->getObject() instanceof UploadableInterface;
+        return $this->container->get('msi_cmf.class_analyzer')->hasTrait($this->getMetadata()->reflClass, 'Msi\CmfBundle\Doctrine\Extension\Model\Uploadable');
     }
 
     public function isTranslatable()
     {
-        return $this->getObject() instanceof TranslatableInterface;
+        return $this->container->get('msi_cmf.class_analyzer')->hasTrait($this->getMetadata()->reflClass, 'Msi\CmfBundle\Doctrine\Extension\Model\Translatable');
+    }
+
+    public function getMetadata()
+    {
+        return $this->getObjectManager()->getMetadata();
     }
 
     public function isTranslationField($field)
@@ -270,7 +272,7 @@ abstract class Admin
 
             $this->$method($builder);
 
-            if (!$name && $this->getObject() instanceof TranslatableInterface) {
+            if (!$name && $this->isTranslatable()) {
                 $type = (new DynamicType('translation', ['data_class' => $this->getClass().'Translation']))->setBuilder($this->container->get('form.factory')->createBuilder());
                 $this->buildTranslationForm($type->getBuilder());
                 if ($type->getBuilder()->all()) {

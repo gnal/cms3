@@ -55,6 +55,11 @@ services:
         tags:
             - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
 
+    msi_cmf.sortable_listener:
+        class: Msi\CmfBundle\Doctrine\Extension\EventListener\SortableListener
+        tags:
+            - { name: doctrine.event_subscriber }
+
     msi_cmf.timestampable_listener:
         class: Msi\CmfBundle\Doctrine\Extension\EventListener\TimestampableListener
         tags:
@@ -97,3 +102,6 @@ services:
     msi_cmf.uploader:
         class: Msi\CmfBundle\Tools\Uploader
         arguments: [@kernel]
+
+    msi_cmf.class_analyzer:
+        class: Msi\CmfBundle\Tools\ClassAnalyzer

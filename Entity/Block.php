@@ -52,7 +52,7 @@ abstract class Block
         $this->rendered = false;
         $this->published = false;
         $this->settings = array();
-        $this->position = 1;
+        $this->position = time();
         $this->pages = new ArrayCollection();
         $this->translations = new ArrayCollection();
         $this->operators = new ArrayCollection();

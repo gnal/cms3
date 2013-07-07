@@ -33,7 +33,7 @@ class TranslatableListener extends BaseListener
     {
         $entity = $e->getEntity();
 
-        if ($this->skipPostLoad === false && $this->isEntitySupported($e)) {
+        if ($this->skipPostLoad === false && $this->isEntitySupported($e, 'Msi\CmfBundle\Doctrine\Extension\Model\Translatable')) {
             $entity->setRequestLocale($this->container->get('request')->getLocale());
         }
     }
@@ -43,12 +43,5 @@ class TranslatableListener extends BaseListener
         $this->skipPostLoad = $skipPostLoad;
 
         return $this;
-    }
-
-    private function isEntitySupported($e)
-    {
-        $classMetadata = $e->getEntityManager()->getClassMetadata(get_class($e->getEntity()));
-
-        return $this->getClassAnalyzer()->hasTrait($classMetadata->reflClass, 'Msi\CmfBundle\Doctrine\Extension\Model\Translatable');
     }
 }
