@@ -11,12 +11,15 @@ use Msi\CmfBundle\Doctrine\Extension\BaseListener;
 class TranslatableListener extends BaseListener
 {
     protected $container;
-    protected $skipPostLoad = false;
+
+    // cuz sometimes we need not to enter the request scope ie: in commands
+    protected $skipPostLoad;
 
     public function __construct(ContainerInterface $container)
     {
         parent::__construct();
         $this->container = $container;
+        $this->skipPostLoad = false;
     }
 
     public function getSubscribedEvents()

@@ -5,12 +5,12 @@ namespace Msi\CmfBundle\Doctrine\Extension\Model;
 trait Timestampable
 {
     /**
-     * @ORM\Column(type="datetime", name="created_at")
+     * @ORM\Column(type="datetime")
      */
     protected $createdAt;
 
     /**
-     * @ORM\Column(type="datetime", name="updated_at")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     protected $updatedAt;
 

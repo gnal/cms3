@@ -9,7 +9,7 @@ trait Translatable
     public function getTranslation($locale = null)
     {
         if ($this->translations->count() === 0) {
-            throw new \Exception('Translatable entity '.get_class($this).' is supposed to have translations, but it has no translation. Did you forget to create them?');
+            throw new \Exception('A translatable entity must have at least one translation. Translatable entity '.get_class($this).' has no translation.');
         }
 
         if (null !== $locale) {

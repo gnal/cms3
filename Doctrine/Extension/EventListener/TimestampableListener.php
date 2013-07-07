@@ -22,7 +22,6 @@ class TimestampableListener extends BaseListener
         $entity = $e->getEntity();
         if ($this->isEntitySupported($e)) {
             $entity->setCreatedAt(new \DateTime());
-            $entity->setUpdatedAt(new \DateTime());
         }
     }
 
