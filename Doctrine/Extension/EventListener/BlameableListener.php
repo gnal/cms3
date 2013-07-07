@@ -11,13 +11,11 @@ use Msi\CmfBundle\Doctrine\Extension\BaseListener;
 class BlameableListener extends BaseListener
 {
     protected $container;
-    protected $userClass;
 
-    public function __construct(ContainerInterface $container, $userClass)
+    public function __construct(ContainerInterface $container)
     {
         parent::__construct();
         $this->container = $container;
-        $this->userClass = $userClass;
     }
 
     public function getSubscribedEvents()
@@ -80,24 +78,25 @@ class BlameableListener extends BaseListener
 
     public function loadClassMetadata(EventArgs $e)
     {
+        $userClass = $this->container->get('msi_user.user_manager')->getClass();
         $metadata = $e->getClassMetadata();
         if ($this->getClassAnalyzer()->hasTrait($metadata->reflClass, 'Msi\CmfBundle\Doctrine\Extension\Model\Blameable')) {
             if (!$metadata->hasAssociation('createdBy')) {
                 $metadata->mapManyToOne([
                     'fieldName'    => 'createdBy',
-                    'targetEntity' => $this->userClass,
+                    'targetEntity' => $userClass,
                 ]);
             }
             if (!$metadata->hasAssociation('updatedBy')) {
                 $metadata->mapManyToOne([
                     'fieldName'    => 'updatedBy',
-                    'targetEntity' => $this->userClass,
+                    'targetEntity' => $userClass,
                 ]);
             }
             if (!$metadata->hasAssociation('deletedBy')) {
                 $metadata->mapManyToOne([
                     'fieldName'    => 'deletedBy',
-                    'targetEntity' => $this->userClass,
+                    'targetEntity' => $userClass,
                 ]);
             }
         }

@@ -78,7 +78,7 @@ services:
 
     msi_cmf.blameable_listener:
         class: Msi\CmfBundle\Doctrine\Extension\EventListener\BlameableListener
-        arguments: [ @service_container, Acme\UserBundle\Entity\User ]
+        arguments: [ @service_container ]
         tags:
             - { name: doctrine.event_subscriber }
 
