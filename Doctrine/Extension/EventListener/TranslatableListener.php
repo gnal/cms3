@@ -26,6 +26,7 @@ class TranslatableListener extends BaseListener
     {
         return array(
             Events::postLoad,
+            Events::loadClassMetadata,
         );
     }
 
@@ -43,5 +44,33 @@ class TranslatableListener extends BaseListener
         $this->skipPostLoad = $skipPostLoad;
 
         return $this;
+    }
+
+    public function loadClassMetadata(EventArgs $e)
+    {
+        $metadata = $e->getClassMetadata();
+        if ($this->getClassAnalyzer()->hasTrait($metadata->reflClass, 'Msi\CmfBundle\Doctrine\Extension\Model\Translatable')) {
+            if (!$metadata->isMappedSuperclass && !$metadata->hasAssociation('translations')) {
+                $metadata->mapOneToMany([
+                    'fieldName'        => 'translations',
+                    'targetEntity'     => $metadata->reflClass->getName().'Translation',
+                    'mappedBy'         => 'object',
+                    'orderBy'          => ['locale' => 'ASC'],
+                    'isCascadePersist' => true,
+                ]);
+            }
+        }
+        if ($this->getClassAnalyzer()->hasTrait($metadata->reflClass, 'Msi\CmfBundle\Doctrine\Extension\Model\Translation')) {
+            if (!$metadata->isMappedSuperclass && !$metadata->hasAssociation('object')) {
+                $metadata->mapManyToOne([
+                    'fieldName'     => 'object',
+                    'targetEntity'  => str_replace('Translation', '', $metadata->reflClass->getName()),
+                    'inversedBy'    => 'translations',
+                    'joinColumns'   => [
+                        'object_id' => ['onDelete' => 'CASCADE'],
+                    ],
+                ]);
+            }
+        }
     }
 }

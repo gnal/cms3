@@ -9,6 +9,8 @@ trait Translation
      */
     protected $locale;
 
+    protected $object;
+
     public function getLocale()
     {
         return $this->locale;

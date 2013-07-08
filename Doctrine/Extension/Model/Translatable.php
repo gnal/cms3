@@ -6,6 +6,8 @@ trait Translatable
 {
     protected $requestLocale;
 
+    protected $translations;
+
     public function getTranslation($locale = null)
     {
         if ($this->translations->count() === 0) {
