@@ -41,7 +41,7 @@ class CoreController extends Controller
     {
         $this->isGranted('read');
 
-        $qb = $this->getIndexQueryBuilder($request, $this->admin);
+        $qb = $this->getIndexQueryBuilder();
 
         // Filters
         $parameters = [];
@@ -78,8 +78,6 @@ class CoreController extends Controller
 
         if ($this->processForm()) {
             $this->addSuccessFlash();
-
-            // if sortable set position to 1 + last
 
             if ($request->query->get('alt') === 'quit') {
                 return $this->getResponse();
@@ -151,6 +149,7 @@ class CoreController extends Controller
 
     public function deleteUploadAction()
     {
+        die('deprecated must redo da logic');
         $this->isGranted('update');
         $this->isGranted('ACL_UPDATE', $this->admin->getObject());
 
@@ -217,20 +216,20 @@ class CoreController extends Controller
         $sort = $this->admin->getOption('order_by');
 
         // sortable
-        if (property_exists($this->admin->getObject(), 'position')) {
+        if ($this->admin->hasTrait('Sortable')) {
             $sort = ['a.position' => 'ASC'];
         }
 
         // translations
-        if (property_exists($this->admin->getObject(), 'translations')) {
+        if ($this->admin->hasTrait('Translatable')) {
             $join['a.translations'] = 't';
             $where['t.locale'] = $this->getRequest()->getLocale();
         }
 
-        // nested set
+        // nested crud
         if ($this->admin->hasParent() && $this->get('request')->query->get('parentId')) {
             foreach ($this->admin->getObjectManager()->getMetadata()->associationMappings as $association) {
-                if (in_array($association['type'], [8, 2]) && $association['targetEntity'] === $this->admin->getParent()->getObjectManager()->getClass()) {
+                if (in_array($association['type'], [8, 2]) && $association['targetEntity'] === $this->admin->getParent()->getClass()) {
                     $relation = $association;
                 }
             }
@@ -249,7 +248,7 @@ class CoreController extends Controller
         }
 
         // soft delete
-        if (property_exists($this->admin->getObject(), 'deletedAt')) {
+        if ($this->admin->hasTrait('SoftDeletable')) {
             $qb->andWhere($qb->expr()->isNull('a.deletedAt'));
         }
 

@@ -112,9 +112,14 @@ abstract class Admin
         return preg_replace(['#^[a-z]+_([a-z]+_){1,2}[a-z]+_[a-z]+_#'], [''], $this->container->get('request')->attributes->get('_route'));
     }
 
+    public function hasTrait($traitName, $namespace = 'Msi\CmfBundle\Doctrine\Extension\Model\\')
+    {
+        return $this->container->get('msi_cmf.class_analyzer')->hasTrait($this->getMetadata()->reflClass, $namespace.$traitName);
+    }
+
     public function isSortable()
     {
-        return property_exists($this->getObjectManager()->getClass(), 'position');
+        return $this->container->get('msi_cmf.class_analyzer')->hasTrait($this->getMetadata()->reflClass, 'Msi\CmfBundle\Doctrine\Extension\Model\Sortable');
     }
 
     public function isUploadable()

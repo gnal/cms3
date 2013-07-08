@@ -4,12 +4,6 @@ namespace Msi\CmfBundle\Tools;
 
 class ClassAnalyzer
 {
-    /**
-     * Return TRUE if the given object use the given trait, FALSE if not
-     * @param ReflectionClass $class
-     * @param string $traitName
-     * @param boolean $isRecursive
-     */
     public function hasTrait(\ReflectionClass $class, $traitName)
     {
         if (in_array($traitName, $class->getTraitNames())) {
@@ -25,21 +19,11 @@ class ClassAnalyzer
         return $this->hasTrait($parentClass, $traitName);
     }
 
-    /**
-     * Return TRUE if the given object has the given method, FALSE if not
-     * @param ReflectionClass $class
-     * @param string $methodName
-     */
     public function hasMethod(\ReflectionClass $class, $methodName)
     {
         return $class->hasMethod($methodName);
     }
 
-    /**
-     * Return TRUE if the given object has the given property, FALSE if not
-     * @param ReflectionClass $class
-     * @param string $propertyName
-     */
     public function hasProperty(\ReflectionClass $class, $propertyName)
     {
         if ($class->hasProperty($propertyName)) {

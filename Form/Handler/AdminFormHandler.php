@@ -58,14 +58,10 @@ class AdminFormHandler
 
             if (!$entity->getId()) {
                 $this->admin->prePersist($entity);
+                $this->dispatcher->dispatch('msi_cmf.entity.create.success', new EntityEvent($entity, $this->request));
             } else {
                 $this->admin->preUpdate($entity);
-            }
-
-            if ($this->admin->getAction() === 'edit') {
                 $this->dispatcher->dispatch('msi_cmf.entity.update.success', new EntityEvent($entity, $this->request));
-            } else {
-                $this->dispatcher->dispatch('msi_cmf.entity.create.success', new EntityEvent($entity, $this->request));
             }
 
             if ('msi_user_user_admin' === $this->admin->getId()) {

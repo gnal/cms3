@@ -94,9 +94,10 @@ class MenuNodeAdmin extends Admin
     public function buildListQuery(QueryBuilder $qb)
     {
         $qb->resetDQLPart('where');
-        $qb->andWhere('a.menu = :eqMatch1');
+        $qb->andWhere('a.menu = :eqMatch2');
         $qb->andWhere('a.lvl != 0');
         $qb->addOrderBy('a.lft', 'ASC');
+        $qb->andWhere('t.locale = :eqMatch1');
     }
 
     public function prePersist($entity)
@@ -129,7 +130,7 @@ class MenuNodeAdmin extends Admin
 
         // throw new \InvalidArgumentException('Route '.$entity->getTranslation()->getRoute().' doesn\'t exist');
         foreach ($entity->getTranslations() as $translation) {
-            $translation->setRoute('#invalid-route');
+            $translation->setRoute('#INVALID_ROUTE');
         }
     }
 }

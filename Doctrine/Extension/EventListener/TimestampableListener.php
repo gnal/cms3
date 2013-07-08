@@ -20,8 +20,9 @@ class TimestampableListener extends BaseListener
     public function prePersist(EventArgs $e)
     {
         $entity = $e->getEntity();
-        if ($this->isEntitySupported($e)) {
+        if ($this->isEntitySupported($e, 'Msi\CmfBundle\Doctrine\Extension\Model\Timestampable')) {
             $entity->setCreatedAt(new \DateTime());
+            $entity->setUpdatedAt(new \DateTime());
         }
     }
 

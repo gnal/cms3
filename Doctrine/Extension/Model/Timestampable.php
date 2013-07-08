@@ -10,7 +10,7 @@ trait Timestampable
     protected $createdAt;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="datetime")
      */
     protected $updatedAt;
 
