@@ -2,6 +2,8 @@
 
 namespace Msi\CmfBundle\Doctrine\Extension\Model;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 trait Translatable
 {
     protected $requestLocale;
