@@ -13,6 +13,7 @@ services:
         abstract: true
         calls:
             - [ setEntityManager, [ @doctrine.orm.default_entity_manager ] ]
+            - [ setClassAnalyzer, [ @msi_cmf.class_analyzer ] ]
 
     msi_cmf.provider:
         class: Msi\CmfBundle\Provider\Provider

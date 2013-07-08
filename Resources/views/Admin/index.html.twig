@@ -33,6 +33,7 @@
         {% include 'MsiCmfBundle:Pager:pager.html.twig' %}
     </div>
     <div class="span6">
+        {% if admin.getOption('search_fields')|length %}
         <form novalidate class="form-inline pull-right" method="GET" action="{{ admin.genUrl('list') }}">
             {% if admin.hasParent() %}
                 <input type="hidden" value="{{ app.request.query.get('parentId') }}" name="parentId">
@@ -43,6 +44,7 @@
                 <a class="btn" href="{{ admin.genUrl('list', {'parentId': app.request.query.get('parentId')}, false) }}"><i class="icon-remove"></i></a>
             </div>
         </form>
+        {% endif %}
     </div>
 </div>
 {% include 'MsiCmfBundle:Grid:grid_horizontal.html.twig' with {'grid': admin.getGrid()} %}
@@ -54,13 +56,13 @@
         <option {% if app.session.get('limit') == 50 %}selected=selected{% endif %} value="50">50</option>
         <option {% if app.session.get('limit') == 100 %}selected=selected{% endif %} value="100">100</option>
     </select>
-    <small>rows per page | {{ pager.count|number_format }} rows in total</small>
+    <small>rows per page | {{ pager.count|number_format }} row{% if pager.count > 1 %}s{% endif %} in total</small>
 </form>
 {% endblock %}
 
 {% block js %}
 {{ parent() }}
-{% if admin.grid.sortable %}
+{% if admin.hasTrait('Sortable') %}
 <script>
 (function($) {
     "use strict";
@@ -82,7 +84,7 @@
         placeholderFiller += '<td>&nbsp;</td>';
     };
 
-    $("table.sortable tbody").sortable({
+    $("table.table-sortable tbody").sortable({
         helper: fixHelper,
         handle: $('td'),
         cancel: 'a,button',

@@ -3,20 +3,20 @@
 namespace Msi\CmfBundle\Doctrine;
 
 use Doctrine\ORM\EntityManager;
+use Msi\CmfBundle\Tools\ClassAnalyzer;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Doctrine\ORM\QueryBuilder;
-use Msi\CmfBundle\Tools\ClassAnalyzer;
 
 class Manager
 {
     protected $em;
     protected $repository;
     protected $class;
+    protected $classAnalyzer;
 
     public function __construct($class)
     {
         $this->class = $class;
-        $this->classAnalyzer = new ClassAnalyzer;
     }
 
     public function update($entity)
@@ -114,6 +114,18 @@ class Manager
     public function getEntityManager()
     {
         return $this->em;
+    }
+
+    public function getClassAnalyzer()
+    {
+        return $this->classAnalyzer;
+    }
+
+    public function setClassAnalyzer(ClassAnalyzer $classAnalyzer)
+    {
+        $this->classAnalyzer = $classAnalyzer;
+
+        return $this;
     }
 
     public function findOneOrCreate(array $locales, $id = null)

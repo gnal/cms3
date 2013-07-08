@@ -78,11 +78,7 @@ abstract class Admin
 
     public function getLabel($number = 1, $locale = null)
     {
-        $class = get_class($this);
-        $class = substr($class, strrpos($class, '\\') + 1);
-        $class = substr($class, 0, -5);
-
-        return $this->container->get('translator')->transChoice('entity.'.$class, $number, [], 'messages', $locale);
+        return $this->container->get('translator')->transChoice('entity.'.$this->getClassName(), $number, [], 'messages', $locale);
     }
 
     public function getId()
@@ -153,7 +149,7 @@ abstract class Admin
 
     public function getClassName()
     {
-        return substr($this->getObjectManager()->getClass(), strrpos($this->getObjectManager()->getClass(), '\\') + 1);
+        return $this->getMetadata()->reflClass->getShortName();
     }
 
     public function getContainer()
@@ -374,7 +370,6 @@ abstract class Admin
         $this->object = null;
         $this->parentObject = null;
         $this->forms = [];
-        $this->tables = [];
 
         $resolver = new OptionsResolver();
         $this->setDefaultOptions($resolver);
@@ -391,7 +386,7 @@ abstract class Admin
             'index_template'       => 'MsiCmfBundle:Admin:index.html.twig',
             'new_template'         => 'MsiCmfBundle:Admin:new.html.twig',
             'edit_template'        => 'MsiCmfBundle:Admin:edit.html.twig',
-            'search_fields'        => ['a.id'],
+            'search_fields'        => [],
             'order_by'             => ['a.id' => 'DESC'],
             'uploadify'            => false,
         ]);

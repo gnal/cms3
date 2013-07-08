@@ -1,4 +1,4 @@
-<table id="grid" class="{% if grid.sortable %}sortable {% endif %}table table-bordered table-striped">
+<table id="grid" class="{% if admin.hasTrait('Sortable') %}table-sortable {% endif %}table table-bordered table-striped">
     {# Head #}
     <thead>
         <tr>

@@ -108,7 +108,7 @@ ul, ol {
 
 /* table */
 
-.table.sortable td {
+.table.table-sortable td {
     cursor: move;
 }
 
