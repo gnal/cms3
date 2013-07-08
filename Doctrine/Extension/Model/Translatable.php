@@ -10,25 +10,25 @@ trait Translatable
 
     public function getTranslation($locale = null)
     {
-        if ($this->translations->count() === 0) {
+        if ($this->getTranslations()->count() === 0) {
             throw new \Exception('A translatable entity must have at least one translation. Translatable entity '.get_class($this).' has no translation.');
         }
 
         if (null !== $locale) {
-            foreach ($this->translations as $translation) {
+            foreach ($this->getTranslations() as $translation) {
                 if ($locale === $translation->getLocale()) {
                     return $translation;
                 }
             }
         }
 
-        foreach ($this->translations as $translation) {
+        foreach ($this->getTranslations() as $translation) {
             if ($this->requestLocale === $translation->getLocale()) {
                 return $translation;
             }
         }
 
-        return $this->translations->first();
+        return $this->getTranslations()->first();
     }
 
     public function hasTranslation($locale)
@@ -44,6 +44,10 @@ trait Translatable
 
     public function getTranslations()
     {
+        if (!$this->translations) {
+            $this->translations = new ArrayCollection;
+        }
+
         return $this->translations;
     }
 
