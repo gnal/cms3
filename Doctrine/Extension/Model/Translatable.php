@@ -8,7 +8,7 @@ trait Translatable
 {
     protected $requestLocale;
 
-    protected $translations = new ArrayCollection;
+    protected $translations;
 
     public function getTranslation($locale = null)
     {
@@ -46,6 +46,10 @@ trait Translatable
 
     public function getTranslations()
     {
+        if (!$this->translations) {
+            $this->translations = new ArrayCollection;
+        }
+
         return $this->translations;
     }
 
