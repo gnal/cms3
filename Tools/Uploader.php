@@ -44,8 +44,8 @@ class Uploader
     // remove old upload and create database entry
     public function preUpload($entity)
     {
-        foreach ($entity->getUploadFields() as $fieldName) {
-            $getter = 'get'.ucfirst($fieldName).'File';
+        foreach ($entity->getUploadFields() as $k => $fieldName) {
+            $getter = 'get'.ucfirst($k);
             $file = $entity->$getter();
 
             if ($file === null) continue;
@@ -63,8 +63,8 @@ class Uploader
     // move file to upload folder and process it (resize, etc)
     public function postUpload($entity)
     {
-        foreach ($entity->getUploadFields() as $fieldName) {
-            $getter = 'get'.ucfirst($fieldName).'File';
+        foreach ($entity->getUploadFields() as $k => $fieldName) {
+            $getter = 'get'.ucfirst($k);
             $file = $entity->$getter();
 
             if ($file === null) continue;

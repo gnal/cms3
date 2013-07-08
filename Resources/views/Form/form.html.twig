@@ -8,9 +8,9 @@
                 <div class="controls">
                     {{ form_widget(form) }}
                     {# View uploaded file button #}
-                    {% if form.parent.vars.value.filename is defined and form.parent.vars.value.filename and form.name == 'file' %}
+                    {#{% if form.parent.vars.value.filename is defined and form.parent.vars.value.filename and form.name == 'file' %}
                         <div class="btn-toolbar" style="display: inline">
-                            <a class="btn btn-mini" target="_blank" href="{{ form.parent.vars.value.pathname }}">{{ 'View file'|trans }}</a>
+                            <a class="btn btn-mini" target="_blank" href="{{ form.parent.vars.value.pathname('filename') }}">{{ 'View file'|trans }}</a>
                             {% if form.parent.vars.value.locale is defined %}
                                 {%  set url = path(app.request.attributes.get('_admin')~'_deleteUpload', {'locale': form.parent.vars.value.locale, 'id': app.request.attributes.get('id')}) %}
                             {% else %}
@@ -18,7 +18,7 @@
                             {% endif %}
                             <a class="btn btn-danger btn-mini msi_cmf_admin_deleteUpload" href="{{ url }}">{{ 'Delete file'|trans }}</a>
                         </div>
-                    {% endif %}
+                    {% endif %}#}
                     {#{{ form_errors(form) }}#}
                 </div>
             </div>

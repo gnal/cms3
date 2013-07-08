@@ -12,8 +12,14 @@ trait Uploadable
 
         $class = get_class($this);
         $class = substr($class, strrpos($class, '\\') + 1);
+        $class = lcfirst($class);
+        $class = preg_replace_callback('|([A-Z])|', function($matches) {
+            return '-'.strtolower($matches[0]);
+        }, $class);
 
-        return strtolower($class.'-'.$fieldName);
+        $suffix = method_exists($this, 'getUploadDirSuffix') ? '/'.$this->getUploadDirSuffix() : '';
+
+        return strtolower($class.'-'.array_search($fieldName, $this->getUploadFields()).$suffix);
     }
 
     public function getPathname($fieldName, $prefix = '')

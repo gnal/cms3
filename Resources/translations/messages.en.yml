@@ -1,4 +1,5 @@
 entity:
+    Menu: Menu|Menus
     MenuRoot: Menu|Menus
     MenuNode: Item|Items
     Page: Page|Pages
