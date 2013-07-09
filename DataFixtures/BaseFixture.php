@@ -7,7 +7,7 @@ use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 
-class BaseFixture extends AbstractFixture implements ContainerAwareInterface, OrderedFixtureInterface
+abstract class BaseFixture extends AbstractFixture implements ContainerAwareInterface, OrderedFixtureInterface
 {
     protected $container;
 
@@ -16,7 +16,7 @@ class BaseFixture extends AbstractFixture implements ContainerAwareInterface, Or
         $this->container = $container;
     }
 
-    public function create(array $values = [], array $translations = [], $reference = null)
+    public function create(array $values = [], array $translations = [], $referenceName = null)
     {
         $entity = $this->manager->create();
 
@@ -36,16 +36,16 @@ class BaseFixture extends AbstractFixture implements ContainerAwareInterface, Or
             }
         }
 
-        if (null !== $reference) {
-            $this->addReference($reference, $entity);
+        if (null !== $referenceName) {
+            $this->addReference($referenceName, $entity);
         }
 
         $this->manager->update($entity);
     }
 
-    public function mergeAndGetReference($name)
+    public function findByReference($name)
     {
-        return $this->manager->merge($this->getReference($name))
+        return $this->manager->merge($this->getReference($name));
     }
 
     public function getOrder()
