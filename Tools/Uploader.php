@@ -74,7 +74,7 @@ class Uploader
             $file = $file->move($this->getUploadDir($entity->getUploadDir($fieldName)), $entity->$getter());
 
             // process file
-            $method = 'process'.ucfirst($fieldName);
+            $method = 'process'.ucfirst($k);
             if (method_exists($entity, $method)) {
                 $entity->$method($file);
             }
