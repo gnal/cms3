@@ -7,6 +7,8 @@ use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 abstract class BaseFixture extends AbstractFixture implements ContainerAwareInterface, OrderedFixtureInterface
 {
     protected $container;
@@ -22,7 +24,14 @@ abstract class BaseFixture extends AbstractFixture implements ContainerAwareInte
 
         foreach ($values as $key => $value) {
             $setter = 'set'.ucfirst($key);
-            $entity->$setter($value);
+            $getter = 'get'.ucfirst($key);
+            if ($entity->$getter() instanceof ArrayCollection) {
+                foreach ($value as $v) {
+                    $entity->$getter()->add($v);
+                }
+            } else {
+                $entity->$setter($value);
+            }
         }
 
         if (count($translations)) {
@@ -30,6 +39,9 @@ abstract class BaseFixture extends AbstractFixture implements ContainerAwareInte
         }
 
         foreach ($translations as $locale => $val) {
+            if (!is_array($val)) {
+                throw new \InvalidArgumentException('the translations argument must be array. given: '.var_export($val, true));
+            }
             foreach ($val as $key => $value) {
                 $setter = 'set'.ucfirst($key);
                 $entity->getTranslation($locale)->$setter($value);
@@ -43,9 +55,9 @@ abstract class BaseFixture extends AbstractFixture implements ContainerAwareInte
         $this->manager->update($entity);
     }
 
-    public function findByReference($name)
+    public function getRef($name)
     {
-        return $this->manager->merge($this->getReference($name));
+        return $this->manager->getEntityManager()->merge($this->getReference($name));
     }
 
     public function getOrder()
