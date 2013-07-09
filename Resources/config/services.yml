@@ -117,6 +117,3 @@ services:
 
     msi_cmf.class_analyzer:
         class: Msi\CmfBundle\Tools\ClassAnalyzer
-
-    msi_cmf.fixter:
-        class: Msi\CmfBundle\Tools\Fixter
