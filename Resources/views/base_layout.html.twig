@@ -2,7 +2,7 @@
 
 {% block css %}
 <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
-{#<link rel="stylesheet" href="{{ asset('bundles/msicmf/vendor/chosen/chosen.css') }}">#}
+<link rel="stylesheet" href="{{ asset('bundles/msicmf/vendor/chosen/chosen.css') }}">
 <link rel="stylesheet" href="{{ asset('bundles/msicmf/vendor/eternicode-bootstrap-datepicker/css/datepicker.css') }}">
 <link rel="stylesheet" href="{{ asset('bundles/msicmf/css/admin.css') }}">
 {{ parent() }}
@@ -12,12 +12,12 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/jquery-ui.min.js"></script>
 <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
-{#<script src="{{ asset('bundles/msicmf/vendor/chosen/chosen.jquery.min.js') }}"></script>#}
+<script src="{{ asset('bundles/msicmf/vendor/chosen/chosen.jquery.min.js') }}"></script>
 <script src="{{ asset('bundles/msicmf/vendor/eternicode-bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
 <script src="{{ asset('bundles/msicmf/vendor/eternicode-bootstrap-datepicker/js/locales/bootstrap-datepicker.fr.js') }}"></script>
 <script src="{{ asset('bundles/msicmf/js/admin.js') }}"></script>
 <script>
-// $("select.chosenify").chosen({placeholder_text_single: ' ', placeholder_text_multiple: ''});
+$("select.chosenify").chosen({placeholder_text_single: ' ', placeholder_text_multiple: ''});
 $('.datepicker').datepicker({
     format: 'dd-mm-yyyy',
     autoclose: true,
