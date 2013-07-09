@@ -182,7 +182,7 @@ input[readonly] {
 }
 
 select {
-    width: auto;
+    /*width: auto;*/
 }
 
 /* boostrap */

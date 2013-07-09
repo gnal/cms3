@@ -153,6 +153,11 @@ class Manager
         return $result;
     }
 
+    public function getMasterQueryBuilder(array $where = [], array $join = [], array $orderBy = [], $limit = null, $offset = null)
+    {
+        return $this->getFindByQueryBuilder($where, $join, $orderBy, $limit, $offset);
+    }
+
     public function getFindByQueryBuilder(array $where = [], array $join = [], array $orderBy = [], $limit = null, $offset = null)
     {
         $qb = $this->repository->createQueryBuilder('a');
