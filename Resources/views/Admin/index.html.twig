@@ -50,7 +50,7 @@
 {% include 'MsiCmfBundle:Grid:grid_horizontal.html.twig' with {'grid': admin.getGrid()} %}
 <form id="limitForm" novalidate class="pull-left form-search" method="POST" action="{{ path('msi_cmf_limit') }}">
     <small>view</small>
-    <select name="limit">
+    <select name="limit" style="width: auto;">
         <option {% if app.session.get('limit') == 10 %}selected=selected{% endif %} value="10">10</option>
         <option {% if app.session.get('limit', 25) == 25 %}selected=selected{% endif %} value="25">25</option>
         <option {% if app.session.get('limit') == 50 %}selected=selected{% endif %} value="50">50</option>

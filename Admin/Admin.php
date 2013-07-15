@@ -76,6 +76,10 @@ abstract class Admin
     {
     }
 
+    public function editPreRender(&$parameters)
+    {
+    }
+
     public function getLabel($number = 1, $locale = null)
     {
         return $this->container->get('translator')->transChoice('entity.'.$this->getClassName(), $number, [], 'messages', $locale);
