@@ -73,11 +73,31 @@ class CoreController extends Controller
 
     public function newAction(Request $request)
     {
+        // check acl
         $this->isGranted('create');
         $this->isGranted('ACL_CREATE', $this->admin->getObject());
-
+        // if post
         if ($this->processForm()) {
-            $this->addSuccessFlash();
+            if (!$this->getRequest()->isXmlHttpRequest()) {
+                $this->addSuccessFlash();
+            }
+
+            if ($this->getRequest()->isXmlHttpRequest()) {
+                $qb = $this->admin->getObjectManager()->getMasterQueryBuilder(
+                    ['a.id' => $this->admin->getForm()->getData()->getId()]
+                );
+
+                if ($this->admin->hasTrait('Translatable')) {
+                    $qb->leftJoin('a.translations', 't');
+                    $qb->addSelect('t');
+                    $qb->andWhere($qb->expr()->eq('t.locale', ':dalocale'))->setParameter('dalocale', $this->getRequest()->getLocale());
+                }
+
+                $entity = $qb->getQuery()->getArrayResult()[0];
+                return new JsonResponse([
+                    'entity' => $entity,
+                ]);
+            }
 
             if ($request->query->get('alt') === 'quit') {
                 return $this->getResponse();
@@ -98,6 +118,7 @@ class CoreController extends Controller
 
     public function editAction(Request $request)
     {
+        // check acl
         if ($request->getMethod() === 'GET') {
             $this->isGranted('read');
             $this->isGranted('ACL_READ', $this->admin->getObject());
@@ -105,19 +126,31 @@ class CoreController extends Controller
             $this->isGranted('update');
             $this->isGranted('ACL_UPDATE', $this->admin->getObject());
         }
-
+        // if post
         if ($this->processForm()) {
-            if ($request->query->get('alt') === 'quit') {
+            if (!$this->getRequest()->isXmlHttpRequest()) {
                 $this->addSuccessFlash();
+            }
+
+            if ($request->query->get('alt') === 'quit') {
                 $response = $this->getResponse();
             } else {
                 if ($this->getRequest()->isXmlHttpRequest()) {
+                    $qb = $this->admin->getObjectManager()->getMasterQueryBuilder(
+                        ['a.id' => $this->admin->getForm()->getData()->getId()]
+                    );
+
+                    if ($this->admin->hasTrait('Translatable')) {
+                        $qb->leftJoin('a.translations', 't');
+                        $qb->addSelect('t');
+                        $qb->andWhere($qb->expr()->eq('t.locale', ':dalocale'))->setParameter('dalocale', $this->getRequest()->getLocale());
+                    }
+
+                    $entity = $qb->getQuery()->getArrayResult()[0];
                     $response = new JsonResponse([
-                        'status' => 'ok',
-                        'flash' => $this->get('translator')->trans('success!', ['%label%' => strtolower($this->admin->getLabel(1))]),
+                        'entity' => $entity,
                     ]);
                 } else {
-                    $this->addSuccessFlash();
                     $response = $this->render($this->admin->getOption('edit_template'), ['form' => $this->admin->getForm()->createView()]);
                 }
             }

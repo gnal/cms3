@@ -10,11 +10,10 @@ if ( typeof Object.create !== 'function' ) {
     "use strict";
 
     var Robojax = {
-        init: function(el, options) {
+        init: function(options) {
             var self = this;
 
-            self.$el = $(el);
-            self.options = $.extend({}, $.fn.robojax.options, options);
+            self.options = $.extend({}, $.robojax.options, options);
             self.$modal = $('div#tagModal');
             self.$modalBody = self.$modal.children('.modal-body');
 
@@ -26,7 +25,7 @@ if ( typeof Object.create !== 'function' ) {
         {
             var self = this;
 
-            self.$el.on('click', function(e) {
+            $('a.robojax').on('click', function(e) {
                 e.preventDefault();
                 self.new($(this));
             });
@@ -86,14 +85,12 @@ if ( typeof Object.create !== 'function' ) {
         }
     };
 
-    $.fn.robojax = function(options) {
-        return this.each(function() {
-            var robojax = Object.create(Robojax);
-            robojax.init(this, options);
-        });
+    $.robojax = function(options) {
+        var robojax = Object.create(Robojax);
+        robojax.init(options);
     };
 
-    $.fn.robojax.options = {
+    $.robojax.options = {
         success: function() {}
     };
 })(jQuery, window);
