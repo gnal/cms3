@@ -224,6 +224,11 @@ abstract class Admin
         return $this->children;
     }
 
+    public function hasChildren()
+    {
+        return count($this->children);
+    }
+
     public function hasParent()
     {
         return $this->parent instanceof Admin;

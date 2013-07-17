@@ -25,8 +25,8 @@
 
 {#<a href="{{ admin.genUrl('edit', {'id': object.id}) }}">#}
 {% if options.truncate %}
-    {{ column.value|truncate(options.truncate_length, options.truncate_preserve, options.truncate_separator) }}
+    {{ column.value|truncate(options.truncate_length, options.truncate_preserve, options.truncate_separator)|striptags }}
 {% else %}
-    {{ column.value|raw }}
+    {{ column.value|striptags }}
 {% endif %}
 {#</a>#}
