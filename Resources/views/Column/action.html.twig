@@ -1,17 +1,16 @@
 <div style="white-space: nowrap;">
-    <div class="btn-group">
-        {% for child in admin.children if admin.hasChildren() %}
-            <a title="{{ child.label(2) }}" href="{{ child.genUrl('list', {'parentId': row.id}) }}" class="btn btn-small"><i class="icon-list"></i></a>
-        {% endfor %}
-    </div>
-    <div class="btn-group">
+    {% for child in admin.children if admin.hasChildren() %}
+        <a title="{{ child.label(2) }}" href="{{ child.genUrl('list', {'parentId': row.id}) }}" class="btn btn-small"><i class="icon-list"></i></a>
+    {% endfor %}
+
     {% for key, val in column.options.actions %}
-        <a class="btn" href="{% if val != '#' %}{{ path(val, {'id': row.id}) }}{% else %}{{ val }}{% endif %}">{{ key|raw }}</a>
+        <a class="btn btn-small" href="{% if val != '#' %}{{ path(val, {'id': row.id, 'parentId': app.request.query.get('parentId')}) }}{% else %}{{ val }}{% endif %}">{{ key|raw }}</a>
     {% endfor %}
 
     {% if admin.isGranted('update') %}
         <a title="{{ 'Edit'|trans }}" href="{{ admin.genUrl('edit', {'id': row.id}) }}" class="btn btn-small"><i class="icon-pencil"></i></a>
     {% endif %}
+
     {% if admin.isGranted('delete') %}
         {% if column.options.soft_delete %}
             <a title="{{ 'Delete'|trans }}" class="btn btn-small msi_cmf_admin_delete" data-url="{{ admin.genUrl('softDelete', {'id': row.id}) }}" href="#"><i class="icon-trash"></i></a>
@@ -19,5 +18,4 @@
             <a title="{{ 'Delete'|trans }}" class="btn btn-small msi_cmf_admin_delete" data-url="{{ admin.genUrl('delete', {'id': row.id}) }}" href="#"><i class="icon-trash"></i></a>
         {% endif %}
     {% endif %}
-    </div>
 </div>

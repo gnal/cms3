@@ -16,6 +16,7 @@ if ( typeof Object.create !== 'function' ) {
             self.options = $.extend({}, $.robojax.options, options);
             self.$modal = $('div#tagModal');
             self.$modalBody = self.$modal.children('.modal-body');
+            self.ready = true;
 
 
             self.listen();
@@ -25,20 +26,33 @@ if ( typeof Object.create !== 'function' ) {
         {
             var self = this;
 
-            $('a.robojax').on('click', function(e) {
+            $('body').on('click', 'a.robojax', function(e) {
                 e.preventDefault();
-                self.new($(this));
+                if (self.ready === false) {
+                    return;
+                }
+                self.ready = false;
+                self.execute($(this));
             });
 
-            $('a.robojax_submit').on('click', function(e) {
+            $('body').on('click', 'a.robojax_submit', function(e) {
                 e.preventDefault();
-                self.create($(this));
+                if (self.ready === false) {
+                    return;
+                }
+                self.ready = false;
+                self.submitForm($(this));
             });
         },
 
-        new: function($this)
+        execute: function($this)
         {
             var self = this;
+
+            if ($this.hasClass('delete')) {
+                self.delete($this);
+                return;
+            }
 
             self.$modalBody
                 .empty()
@@ -49,6 +63,8 @@ if ( typeof Object.create !== 'function' ) {
 
             $.ajax($this.attr('href'), {
                 success: function (data) {
+                    self.ready = true;
+
                     self.$modalBody
                         .html($(data).find('form.form-crud'))
                     ;
@@ -56,7 +72,22 @@ if ( typeof Object.create !== 'function' ) {
             });
         },
 
-        create: function($this)
+        delete: function($this)
+        {
+            var self = this;
+
+            $('#loader').removeClass('hide');
+
+            $.ajax($this.attr('href'), {
+                success: function (data) {
+                    self.ready = true;
+
+                    self.options.success(data);
+                }
+            });
+        },
+
+        submitForm: function($this)
         {
             var self = this;
 
@@ -72,6 +103,8 @@ if ( typeof Object.create !== 'function' ) {
                 type: 'POST',
                 data: $form.serialize(),
                 success: function (data) {
+                    self.ready = true;
+
                     self.$modalBody
                         .css('background', '#fff');
                     if (data.entity) {
