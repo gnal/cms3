@@ -26,8 +26,7 @@ class CmfLoader implements LoaderInterface
         $collection = new RouteCollection();
 
         foreach ($this->container->getParameter('msi_cmf.admin_ids') as $id) {
-            $admin = $this->container->get($id);
-            $collection->addCollection($this->buildRoutes($admin));
+            $collection->addCollection($this->buildRoutes($id));
         }
 
         return $collection;
@@ -46,11 +45,11 @@ class CmfLoader implements LoaderInterface
     {
     }
 
-    protected function buildRoutes($admin)
+    protected function buildRoutes($id)
     {
         $collection = new RouteCollection();
 
-        $namespace = preg_replace(['|^[a-z]+_[a-z]+_|', '|_admin$|', '|_|'], ['', '', '-'], $admin->getId());
+        $namespace = preg_replace(['|^[a-z]+_[a-z]+_|', '|_admin$|', '|_|'], ['', '', '-'], $id);
 
         $prefix = '/admin/'.$namespace;
         $suffix = '';
@@ -67,24 +66,24 @@ class CmfLoader implements LoaderInterface
 
         foreach ($names as $name) {
             $collection->add(
-                $admin->getId().'_'.$name,
+                $id.'_'.$name,
                 new Route(
                     $prefix.'/'.$name.$suffix,
                     array(
-                        '_controller' => $admin->getOption('controller').$name,
-                        '_admin' => $admin->getId(),
+                        '_controller' => 'MsiCmfBundle:Core:'.$name,
+                        '_admin' => $id,
                     )
                 )
             );
         }
 
         $collection->add(
-            $admin->getId().'_list',
+            $id.'_list',
             new Route(
                 $prefix.'/list'.$suffix,
                 array(
-                    '_controller' => $admin->getOption('controller').'list',
-                    '_admin' => $admin->getId(),
+                    '_controller' => 'MsiCmfBundle:Core:list',
+                    '_admin' => $id,
                 ),
                 array(
                     '_method' => 'GET',
@@ -93,12 +92,12 @@ class CmfLoader implements LoaderInterface
         );
 
         $collection->add(
-            $admin->getId().'_new',
+            $id.'_new',
             new Route(
                 $prefix.'/new'.$suffix,
                 array(
-                    '_controller' => $admin->getOption('controller').'new',
-                    '_admin' => $admin->getId(),
+                    '_controller' => 'MsiCmfBundle:Core:new',
+                    '_admin' => $id,
                 ),
                 array(
                     '_method' => 'GET|POST',
@@ -107,56 +106,56 @@ class CmfLoader implements LoaderInterface
         );
 
         $collection->add(
-            $admin->getId().'_edit',
+            $id.'_edit',
             new Route(
                 $prefix.'/{id}/edit'.$suffix,
                 array(
-                    '_controller' => $admin->getOption('controller').'edit',
-                    '_admin' => $admin->getId(),
+                    '_controller' => 'MsiCmfBundle:Core:edit',
+                    '_admin' => $id,
                 )
             )
         );
 
         $collection->add(
-            $admin->getId().'_delete',
+            $id.'_delete',
             new Route(
                 $prefix.'/{id}/delete'.$suffix,
                 array(
-                    '_controller' => $admin->getOption('controller').'delete',
-                    '_admin' => $admin->getId(),
+                    '_controller' => 'MsiCmfBundle:Core:delete',
+                    '_admin' => $id,
                 )
             )
         );
 
         $collection->add(
-            $admin->getId().'_softDelete',
+            $id.'_softDelete',
             new Route(
                 $prefix.'/{id}/soft-delete'.$suffix,
                 array(
-                    '_controller' => $admin->getOption('controller').'softDelete',
-                    '_admin' => $admin->getId(),
+                    '_controller' => 'MsiCmfBundle:Core:softDelete',
+                    '_admin' => $id,
                 )
             )
         );
 
         $collection->add(
-            $admin->getId().'_toggle',
+            $id.'_toggle',
             new Route(
                 $prefix.'/{id}/toggle'.$suffix,
                 array(
-                    '_controller' => $admin->getOption('controller').'toggle',
-                    '_admin' => $admin->getId(),
+                    '_controller' => 'MsiCmfBundle:Core:toggle',
+                    '_admin' => $id,
                 )
             )
         );
 
         $collection->add(
-            $admin->getId().'_deleteUpload',
+            $id.'_deleteUpload',
             new Route(
                 $prefix.'/{id}/delete-upload'.$suffix,
                 array(
-                    '_controller' => $admin->getOption('controller').'deleteUpload',
-                    '_admin' => $admin->getId(),
+                    '_controller' => 'MsiCmfBundle:Core:deleteUpload',
+                    '_admin' => $id,
                 )
             )
         );

@@ -314,10 +314,6 @@ abstract class Admin
 
     public function genUrl($route, $parameters = array(), $mergePersistentParameters = true, $absolute = false)
     {
-        if (!$this->container->isScopeActive('request')) {
-            return false;
-        }
-
         if (true === $mergePersistentParameters) {
             $query = $this->container->get('request')->query;
             $persistant = array(
@@ -393,7 +389,6 @@ abstract class Admin
     protected function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults([
-            'controller'           => 'MsiCmfBundle:Core:',
             'form_template'        => 'MsiCmfBundle:Admin:form.html.twig',
             'sidebar_template'     => null,
             'sidebar_nav_template' => null,
