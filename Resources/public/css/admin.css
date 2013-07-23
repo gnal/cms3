@@ -272,11 +272,11 @@ select {
     background-clip: padding-box;
 }
 
-.btn {
+/*.btn {
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
-}
+}*/
 
 .btn:hover {
   -webkit-transition: none;
