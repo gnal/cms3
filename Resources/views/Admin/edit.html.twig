@@ -1,6 +1,6 @@
 {% extends 'MsiCmfBundle::layout.html.twig' %}
 
-{% block title %}{{ 'Edit'|trans }} {{ admin.label }} "{{ admin.object }}"{% endblock title %}
+{% block title %}{{ 'Edit'|trans }} {{ admin.label }} <small>{{ admin.object|truncate }}</small>{% endblock title %}
 
 {% block actions %}
 <button class="btn btn-primary msi_cmf_save"><i class="icon-white icon-ok"></i> {{ 'save'|trans }}</button>
@@ -20,12 +20,12 @@
 {% endblock actions %}
 
 {% block sidebar %}
-{% if admin.getOption('sidebar_nav_template') or admin.children|length %}
+{% if admin.getOption('sidebar_nav_template') or (admin.children|length and admin.options.show_children) %}
     <ul class="nav nav-list">
         {% if admin.getOption('sidebar_nav_template') %}
             {% include admin.getOption('sidebar_nav_template') %}
         {% endif %}
-        {% if admin.children|length %}
+        {% if admin.children|length and admin.options.show_children %}
             <li class="divider"></li>
             {% for child in admin.children %}
                 <li><a href="{{ child.genUrl('list', {'parentId': admin.object.id}, false) }}">{{ child.label(2) }}</a></li>

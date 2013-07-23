@@ -14,10 +14,9 @@ if ( typeof Object.create !== 'function' ) {
             var self = this;
 
             self.options = $.extend({}, $.robojax.options, options);
-            self.$modal = $('div#tagModal');
+            self.$modal = $('div#robojaxModal');
             self.$modalBody = self.$modal.children('.modal-body');
             self.ready = true;
-
 
             self.listen();
         },
@@ -31,8 +30,10 @@ if ( typeof Object.create !== 'function' ) {
                 if (self.ready === false) {
                     return;
                 }
+                var $this = $(this);
+                self.clickedLink = $this;
                 self.ready = false;
-                self.execute($(this));
+                self.execute($this);
             });
 
             $('body').on('click', 'a.robojax_submit', function(e) {
@@ -41,7 +42,16 @@ if ( typeof Object.create !== 'function' ) {
                     return;
                 }
                 self.ready = false;
-                self.submitForm($(this));
+                self.submitForm();
+            });
+
+            $('body').on('submit', 'div.modal div.modal-body form', function(e) {
+                e.preventDefault();
+                if (self.ready === false) {
+                    return;
+                }
+                self.ready = false;
+                self.submitForm();
             });
         },
 
@@ -59,7 +69,7 @@ if ( typeof Object.create !== 'function' ) {
                 .html('<div class="text-center"><img style="padding: 40px;" src="/bundles/msicmf/img/ajax-loader3.gif" alt="ajax-loader"></div>')
             ;
 
-            $('div#tagModal').modal('show');
+            self.$modal.modal('show');
 
             $.ajax($this.attr('href'), {
                 success: function (data) {
@@ -82,16 +92,16 @@ if ( typeof Object.create !== 'function' ) {
                 success: function (data) {
                     self.ready = true;
 
-                    self.options.success(data);
+                    self.options.success(self.clickedLink, data);
                 }
             });
         },
 
-        submitForm: function($this)
+        submitForm: function()
         {
             var self = this;
 
-            var $form = $('div#tagModal div.modal-body form');
+            var $form = $('div.modal div.modal-body form');
 
             $form
                 .css('visibility', 'hidden');
@@ -108,10 +118,10 @@ if ( typeof Object.create !== 'function' ) {
                     self.$modalBody
                         .css('background', '#fff');
                     if (data.entity) {
-                        $('div#tagModal').modal('hide');
-                        self.options.success(data);
+                        self.$modal.modal('hide');
+                        self.options.success(self.clickedLink, data);
                     } else {
-                        $('div#tagModal div.modal-body').html($(data).find('form.form-crud'));
+                        self.$modal.children('.modal-body').html($(data).find('form.form-crud'));
                     }
                 }
             });

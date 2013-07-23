@@ -28,6 +28,7 @@ abstract class Admin
     protected $objectManager;
     protected $forms;
     protected $grids;
+    protected $defaultPersistant = [];
 
     public function __construct(Manager $objectManager)
     {
@@ -313,6 +314,10 @@ abstract class Admin
 
     public function genUrl($route, $parameters = array(), $mergePersistentParameters = true, $absolute = false)
     {
+        if (!$this->container->isScopeActive('request')) {
+            return false;
+        }
+
         if (true === $mergePersistentParameters) {
             $query = $this->container->get('request')->query;
             $persistant = array(
@@ -321,7 +326,7 @@ abstract class Admin
                 'parentId' => $query->get('parentId'),
                 'filter' => $query->get('filter'),
             );
-            $parameters = array_merge($persistant, $parameters);
+            $parameters = array_merge($this->defaultPersistant, $persistant, $parameters);
         }
 
         return $this->container->get('router')->generate($this->id.'_'.$route, $parameters, $absolute);
@@ -398,6 +403,8 @@ abstract class Admin
             'search_fields'        => [],
             'order_by'             => ['a.id' => 'DESC'],
             'uploadify'            => false,
+            'show_children'        => true,
+            'save_quit_url'        => $this->genUrl('list'),
         ]);
 
         $resolver->setOptional([

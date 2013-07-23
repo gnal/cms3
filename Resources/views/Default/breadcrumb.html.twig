@@ -1,6 +1,6 @@
 <ul class="breadcrumb">
 <li>
-    <a href="{{ path('msi_cmf_dashboard') }}">{{ 'Dashboard'|trans }}</a>
+    <a href="{{ path('msi_cmf_dashboard') }}">{{ site.translation.brand }}</a>
     {% if crumbs|length %}<span class="divider">></span>{% endif %}
 </li>
 {% for crumb in crumbs %}
@@ -11,9 +11,9 @@
             {% endif %}
         {% endif %}
         {% if crumb.path %}
-            <a href="{{ crumb.path }}">{{ crumb.label|capitalize }}</a>
+            <a href="{{ crumb.path }}">{{ crumb.label|capitalize|truncate }}</a>
         {% else %}
-            {{ crumb.label|capitalize }}
+            {{ crumb.label|capitalize|truncate }}
         {% endif %}
     </li>
 {% endfor %}
