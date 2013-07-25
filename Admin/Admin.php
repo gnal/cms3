@@ -24,9 +24,10 @@ abstract class Admin
     protected $entity;
     protected $parentEntity;
     protected $container;
-    protected $object;
+    protected $object = null;
+    protected $parentObject = null;
+    protected $forms = [];
     protected $objectManager;
-    protected $forms;
     protected $grids;
     protected $defaultPersistant = [];
 
@@ -110,7 +111,9 @@ abstract class Admin
 
     public function getAction()
     {
-        return preg_replace(['#^[a-z]+_([a-z]+_){1,2}[a-z]+_[a-z]+_#'], [''], $this->container->get('request')->attributes->get('_route'));
+        preg_match('@[a-z]+$@', $this->container->get('request')->attributes->get('_route'), $matches);
+
+        return $matches[0];
     }
 
     public function hasTrait($traitName, $namespace = 'Msi\CmfBundle\Doctrine\Extension\Model\\')
@@ -172,7 +175,7 @@ abstract class Admin
         if (!$this->object) {
             $this->object = $this->objectManager->findOneOrCreate(
                 $this->container->getParameter('msi_cmf.app_locales'),
-                $this->container->get('request')->attributes->get('id')
+                $this->container->get('request')->query->get('id')
             );
         }
 
@@ -220,6 +223,11 @@ abstract class Admin
         return $this;
     }
 
+    public function getChild($id)
+    {
+        return $this->children[$id];
+    }
+
     public function getChildren()
     {
         return $this->children;
@@ -262,6 +270,7 @@ abstract class Admin
             $builder = $this->createGridBuilder();
             $this->$method($builder);
             $this->grids[$name] = $builder->getGrid();
+            $this->grids[$name]->setAdmin($this);
         }
 
         return $this->grids[$name];
@@ -312,6 +321,11 @@ abstract class Admin
         }
     }
 
+    public function getSaveAndQuitUrl()
+    {
+        return $this->genUrl('list');
+    }
+
     public function genUrl($route, $parameters = array(), $mergePersistentParameters = true, $absolute = false)
     {
         if (true === $mergePersistentParameters) {
@@ -328,29 +342,62 @@ abstract class Admin
         return $this->container->get('router')->generate($this->id.'_'.$route, $parameters, $absolute);
     }
 
-    public function buildBreadcrumb()
+    public function getParentFieldName()
     {
-        $request = $this->container->get('request');
-        $action = $this->getAction();
-        $crumbs = [];
+        foreach ($this->getMetadata()->associationMappings as $value) {
+            if ($value['targetEntity'] === $this->getParent()->getClass()) {
+                return $value['fieldName'];
+            }
+        }
+    }
 
-        if ($this->hasParent()) {
-            $crumbs[] = ['label' => $this->getParent()->getLabel(2), 'path' => $this->getParent()->genUrl('list', [], false)];
-            $crumbs[] = ['label' => $this->getParentObject(), 'path' => $this->getParent()->genUrl('edit', ['id' => $this->getParentObject()->getId()], false)];
+    public function buildParentBreadcrumb(&$crumbs, $parent, $object)
+    {
+        if (!$parent) {
+            return;
+        }
+
+        if ($parent->hasParent()) {
+            $getter = 'get'.ucfirst($parent->getParentFieldName());
+            $this->buildParentBreadcrumb($crumbs, $parent->getParent(), $object->$getter());
         }
 
         $crumbs[] = [
-            'label' => $this->getLabel(2),
+            'label' => '<i class="icon-list-alt"></i> '.$parent->getLabel(2),
+            'path' => $parent->genUrl('list', [
+                'parentId' => $parent->hasParent() ? $object->$getter()->getId() : null,
+            ], false)
+
+        ];
+
+        $crumbs[] = [
+            'label' => '<i class="icon-pencil"></i> '.$object,
+            'path' => $parent->genUrl('edit', [
+                'id' => $object->getId(),
+                'parentId' => $parent->hasParent() ? $object->$getter()->getId() : null,
+            ], false)
+        ];
+    }
+
+    public function buildBreadcrumb()
+    {
+        $action = $this->getAction();
+        $crumbs = [];
+
+        if ($this->hasParent()) $this->buildParentBreadcrumb($crumbs, $this->getParent(), $this->getParentObject());
+
+        $crumbs[] = [
+            'label' => '<i class="icon-list-alt"></i> '.$this->getLabel(2),
             'path' => 'list' !== $action ? $this->genUrl('list') : '',
             'class' => 'list' === $action ? 'active' : '',
         ];
 
         if ($action === 'new') {
-            $crumbs[] = array('label' => $this->container->get('translator')->trans('Add'), 'path' => '', 'class' => 'active');
+            $crumbs[] = array('label' => '<i class="icon-plus"></i> '.$this->getLabel(1), 'path' => '', 'class' => 'active');
         }
 
         if ($action === 'edit') {
-            $crumbs[] = array('label' => $this->container->get('translator')->trans('Edit'), 'path' => '', 'class' => 'active');
+            $crumbs[] = array('label' => '<i class="icon-pencil"></i> '.$this->getObject(), 'path' => '', 'class' => 'active');
         }
 
         if ($action === 'show') {
@@ -377,10 +424,6 @@ abstract class Admin
 
     protected function init()
     {
-        $this->object = null;
-        $this->parentObject = null;
-        $this->forms = [];
-
         $resolver = new OptionsResolver();
         $this->setDefaultOptions($resolver);
         $this->options = $resolver->resolve($this->options);
@@ -389,6 +432,7 @@ abstract class Admin
     protected function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults([
+            'controller'           => null,
             'form_template'        => 'MsiCmfBundle:Admin:form.html.twig',
             'sidebar_template'     => null,
             'sidebar_nav_template' => null,

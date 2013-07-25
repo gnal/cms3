@@ -64,20 +64,22 @@ if ( typeof Object.create !== 'function' ) {
                 return;
             }
 
-            self.$modalBody
-                .empty()
-                .html('<div class="text-center"><img style="padding: 40px;" src="/bundles/msicmf/img/ajax-loader3.gif" alt="ajax-loader"></div>')
-            ;
+            // self.$modalBody
+            //     .empty()
+            //     .html('<div class="text-center"><img style="padding: 40px;" src="/bundles/msicmf/img/ajax-loader3.gif" alt="ajax-loader"></div>')
+            // ;
 
-            self.$modal.modal('show');
+            // self.$modal.modal('show');
+
+            self.options.beforeRequest(self.clickedLink);
 
             $.ajax($this.attr('href'), {
-                success: function (data) {
+                success: function(data) {
                     self.ready = true;
-
-                    self.$modalBody
-                        .html($(data).find('form.form-crud'))
-                    ;
+                    self.options.success(self.clickedLink, data);
+                    // self.$modalBody
+                    //     .html($(data).find('form.form-crud'))
+                    // ;
                 }
             });
         },
@@ -134,6 +136,7 @@ if ( typeof Object.create !== 'function' ) {
     };
 
     $.robojax.options = {
+        beforeRequest: function() {},
         success: function() {}
     };
 })(jQuery, window);

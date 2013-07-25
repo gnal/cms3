@@ -11,9 +11,9 @@
             {% endif %}
         {% endif %}
         {% if crumb.path %}
-            <a href="{{ crumb.path }}">{{ crumb.label|capitalize|truncate }}</a>
+            <a href="{{ crumb.path }}">{{ crumb.label|truncate(60)|raw }}</a>
         {% else %}
-            {{ crumb.label|capitalize|truncate }}
+            {{ crumb.label|truncate(60)|raw }}
         {% endif %}
     </li>
 {% endfor %}

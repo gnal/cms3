@@ -1,22 +1,12 @@
 {% extends 'MsiCmfBundle::layout.html.twig' %}
 
-{% block title %}{{ 'Edit'|trans }} {{ admin.label }} <small>{{ admin.object|truncate }}</small>{% endblock title %}
+{% block title %}<i class="icon-pencil"></i> {{ admin.label(1) }} <small>{{ admin.object|truncate }}</small>{% endblock title %}
 
 {% block actions %}
 <button class="btn btn-primary msi_cmf_save"><i class="icon-white icon-ok"></i> {{ 'save'|trans }}</button>
-<button class="btn btn-primary msi_cmf_save_quit"><i class="icon-white icon-minus"></i> {{ 'save_quit'|trans }}</button>
+<button class="btn msi_cmf_save_quit"><i class="icon-ok"></i> {{ 'save_quit'|trans }}</button>
 
-{#<div class="btn-group">
-    <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
-        <i class="icon-white icon-ok-sign"></i> {{ 'save'|trans }}
-        <span class="caret"></span>
-    </a>
-    <ul class="dropdown-menu">
-        <li><a class="msi_cmf_save" href="#"><i class="icon-ok"></i> {{ 'save'|trans }}</a></li>
-        <li><a class="msi_cmf_save_quit" href="#"><i class="icon-minus"></i> {{ 'save_quit'|trans }}</a></li>
-    </ul>
-</div>#}
-<a onclick="return confirm('Are you sure you want to delete this entry?');" class="btn btn-danger" href="{{ admin.genUrl('delete', {'id': admin.object.id}) }}"><i class="icon-trash icon-white"></i> {{ 'Delete'|trans }}</a>
+{#<a onclick="return confirm('Are you sure you want to delete this entry?');" class="btn btn-danger" href="{{ admin.genUrl('delete', {'id': admin.object.id}) }}"><i class="icon-trash icon-white"></i> {{ 'Delete'|trans }}</a>#}
 {% endblock actions %}
 
 {% block sidebar %}

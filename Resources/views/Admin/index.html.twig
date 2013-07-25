@@ -1,7 +1,7 @@
 {% extends 'MsiCmfBundle::layout.html.twig' %}
 
 {% block title %}
-{{ admin.getLabel(2) }}
+<i class="icon-list-alt"></i> {{ admin.getLabel(2) }}
 {% endblock title %}
 
 {% block sidebar %}
@@ -23,7 +23,7 @@
 
 {% block actions %}
 {% if admin.isGranted('create') %}
-    <a href="{{ admin.genUrl('new') }}" class="btn btn-success"><i class="icon-white icon-plus-sign"></i> {{ 'Add'|trans }} {{ admin.getLabel(1) }}</a>
+    <a href="{{ admin.genUrl('new') }}" class="btn btn-success"><i class="icon-white icon-plus"></i> {{ 'Add'|trans }} {{ admin.getLabel(1) }}</a>
 {% endif %}
 {% endblock %}
 
@@ -47,7 +47,7 @@
         {% endif %}
     </div>
 </div>
-{% include 'MsiCmfBundle:Grid:grid_horizontal.html.twig' with {'grid': admin.getGrid()} %}
+{% include 'MsiCmfBundle:Grid:default.html.twig' with {'grid': admin.getGrid()} %}
 <form id="limitForm" novalidate class="pull-left form-search" method="POST" action="{{ path('msi_cmf_limit') }}">
     <small>view</small>
     <select name="limit" style="width: auto;">

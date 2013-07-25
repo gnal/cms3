@@ -312,7 +312,7 @@ class CoreController extends Controller
 
             return new JsonResponse($data);
         } else {
-            return $this->redirect($this->admin->getOption('save_quit_url'));
+            return $this->redirect($this->admin->getSaveAndQuitUrl());
         }
     }
 

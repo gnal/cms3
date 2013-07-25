@@ -6,9 +6,22 @@ use Doctrine\Common\Collections\Collection;
 
 class Grid
 {
+    protected $admin;
     protected $rows;
     protected $columns;
     protected $sortable = false;
+
+    public function getAdmin()
+    {
+        return $this->admin;
+    }
+
+    public function setAdmin($admin)
+    {
+        $this->admin = $admin;
+
+        return $this;
+    }
 
     public function getSortable()
     {
