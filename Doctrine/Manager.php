@@ -153,6 +153,24 @@ class Manager
         return $result;
     }
 
+    public function find(array $where = [], array $join = [], array $orderBy = [], $throw = true)
+    {
+        $row = $this->getMasterQueryBuilder($where, $join, $orderBy)->getQuery()->getOneOrNullResult();
+
+        if (!$row && $throw) {
+            throw new NotFoundHttpException();
+        }
+
+        return $row;
+    }
+
+    public function findAll(array $where = [], array $join = [], array $orderBy = [], $limit = null, $offset = null)
+    {
+        $rows = $this->getMasterQueryBuilder($where, $join, $orderBy, $limit, $offset)->getQuery()->execute();
+
+        return $rows;
+    }
+
     public function getMasterQueryBuilder(array $where = [], array $join = [], array $orderBy = [], $limit = null, $offset = null)
     {
         return $this->getFindByQueryBuilder($where, $join, $orderBy, $limit, $offset);
