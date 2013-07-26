@@ -363,7 +363,7 @@ abstract class Admin
         }
 
         $crumbs[] = [
-            'label' => '<i class="icon-list-alt"></i> '.$parent->getLabel(2),
+            'label' => '<i class="icon-folder-open"></i> '.$parent->getLabel(2),
             'path' => $parent->genUrl('list', [
                 'parentId' => $parent->hasParent() ? $object->$getter()->getId() : null,
             ], false)
@@ -387,7 +387,7 @@ abstract class Admin
         if ($this->hasParent()) $this->buildParentBreadcrumb($crumbs, $this->getParent(), $this->getParentObject());
 
         $crumbs[] = [
-            'label' => '<i class="icon-list-alt"></i> '.$this->getLabel(2),
+            'label' => '<i class="icon-folder-open"></i> '.$this->getLabel(2),
             'path' => 'list' !== $action ? $this->genUrl('list') : '',
             'class' => 'list' === $action ? 'active' : '',
         ];
