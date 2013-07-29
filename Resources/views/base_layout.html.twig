@@ -18,7 +18,7 @@
 <script src="{{ asset('bundles/msicmf/vendor/eternicode-bootstrap-datepicker/js/locales/bootstrap-datepicker.fr.js') }}"></script>
 <script src="{{ asset('bundles/msicmf/js/admin.js') }}"></script>
 <script>
-$("select:not(.classic)").chosen({placeholder_text_single: ' ', placeholder_text_multiple: ''});
+$("select:not(.notchosen)").chosen({placeholder_text_single: ' ', placeholder_text_multiple: ''});
 $('.datepicker').datepicker({
     format: 'dd-mm-yyyy',
     autoclose: true,
