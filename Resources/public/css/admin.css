@@ -2,6 +2,10 @@ html {
     overflow-y: scroll;
 }
 
+.chzn-container {
+    min-width: 100%;
+}
+
 body {
     background: #bbb;
 }
