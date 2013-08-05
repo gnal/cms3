@@ -41,6 +41,7 @@ abstract class Site
     {
         $this->translations = new ArrayCollection();
         $this->isDefault = false;
+        $this->enabled = false;
     }
 
     public function getIsDefault()
