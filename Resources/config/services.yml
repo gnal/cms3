@@ -117,3 +117,6 @@ services:
 
     msi_cmf.class_analyzer:
         class: Msi\CmfBundle\Tools\ClassAnalyzer
+
+    msi_admin.doctrine.orm.naming_strategy:
+        class: Msi\CmfBundle\Doctrine\Mapping\DefaultNamingStrategy
