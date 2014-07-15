@@ -23,10 +23,12 @@
 {% block title %}{% if page.showTitle %}{{ page.translation.title }}{% endif %}{% endblock %}
 
 {% block css %}
+{{ site.css|raw }}
 {{ page.css|raw }}
 {% endblock css %}
 
 {% block js %}
+{{ site.js|raw }}
 {{ page.js|raw }}
 {% endblock js %}
 
