@@ -22,13 +22,18 @@ class Uploader
     {
         $finder = new Finder();
         $dirname = $entity->getUploadDir($fieldName);
+        $getter = 'get'.ucfirst($fieldName);
+
+        // avoid deleting all images if field is empty. if empty it will fuck up the regex in the finder.
+        if (!$entity->$getter()) {
+            return;
+        }
 
         // avoir error if dir doesnt exist
         if (!is_dir($this->getUploadDir($dirname))) {
             return;
         }
 
-        $getter = 'get'.ucfirst($fieldName);
         $finder->files()->name('/'.$entity->$getter().'$/')->in($this->getUploadDir($dirname));
 
         foreach ($finder as $file) {
